@@ -56272,9 +56272,25 @@ var render = function() {
                   },
                   [
                     _c("div", { staticClass: "profile-widget" }, [
-                      _vm._m(0, true),
+                      _c("div", { staticClass: "profile-img" }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "avatar",
+                            attrs: { href: "employee-show/" + value.id }
+                          },
+                          [
+                            _c("img", {
+                              attrs: {
+                                src: "img/profiles/avatar-02.jpg",
+                                alt: ""
+                              }
+                            })
+                          ]
+                        )
+                      ]),
                       _vm._v(" "),
-                      _vm._m(1, true),
+                      _vm._m(0, true),
                       _vm._v(" "),
                       _c(
                         "h4",
@@ -56321,16 +56337,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "profile-img" }, [
-      _c("a", { staticClass: "avatar", attrs: { href: "profile" } }, [
-        _c("img", { attrs: { src: "img/profiles/avatar-02.jpg", alt: "" } })
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

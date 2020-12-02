@@ -56,6 +56,18 @@ class EmployeeController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showProfile($id)
+    {
+        $employee = Employee::where('id', $id)->first();
+        return view('organization.User.show_employee', compact('employee'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
