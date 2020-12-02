@@ -1,0 +1,11 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
+    "/js/chat.js": "/js/chat.js",
+    "/js/client.js": "/js/client.js",
+    "/js/employee.js": "/js/employee.js",
+    "/js/mar_sheet.js": "/js/mar_sheet.js",
+    "/js/organization.js": "/js/organization.js",
+    "/js/service_user.js": "/js/service_user.js",
+    "/js/system.js": "/js/system.js"
+}
