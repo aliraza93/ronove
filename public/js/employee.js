@@ -2137,6 +2137,200 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Employee/AssignPermissions.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Employee/AssignPermissions.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _vue_asset__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../vue-asset */ "./resources/js/vue-asset.js");
+/* harmony import */ var vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-js-toggle-button */ "./node_modules/vue-js-toggle-button/dist/index.js");
+/* harmony import */ var vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _mixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../mixin */ "./resources/js/mixin.js");
+/* harmony import */ var _mixin__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_mixin__WEBPACK_IMPORTED_MODULE_2__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'assign-permissions',
+  mixins: [_mixin__WEBPACK_IMPORTED_MODULE_2___default.a],
+  components: {
+    "toggle-button": vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_1__["ToggleButton"]
+  },
+  data: function data() {
+    return {
+      permissions: {},
+      perm: '',
+      employee_id: '',
+      permission_ids: [],
+      selected: [],
+      allSelected: false,
+      errors: null,
+      notificationSystem: {
+        options: {
+          success: {
+            position: "topRight",
+            timeout: 3000,
+            "class": 'success_notification'
+          },
+          error: {
+            position: "topRight",
+            timeout: 4000,
+            "class": 'error_notification'
+          },
+          completed: {
+            position: 'center',
+            timeout: 1000,
+            "class": 'complete_notification'
+          },
+          info: {
+            overlay: true,
+            zindex: 999,
+            position: 'center',
+            timeout: 3000,
+            "class": 'info_notification'
+          }
+        }
+      }
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    _vue_asset__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('assign-permissions', function (id) {
+      _this.employee_id = id;
+
+      _this.getEditData(id);
+
+      $('#assign-permissions').modal('show');
+    });
+    $('#assign-permissions').on('hidden.bs.modal', function () {
+      _this.resetForm();
+    });
+  },
+  methods: {
+    getEditData: function getEditData(id) {
+      var _this2 = this;
+
+      axios.get(base_url + 'assign-permissions/' + id).then(function (response) {
+        _this2.permissions = response.data.permissions; //this.permission_idsresponse.data.ids
+        //console.log(response.data.ids)
+
+        for (var ids in response.data.ids) {
+          _this2.permission_ids.push(response.data.ids[ids]);
+        }
+      });
+    },
+    selectAll: function selectAll() {
+      this.permission_ids = [];
+
+      if (!this.allSelected) {
+        for (var permission in this.permissions) {
+          this.permission_ids.push(this.permissions[permission].id);
+        }
+      }
+    },
+    select: function select() {
+      this.allSelected = false;
+    },
+    assignPermissions: function assignPermissions() {
+      var _this3 = this;
+
+      if (this.permission_ids != '') {
+        //axios.post(base_url + "assign/update/"+this.employee_id+'/'+this.permission_ids, this.permissions)
+        axios.post(base_url + "assign-permissions/update/" + this.employee_id + '/' + this.permission_ids).then(function (response) {
+          console.log(_this3.employee_id);
+          $("#assign-permissions").modal("hide");
+          _vue_asset__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("employee-added");
+
+          _this3.showMessage(response.data);
+        })["catch"](function (err) {
+          if (err.response) {
+            _this3.errors = err.response.data.errors;
+
+            _this3.showMessage(err.response.data); //this.$toast.error("Something Went Wrong", 'Error', { timeout: 3000 } );
+
+          }
+        });
+      } else {
+        this.$toast.info('Please Assign At Least One Permission', "Error Alert", this.notificationSystem.options.error);
+      }
+    },
+    showMessage: function showMessage(data) {
+      if (data.status == "success") {
+        this.$toast.success(data.message, 'Success Alert', this.notificationSystem.options.success);
+      } else {
+        this.$toast.error(data.message, "Error Alert", this.notificationSystem.options.error);
+      }
+    },
+    resetForm: function resetForm() {
+      this.permissions = {
+        id: '',
+        name: ""
+      };
+      this.errors = null;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Employee/AssignSystem.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Employee/AssignSystem.vue?vue&type=script&lang=js& ***!
@@ -2542,8 +2736,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixin */ "./resources/js/mixin.js");
 /* harmony import */ var _mixin__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mixin__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _UpdateEmployee_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UpdateEmployee.vue */ "./resources/js/components/Employee/UpdateEmployee.vue");
-/* harmony import */ var _AssignSystem_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AssignSystem.vue */ "./resources/js/components/Employee/AssignSystem.vue");
-/* harmony import */ var _pagination_pagination_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../pagination/pagination.vue */ "./resources/js/components/pagination/pagination.vue");
+/* harmony import */ var _AssignPermissions_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AssignPermissions.vue */ "./resources/js/components/Employee/AssignPermissions.vue");
+/* harmony import */ var _AssignSystem_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./AssignSystem.vue */ "./resources/js/components/Employee/AssignSystem.vue");
+/* harmony import */ var _pagination_pagination_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../pagination/pagination.vue */ "./resources/js/components/pagination/pagination.vue");
 //
 //
 //
@@ -2618,6 +2813,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 
 
 
@@ -2626,8 +2824,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_mixin__WEBPACK_IMPORTED_MODULE_1___default.a],
   components: {
-    "assign-system": _AssignSystem_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    "pagination": _pagination_pagination_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    "assign-permissions": _AssignPermissions_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    "assign-system": _AssignSystem_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    "pagination": _pagination_pagination_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   data: function data() {
     return {
@@ -2693,8 +2892,8 @@ __webpack_require__.r(__webpack_exports__);
     editOrganization: function editOrganization(id) {
       _vue_asset__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("employee-edit", id);
     },
-    assignSystem: function assignSystem(id) {
-      _vue_asset__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("assign-system", id);
+    assignPermissions: function assignPermissions(id) {
+      _vue_asset__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("assign-permissions", id);
     },
     pageClicked: function pageClicked(pageNo) {
       var vm = this;
@@ -55601,6 +55800,237 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Employee/AssignPermissions.vue?vue&type=template&id=3af49102&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Employee/AssignPermissions.vue?vue&type=template&id=3af49102& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "wrap" }, [
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: { id: "assign-permissions", tabindex: "-1", role: "dialog" }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _vm.errors
+                  ? _c("div", { staticClass: "alert alert-danger" }, [
+                      _c(
+                        "ul",
+                        _vm._l(_vm.errors, function(error) {
+                          return _c("li", { key: error }, [
+                            _vm._v(_vm._s(error[0]))
+                          ])
+                        }),
+                        0
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("form", [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-12" }, [
+                      _c("div", { staticClass: "table-responsive" }, [
+                        _c(
+                          "table",
+                          { staticClass: "table table-condensed table-hover" },
+                          [
+                            _c("thead", [
+                              _c("tr", [
+                                _c("th", [_vm._v("#")]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Permission Names")]),
+                                _vm._v(" "),
+                                _c("th", [
+                                  _vm._v(
+                                    "\n                                      Select All\n                                      "
+                                  ),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.allSelected,
+                                        expression: "allSelected"
+                                      }
+                                    ],
+                                    attrs: { type: "checkbox" },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.allSelected)
+                                        ? _vm._i(_vm.allSelected, null) > -1
+                                        : _vm.allSelected
+                                    },
+                                    on: {
+                                      click: _vm.selectAll,
+                                      change: function($event) {
+                                        var $$a = _vm.allSelected,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = null,
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              (_vm.allSelected = $$a.concat([
+                                                $$v
+                                              ]))
+                                          } else {
+                                            $$i > -1 &&
+                                              (_vm.allSelected = $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1)))
+                                          }
+                                        } else {
+                                          _vm.allSelected = $$c
+                                        }
+                                      }
+                                    }
+                                  })
+                                ])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.permissions, function(value, index) {
+                                return _c("tr", { key: index }, [
+                                  _c("td", [_vm._v(_vm._s(index + 1))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(value.name))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.permission_ids,
+                                          expression: "permission_ids"
+                                        }
+                                      ],
+                                      attrs: { type: "checkbox" },
+                                      domProps: {
+                                        value: value.id,
+                                        checked: Array.isArray(
+                                          _vm.permission_ids
+                                        )
+                                          ? _vm._i(
+                                              _vm.permission_ids,
+                                              value.id
+                                            ) > -1
+                                          : _vm.permission_ids
+                                      },
+                                      on: {
+                                        click: _vm.select,
+                                        change: function($event) {
+                                          var $$a = _vm.permission_ids,
+                                            $$el = $event.target,
+                                            $$c = $$el.checked ? true : false
+                                          if (Array.isArray($$a)) {
+                                            var $$v = value.id,
+                                              $$i = _vm._i($$a, $$v)
+                                            if ($$el.checked) {
+                                              $$i < 0 &&
+                                                (_vm.permission_ids = $$a.concat(
+                                                  [$$v]
+                                                ))
+                                            } else {
+                                              $$i > -1 &&
+                                                (_vm.permission_ids = $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1)))
+                                            }
+                                          } else {
+                                            _vm.permission_ids = $$c
+                                          }
+                                        }
+                                      }
+                                    })
+                                  ])
+                                ])
+                              }),
+                              0
+                            )
+                          ]
+                        )
+                      ])
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success waves-effect",
+                    attrs: { type: "button" },
+                    on: { click: _vm.assignPermissions }
+                  },
+                  [_vm._v("Save")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-default waves-effect",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function($event) {
+                        return _vm.resetForm()
+                      }
+                    }
+                  },
+                  [_vm._v("CLOSE")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h4",
+        { staticClass: "modal-name", attrs: { id: "defaultModalLabel" } },
+        [_vm._v("Assign Permissions")]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Employee/AssignSystem.vue?vue&type=template&id=59235104&":
 /*!************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Employee/AssignSystem.vue?vue&type=template&id=59235104& ***!
@@ -56290,7 +56720,40 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _vm._m(0, true),
+                      _c("div", { staticClass: "dropdown profile-action" }, [
+                        _vm._m(0, true),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "dropdown-menu dropdown-menu-right" },
+                          [
+                            _vm._m(1, true),
+                            _vm._v(" "),
+                            _vm._m(2, true),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass: "dropdown-item",
+                                attrs: {
+                                  href: "#",
+                                  "data-toggle": "modal",
+                                  "data-target": "#assign-permissions"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.assignPermissions(value.id)
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", { staticClass: "fa fa-pencil m-r-5" }),
+                                _vm._v(" Assign Permissions")
+                              ]
+                            )
+                          ]
+                        )
+                      ]),
                       _vm._v(" "),
                       _c(
                         "h4",
@@ -56329,7 +56792,13 @@ var render = function() {
       _c(
         "div",
         { staticClass: "row" },
-        [_c("update-employee"), _vm._v(" "), _c("assign-system")],
+        [
+          _c("update-employee"),
+          _vm._v(" "),
+          _c("assign-system"),
+          _vm._v(" "),
+          _c("assign-permissions")
+        ],
         1
       )
     ],
@@ -56341,48 +56810,52 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "dropdown profile-action" }, [
-      _c(
-        "a",
-        {
-          staticClass: "action-icon dropdown-toggle",
-          attrs: {
-            href: "#",
-            "data-toggle": "dropdown",
-            "aria-expanded": "false"
-          }
-        },
-        [_c("i", { staticClass: "material-icons" }, [_vm._v("more_vert")])]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "dropdown-menu dropdown-menu-right" }, [
-        _c(
-          "a",
-          {
-            staticClass: "dropdown-item",
-            attrs: {
-              href: "#",
-              "data-toggle": "modal",
-              "data-target": "#edit_employee"
-            }
-          },
-          [_c("i", { staticClass: "fa fa-pencil m-r-5" }), _vm._v(" Edit")]
-        ),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "dropdown-item",
-            attrs: {
-              href: "#",
-              "data-toggle": "modal",
-              "data-target": "#delete_employee"
-            }
-          },
-          [_c("i", { staticClass: "fa fa-trash-o m-r-5" }), _vm._v(" Delete")]
-        )
-      ])
-    ])
+    return _c(
+      "a",
+      {
+        staticClass: "action-icon dropdown-toggle",
+        attrs: {
+          href: "#",
+          "data-toggle": "dropdown",
+          "aria-expanded": "false"
+        }
+      },
+      [_c("i", { staticClass: "material-icons" }, [_vm._v("more_vert")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "dropdown-item",
+        attrs: {
+          href: "#",
+          "data-toggle": "modal",
+          "data-target": "#edit_employee"
+        }
+      },
+      [_c("i", { staticClass: "fa fa-pencil m-r-5" }), _vm._v(" Edit")]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "dropdown-item",
+        attrs: {
+          href: "#",
+          "data-toggle": "modal",
+          "data-target": "#delete_employee"
+        }
+      },
+      [_c("i", { staticClass: "fa fa-trash-o m-r-5" }), _vm._v(" Delete")]
+    )
   }
 ]
 render._withStripped = true
@@ -68695,6 +69168,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddEmployee_vue_vue_type_template_id_20671b4e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddEmployee_vue_vue_type_template_id_20671b4e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Employee/AssignPermissions.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/Employee/AssignPermissions.vue ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AssignPermissions_vue_vue_type_template_id_3af49102___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AssignPermissions.vue?vue&type=template&id=3af49102& */ "./resources/js/components/Employee/AssignPermissions.vue?vue&type=template&id=3af49102&");
+/* harmony import */ var _AssignPermissions_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AssignPermissions.vue?vue&type=script&lang=js& */ "./resources/js/components/Employee/AssignPermissions.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AssignPermissions_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AssignPermissions_vue_vue_type_template_id_3af49102___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AssignPermissions_vue_vue_type_template_id_3af49102___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Employee/AssignPermissions.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Employee/AssignPermissions.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/Employee/AssignPermissions.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AssignPermissions_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./AssignPermissions.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Employee/AssignPermissions.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AssignPermissions_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Employee/AssignPermissions.vue?vue&type=template&id=3af49102&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/Employee/AssignPermissions.vue?vue&type=template&id=3af49102& ***!
+  \***********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AssignPermissions_vue_vue_type_template_id_3af49102___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./AssignPermissions.vue?vue&type=template&id=3af49102& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Employee/AssignPermissions.vue?vue&type=template&id=3af49102&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AssignPermissions_vue_vue_type_template_id_3af49102___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AssignPermissions_vue_vue_type_template_id_3af49102___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
