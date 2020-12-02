@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('content')
 <!-- Page Wrapper -->
-<div class="page-wrapper">
+<div class="page-wrapper" id="employee_details">
 			
             <!-- Page Content -->
             <div class="content container-fluid">
@@ -95,6 +95,7 @@
                                 <li class="nav-item"><a href="#emp_profile" data-toggle="tab" class="nav-link active">Profile</a></li>
                                 <li class="nav-item"><a href="#mar-sheet" data-toggle="tab" class="nav-link">MAR Sheet</a></li>
                                 <li class="nav-item"><a href="#emp_projects" data-toggle="tab" class="nav-link">Projects</a></li>
+                                <li class="nav-item"><a href="#bank_details" data-toggle="tab" class="nav-link">Bank Details</a></li>
                                 <li class="nav-item"><a href="#bank_statutory" data-toggle="tab" class="nav-link">Bank & Statutory <small class="text-danger">(Admin Only)</small></a></li>
                             </ul>
                         </div>
@@ -333,6 +334,40 @@
                         </div>
                     </div>
                     <!-- /Profile Info Tab -->
+
+
+
+
+                    {{-- Bank details tab  --}}
+
+                    
+
+                    <div id="bank_details" class="pro-overview tab-pane fade show active">
+                        <div class="row">
+                            <div class="col-md-6 d-flex">
+                                <div class="card profile-box flex-fill">
+                                    <div class="card-body">
+                                        <bank-details></bank-details>
+                                        <h3 class="card-title">Account Details<a href="#" class="edit-icon" data-toggle="modal" data-target="#bank-details-modal"><i class="fa fa-pencil"></i></a></h3>
+                                        <ul class="personal-info">
+                                            <li>
+                                                <div class="title">Account Name</div>
+                                                <div class="text">HBL Bank</div>
+                                            </li>
+                                            <li>
+                                                <div class="title">Sort Code</div>
+                                                <div class="text">11-33-44</div>
+                                            </li>
+                                            <li>
+                                                <div class="title">Account Number</div>
+                                                <div class="text"><a href="">9876543210</a></div>
+                                            </li>
+                                            
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                    {{-- Bank detials tab  --}}
 
                     
                     <!-- Projects Tab -->
@@ -1428,9 +1463,7 @@
         </div>
         <!-- /Page Wrapper -->
         <script type="text/javascript">
-            $(document).ready(function() {
-                $('.multi').selectpicker();
-            });
             var base_url = "{{ url('/').'/' }}"; 
         </script>
+        <script src="{{ url('js/employee.js') }}"></script>
 @endsection

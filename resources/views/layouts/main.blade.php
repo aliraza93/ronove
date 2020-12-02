@@ -16,7 +16,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
-		
+        
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
 
@@ -389,12 +391,8 @@
                             <li class="menu-title"> 
                                 <span>Main</span>
                             </li>
-                            <li class="submenu">
-                                <a href="#"><i class="la la-dashboard"></i> <span> Dashboard</span> <span class="menu-arrow"></span></a>
-                                <ul style="display: none;">
-                                    <li><a class="active" href="{{ url('/') }}">Admin Dashboard</a></li>
-                                    <li><a href="employee-dashboard">Employee Dashboard</a></li>
-                                </ul>
+                            <li>
+                                <a href="{{ route('employee.dashboard') }}"><i class="la la-dashboard"></i> <span> Dashboard</span> </a>
                             </li>
                             @if (in_array('Medicines',$names) || in_array('Dosage',$names) || in_array('Routes',$names))
                                 <li class="menu-title"> 
@@ -410,7 +408,7 @@
                                             <li><a href="dosage">Dosage  <span class="badge badge-pill bg-primary float-right">1</span></a></li>
                                         @endif
                                         @if (in_array('Routes',$names))
-                                            <li><a href="routes">Routes)</a></li>
+                                            <li><a href="routes">Routes</a></li>
                                         @endif
                                     </ul>
                                 </li>    
@@ -774,6 +772,7 @@
     <!-- Slimscroll JS -->
     <script src="{{ asset('js/jquery.slimscroll.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>    
+    
     <!-- Custom JS -->
     <script src="{{ asset('js/custom.js') }}"></script>
 </body>

@@ -67,6 +67,11 @@ class EmployeeController extends Controller
         return view('organization.User.show_employee', compact('employee'));
     }
 
+    public function showDashboard()
+    {
+        return view('dashboard');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
