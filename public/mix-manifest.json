@@ -4,6 +4,7 @@
     "/js/chat.js": "/js/chat.js",
     "/js/client.js": "/js/client.js",
     "/js/employee.js": "/js/employee.js",
+    "/js/employee_details.js": "/js/employee_details.js",
     "/js/mar_sheet.js": "/js/mar_sheet.js",
     "/js/organization.js": "/js/organization.js",
     "/js/service_user.js": "/js/service_user.js",

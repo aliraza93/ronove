@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\EmployeePersonalDetails;
 use App\Models\Employee;
+use App\Models\EmployeeBankDetails;
 use App\Models\User;
+use App\Models\System;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -38,22 +40,63 @@ class EmployeeController extends Controller
         return $employee;
     }
 
-    public function SystemsList(Request $request){
-        $systems = System::all();
+    public function PermissionsList(Request $request){
+        //$permissions = Permission::all();
         $ids = array();
+        $system = System::where('id', Session::get('system_id'))->first();
         $employee = Employee::where('id', $request->id)->first();
-        foreach (Employee::all() as $key => $value) {
-            $system = System::where('organization_id', $request->id)->get();
-            foreach ($system as $key => $value) {
-                if($system != null) {
+        $user = User::where('employee_id', $employee->id)->first();
+        $permissions = $system->getAllPermissions();
+        foreach ($permissions as $key => $value) {
+            if($user->hasPermissionTo($value)) {
+                if($user != null) {
                     $ids[$key] = $value->id;
-                }        
+                }
             }
         }
         return response()->json([
-            'systems' => $systems,
+            'permissions' => $permissions,
             'ids' => $ids
         ]);
+    }
+
+    public function assignPermission(Request $request, $id)
+    {
+        $array = explode(',', $request->id);
+        $permissions = Permission::all();
+        $employee = Employee::where('id', $id)->first();
+        $user = User::where('employee_id', $employee->id)->first();
+        if(!Role::where('name', 'employee')){
+            //dd('No System');
+            $role = Role::create(['name' => 'employee']);
+            $user->assignRole($role);
+        }
+        elseif ($user->hasRole('employee')) {
+            //dd('Has Role');
+            foreach ($permissions as $key => $value) {
+                if($user->hasPermissionTo($value->id)) {
+                    $user->revokePermissionTo($value->id);    
+                }
+            }
+            //$user->hasPermissionTo(1);
+        }
+        else{
+            //dd('Assign');
+            $role = Role::where(['name' => 'employee'])->first();
+            $user->assignRole($role);
+        }
+        try{
+            foreach ($array as $key => $value) {
+                $user->givePermissionTo(Permission::find($value)->id);
+            }
+            return response()->json(['status'=>'success','message'=>'Permissions Granted Successfully !']);
+        }
+        catch(\Exception $e)
+        {
+         
+            return response()->json(['status'=>'error','message'=>$e->getMessage()]);
+
+        }
     }
 
     /**
@@ -146,6 +189,43 @@ class EmployeeController extends Controller
 
         }
     }
+
+
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeEmployeeBankDetails(Request $request, $id)
+    {   
+        $request->validate([
+            'account_name' => 'required',
+            'sort_code' => 'required',
+            'account_number' => 'required',
+            
+            ]);
+        try{
+            $employee = new EmployeeBankDetails ;
+            $employee->account_name = $request->account_name;
+            $employee->sort_code = $request->sort_code;
+            $employee->account_number = $request->account_number;
+            $employee->employee_id = $id;
+            
+            $employee->save();
+            return response()->json(['status'=>'success','message'=>'Employee Bank Details Added Successfully !']);
+        }
+        catch(\Exception $e)
+        {
+         
+            return response()->json(['status'=>'error','message'=>$e->getMessage()]);
+
+        }
+    }
+
+
 
     /**
      * Display the specified resource.
