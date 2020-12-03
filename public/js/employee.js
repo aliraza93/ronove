@@ -2562,7 +2562,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2956,11 +2955,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-<<<<<<< HEAD
-
-=======
 //
->>>>>>> 27bc51dada221bce8ae941c1811a6cb602a8360a
+
 
 
 
@@ -57151,7 +57147,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-<<<<<<< HEAD
     return _c(
       "a",
       {
@@ -57198,66 +57193,6 @@ var staticRenderFns = [
       },
       [_c("i", { staticClass: "fa fa-trash-o m-r-5" }), _vm._v(" Delete")]
     )
-=======
-    return _c("div", { staticClass: "dropdown profile-action" }, [
-      _c(
-        "a",
-        {
-          staticClass: "action-icon dropdown-toggle",
-          attrs: {
-            href: "#",
-            "data-toggle": "dropdown",
-            "aria-expanded": "false"
-          }
-        },
-        [_c("i", { staticClass: "material-icons" }, [_vm._v("more_vert")])]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "dropdown-menu dropdown-menu-right" }, [
-        _c(
-          "a",
-          {
-            staticClass: "dropdown-item",
-            attrs: {
-              href: "#",
-              "data-toggle": "modal",
-              "data-target": "#edit_employee"
-            }
-          },
-          [_c("i", { staticClass: "fa fa-pencil m-r-5" }), _vm._v(" Edit")]
-        ),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "dropdown-item",
-            attrs: {
-              href: "#",
-              "data-toggle": "modal",
-              "data-target": "#delete_employee"
-            }
-          },
-          [_c("i", { staticClass: "fa fa-trash-o m-r-5" }), _vm._v(" Delete")]
-        ),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "dropdown-item",
-            attrs: {
-              href: "#",
-              "data-toggle": "modal",
-              "data-target": "#assign-permissions"
-            }
-          },
-          [
-            _c("i", { staticClass: "fa fa-pencil m-r-5" }),
-            _vm._v(" Assign Permissions")
-          ]
-        )
-      ])
-    ])
->>>>>>> 27bc51dada221bce8ae941c1811a6cb602a8360a
   }
 ]
 render._withStripped = true

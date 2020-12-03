@@ -201,12 +201,11 @@ class EmployeeController extends Controller
     public function storeEmployeeBankDetails(Request $request, $id)
     {   
         $request->validate([
-            'account_name' => ['required', 'string', 'max:255'],
-            'sort_code' => ['required', 'string', 'max:255'],
+            'account_name' => 'required',
+            'sort_code' => 'required',
             'account_number' => 'required',
             
             ]);
-            //dd($request);
         try{
             $employee = new EmployeeBankDetails ;
             $employee->account_name = $request->account_name;
@@ -215,7 +214,7 @@ class EmployeeController extends Controller
             $employee->employee_id = $id;
             
             $employee->save();
-            return response()->json(['status'=>'success','message'=>'Bank Details Added Successfully !']);
+            return response()->json(['status'=>'success','message'=>'Employee Bank Details Added Successfully !']);
         }
         catch(\Exception $e)
         {

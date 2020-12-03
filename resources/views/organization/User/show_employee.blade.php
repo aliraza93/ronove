@@ -1,14 +1,10 @@
 @extends('layouts.main')
 @section('content')
-<!-- Page Wrapper -->
-<<<<<<< HEAD
-<div class="page-wrapper" id="details">
-=======
-<div class="page-wrapper" id="employee_details">
->>>>>>> 27bc51dada221bce8ae941c1811a6cb602a8360a
+    <!-- Page Wrapper -->
+    <div class="page-wrapper" id="employee_details">
 			
         <!-- Page Content -->
-        <div id="details" class="content container-fluid">
+        <div class="content container-fluid">
         
             <!-- Page Header -->
             <div class="page-header">
@@ -345,7 +341,7 @@
                         <div class="col-md-6 d-flex">
                             <div class="card profile-box flex-fill">
                                 <div class="card-body">
-                                    <bank-details></bank-details>
+                                    <bank-details :id="{{ $employee->id }}"></bank-details>
                                     <h3 class="card-title">Account Details<a href="#" class="edit-icon" data-toggle="modal" data-target="#bank-details-modal"><i class="fa fa-pencil"></i></a></h3>
                                     <ul class="personal-info">
                                         <li>
@@ -1617,10 +1613,10 @@
                 </div>
             </div>
         </div>
-
-        <!-- /Page Wrapper -->
-        <script type="text/javascript">
-            var base_url = "{{ url('/').'/' }}"; 
-        </script>
-        <script src="{{ url('js/employee_details.js') }}"></script>
+    </div>
+    <!-- /Page Wrapper -->
+    <script type="text/javascript">
+        var base_url = "{{ url('/').'/' }}"; 
+    </script>
+    <script src="{{ url('js/employee_details.js') }}"></script>
 @endsection
