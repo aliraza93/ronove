@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EmployeePersonalDetails;
 use App\Models\Employee;
 use App\Models\EmployeeBankDetails;
 use App\Models\User;
@@ -9,6 +10,7 @@ use App\Models\System;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use App\Models\EmployeeHealth;
 use Session;
 use Hash;
 
@@ -345,5 +347,75 @@ class EmployeeController extends Controller
 
         //$employee->removeRole('organization');
         //$employee->delete();
+    }
+
+
+
+    public function storeEmployeeHealth(Request $request, $id)
+    {
+
+        // dd($request->arrangements_details);
+
+        $request->validate([
+                'ask' => 'required',
+                'disability_details' => 'required',
+                'what' => 'required',
+                'arrangements_details' => 'required',
+                'state_number' => 'required',
+                'days' => 'required'
+                
+                
+
+            ]);
+            
+                $employee = new EmployeeHealth;
+                $employee->disability = $request->ask;
+                $employee->disability_details = $request->disability_details;
+                $employee->arrangements = $request->what;
+                $employee->arrangements_details = $request->arrangements_details;
+                $employee->days = $request->days;
+                $employee->state_number = $request->state_number;
+                $employee->employee_id = $id; 
+               
+
+                $employee->save();
+                return redirect()->back() ->with('alert', 'Employee Health Added Successfully');
+                
+            
+        
+    }
+
+
+   
+
+    public function personalDetails(Request $request, $id)
+    {
+        //dd($request->ask);
+        $request->validate([
+            'home_tel_no' => 'required',
+            'day_tel_no' => 'required',
+            'national_no' => 'required',
+            'email_address' => 'required',
+        ]);
+        $employee = new EmployeePersonalDetails;
+        
+        $employee->home_tel_no = $request->home_tel_no;
+        $employee->day_tel_no = $request->day_tel_no;
+        $employee->national_no = $request->national_no;
+        $employee->email_address = $request->email_address;
+        $employee->contact_at_work = $request->ask;
+        $employee->are_you_free = $request->ask1;
+        $employee->are_you_applying = $request->ask2;
+        $employee->driving_license = $request->ask3;
+        $employee->license_category = $request->ask4;
+        $employee->employee_id = $id;
+        
+        $employee->save();
+        
+        return redirect()->back() ->with('alert', 'Employee Personal Details Updated Succesfully!');
+
+        
+
+
     }
 }

@@ -2560,6 +2560,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -56041,7 +56049,15 @@ var render = function() {
                             _vm._m(1, true),
                             _vm._v(" "),
                             _vm._m(2, true),
-                            _vm._v(" "),
+                            _vm._v(
+                              "\n<<<<<<< HEAD\n                          "
+                            ),
+                            _vm._m(3, true),
+                            _vm._v(
+                              "\n=======\n<<<<<<< HEAD\n                          "
+                            ),
+                            _vm._m(4, true),
+                            _vm._v("\n=======\n                          "),
                             _c(
                               "a",
                               {
@@ -56061,6 +56077,9 @@ var render = function() {
                                 _c("i", { staticClass: "fa fa-pencil m-r-5" }),
                                 _vm._v(" Assign Permissions")
                               ]
+                            ),
+                            _vm._v(
+                              "\n\n>>>>>>> 0251f0e534efe2a3177c962e6616885e72e3ae64\n>>>>>>> 1b8d4062cbc9d336ca257d210c752c1d678c7e46\n                      "
                             )
                           ]
                         )
@@ -56155,6 +56174,46 @@ var staticRenderFns = [
         }
       },
       [_c("i", { staticClass: "fa fa-trash-o m-r-5" }), _vm._v(" Delete")]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "dropdown-item",
+        attrs: {
+          href: "#",
+          "data-toggle": "modal",
+          "data-target": "#assign-permissions"
+        }
+      },
+      [
+        _c("i", { staticClass: "fa fa-pencil m-r-5" }),
+        _vm._v(" Assign Permissions")
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "dropdown-item",
+        attrs: {
+          href: "#",
+          "data-toggle": "modal",
+          "data-target": "#assign-permissions"
+        }
+      },
+      [
+        _c("i", { staticClass: "fa fa-pencil m-r-5" }),
+        _vm._v(" Assign Permissions")
+      ]
     )
   }
 ]
