@@ -65,24 +65,10 @@ class EmployeeController extends Controller
         $permissions = Permission::all();
         $employee = Employee::where('id', $id)->first();
         $user = User::where('employee_id', $employee->id)->first();
-        if(!Role::where('name', 'employee')){
-            //dd('No System');
-            $role = Role::create(['name' => 'employee']);
-            $user->assignRole($role);
-        }
-        elseif ($user->hasRole('employee')) {
-            //dd('Has Role');
-            foreach ($permissions as $key => $value) {
-                if($user->hasPermissionTo($value->id)) {
-                    $user->revokePermissionTo($value->id);    
-                }
+        foreach ($permissions as $key => $value) {
+            if($user->hasPermissionTo($value->id)) {
+                $user->revokePermissionTo($value->id);    
             }
-            //$user->hasPermissionTo(1);
-        }
-        else{
-            //dd('Assign');
-            $role = Role::where(['name' => 'employee'])->first();
-            $user->assignRole($role);
         }
         try{
             foreach ($array as $key => $value) {
@@ -170,7 +156,7 @@ class EmployeeController extends Controller
             $user->name = $request->first_name . ' ' .$request->last_name;
             $user->password = Hash::make($request->password);
             $user->employee_id = $employee->id;
-            if(!Role::where('name', $type)) {
+            if(!Role::where('name', $type)->first()) {
                 $role = Role::create(['name' => $type]);
                 $user->assignRole($role);
             }
