@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EmployeePersonalDetails;
 use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -65,6 +66,11 @@ class EmployeeController extends Controller
     {
         $employee = Employee::where('id', $id)->first();
         return view('organization.User.show_employee', compact('employee'));
+    }
+
+    public function showDashboard()
+    {
+        return view('dashboard');
     }
 
     /**
@@ -274,5 +280,40 @@ class EmployeeController extends Controller
 
         //$employee->removeRole('organization');
         //$employee->delete();
+    }
+
+
+
+   
+
+    public function personalDetails(Request $request, $id)
+    {
+        //dd($request->ask);
+        $request->validate([
+            'home_tel_no' => 'required',
+            'day_tel_no' => 'required',
+            'national_no' => 'required',
+            'email_address' => 'required',
+        ]);
+        $employee = new EmployeePersonalDetails;
+        
+        $employee->home_tel_no = $request->home_tel_no;
+        $employee->day_tel_no = $request->day_tel_no;
+        $employee->national_no = $request->national_no;
+        $employee->email_address = $request->email_address;
+        $employee->contact_at_work = $request->ask;
+        $employee->are_you_free = $request->ask1;
+        $employee->are_you_applying = $request->ask2;
+        $employee->driving_license = $request->ask3;
+        $employee->license_category = $request->ask4;
+        $employee->employee_id = $id;
+        
+        $employee->save();
+        
+        return redirect()->back() ->with('alert', 'Employee Personal Details Updated Succesfully!');
+
+        
+
+
     }
 }

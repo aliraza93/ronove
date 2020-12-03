@@ -92,7 +92,7 @@
                     <div class="row user-tabs">
                         <div class="col-lg-12 col-md-12 col-sm-12 line-tabs">
                             <ul class="nav nav-tabs nav-tabs-bottom">
-                                <li class="nav-item"><a href="#emp_profile" data-toggle="tab" class="nav-link active">Profile</a></li>
+                                <li class="nav-item"><a href="#emp_profile" data-toggle="tab" class="nav-link active">Personal Details</a></li>
                                 <li class="nav-item"><a href="#mar-sheet" data-toggle="tab" class="nav-link">MAR Sheet</a></li>
                                 <li class="nav-item"><a href="#emp_projects" data-toggle="tab" class="nav-link">Projects</a></li>
                                 <li class="nav-item"><a href="#bank_statutory" data-toggle="tab" class="nav-link">Bank & Statutory <small class="text-danger">(Admin Only)</small></a></li>
@@ -106,48 +106,111 @@
                     <!-- Profile Info Tab -->
                     <div id="emp_profile" class="pro-overview tab-pane fade show active">
                         <div class="row">
-                            <div class="col-md-6 d-flex">
-                                <div class="card profile-box flex-fill">
-                                    <div class="card-body">
-                                        <h3 class="card-title">Personal Informations <a href="#" class="edit-icon" data-toggle="modal" data-target="#personal_info_modal"><i class="fa fa-pencil"></i></a></h3>
-                                        <ul class="personal-info">
-                                            <li>
-                                                <div class="title">Passport No.</div>
-                                                <div class="text">9876543210</div>
-                                            </li>
-                                            <li>
-                                                <div class="title">Passport Exp Date.</div>
-                                                <div class="text">9876543210</div>
-                                            </li>
-                                            <li>
-                                                <div class="title">Tel</div>
-                                                <div class="text"><a href="">9876543210</a></div>
-                                            </li>
-                                            <li>
-                                                <div class="title">Nationality</div>
-                                                <div class="text">Indian</div>
-                                            </li>
-                                            <li>
-                                                <div class="title">Religion</div>
-                                                <div class="text">Christian</div>
-                                            </li>
-                                            <li>
-                                                <div class="title">Marital status</div>
-                                                <div class="text">Married</div>
-                                            </li>
-                                            <li>
-                                                <div class="title">Employment of spouse</div>
-                                                <div class="text">No</div>
-                                            </li>
-                                            <li>
-                                                <div class="title">No. of children</div>
-                                                <div class="text">2</div>
-                                            </li>
-                                        </ul>
-                                    </div>
+                            <div class="col-md-12">
+                                @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
                                 </div>
+                                @endif
+                                @if (Session::has('alert'))
+                                <div class="alert alert-success">
+                                    {{ Session::get('alert') }}
+                                </div>
+                                @endif
                             </div>
-                            <div class="col-md-6 d-flex">
+
+                            <form action="{{ url('details') }}/{{$employee->id}}" method="POST">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Home Telephone No <span class="text-danger">*</span></label>
+                                            <input class="form-control" value="" type="text" name="home_tel_no">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">DayTime Telephone No</label>
+                                            <input class="form-control" value="" type="text" name="day_tel_no">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">National Insurance No <span class="text-danger">*</span></label>
+                                            <input class="form-control" value="" type="text" name="national_no">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">E-mail Address <span class="text-danger">*</span></label>
+                                            <input class="form-control" value="" type="email" name="email_address">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card-body" style="display: flex; flex-direction: row">
+                                            <div><p>Can we contact you at work?</p>
+                                            </div>
+                                            <div style="margin-left: 70px"> 
+                                            <input type="radio" id="yes" name="ask" value="yes">
+                                            <label for="yes">Yes</label> 
+                                            </div>
+                                            <div style="margin-left:30px">
+                                            <input type="radio" id="no" name="ask" value="no">
+                                            <label for="female">No</label>
+                                            </div>                                                     
+                                    </div>
+                                 
+                                    <div class="card-body" style="display: flex; flex-direction: row">
+                                        <div><p>Are you free to remain and take up employment 
+                                            in the UK with no current migration 
+                                        restrictions?</p></div>
+                                        <div style="margin-left: 70px"> <input type="radio" id="yes" name="ask1" value="yes">
+                                            <label for="yes">Yes</label><br> </div>
+                                         <div style="margin-left:30px">
+                                            <input type="radio" id="no" name="ask1" value="no">
+                                            <label for="female">No</label><br>
+                                        </div>   <br>                                                    
+                                    </div>
+                                    <div class="card-body" style="display: flex; flex-direction: row">
+                                        <div><p>Are you applying on a job share basis?</p></div>
+                                        <div style="margin-left: 70px"> <input type="radio" id="yes" name="ask2" value="yes">
+                                            <label for="yes">Yes</label><br> </div>
+                                         <div style="margin-left:30px">
+                                            <input type="radio" id="no" name="ask2" value="no">
+                                            <label for="female">No</label><br>
+                                        </div>                                                       
+                                    </div>
+                                    <div class="card-body" style="display: flex; flex-direction: row">
+                                        <div><p>Do you hold a full clean driving licence valid in the UK? </p></div>
+                                        <div style="margin-left: 70px"> <input type="radio" id="yes" name="ask3" value="yes">
+                                            <label for="yes">Yes</label><br> </div>
+                                         <div style="margin-left:30px">
+                                            <input type="radio" id="no" name="ask3" value="no">
+                                            <label for="female">No</label><br>
+                                        </div>                                                       
+                                    </div>
+                                    <div class="card-body" style="display: flex; flex-direction: row">
+                                        <div><p>Does your licence inckude C1 category?</p></div>
+                                        <div style="margin-left: 70px"> <input type="radio" id="yes" name="ask4" value="yes">
+                                            <label for="yes">Yes</label><br> </div>
+                                         <div style="margin-left:30px">
+                                            <input type="radio" id="no" name="ask4" value="no">
+                                            <label for="female">No</label><br>
+                                        </div>                                                       
+                                    </div>
+                                
+
+                                <div class="submit-section margin: 50%;">
+                                    <button type="submit" class="btn btn-primary submit-btn" >Save</button>
+                                </div>
+                                
+                            </form>
+                        </div>
+                                {{-- <div class="col-md-6 d-flex">
                                 <div class="card profile-box flex-fill">
                                     <div class="card-body">
                                         <h3 class="card-title">Emergency Contact <a href="#" class="edit-icon" data-toggle="modal" data-target="#emergency_contact_modal"><i class="fa fa-pencil"></i></a></h3>
@@ -329,7 +392,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <!-- /Profile Info Tab -->

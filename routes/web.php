@@ -58,6 +58,9 @@ Route::group(['middleware' => ['role:organization']], function () {
     Route::post('employee/update/{id}','EmployeeController@update');
     Route::get('employee-list','EmployeeController@EmployeeList');
     Route::get('employee-show/{id}','EmployeeController@showProfile');
+    Route::get('dashboard', 'EmployeeController@showDashboard')->name('employee.dashboard');
+    Route::post('details/{id}','EmployeeController@personalDetails');
+    
     //Route::get('assign/{id}','EmployeeController@SystemsList');
     //Route::post('assign/update/{employee}/{id}','EmployeeController@assignSystem');
 
