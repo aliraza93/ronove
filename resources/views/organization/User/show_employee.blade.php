@@ -342,12 +342,12 @@
 
                     
 
-                    <div id="bank_details" class="pro-overview tab-pane fade show active">
+                    <div id="bank_details" class="pro-overview tab-pane fade">
                         <div class="row">
                             <div class="col-md-6 d-flex">
                                 <div class="card profile-box flex-fill">
                                     <div class="card-body">
-                                        <bank-details></bank-details>
+                                        <bank-details :id="{{ $employee->id }}"></bank-details>
                                         <h3 class="card-title">Account Details<a href="#" class="edit-icon" data-toggle="modal" data-target="#bank-details-modal"><i class="fa fa-pencil"></i></a></h3>
                                         <ul class="personal-info">
                                             <li>
@@ -367,9 +367,11 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
                     {{-- Bank detials tab  --}}
 
-                    
+
                     <!-- Projects Tab -->
                     <div class="tab-pane fade" id="emp_projects">
                         <div class="row">
@@ -1465,5 +1467,5 @@
         <script type="text/javascript">
             var base_url = "{{ url('/').'/' }}"; 
         </script>
-        <script src="{{ url('js/employee.js') }}"></script>
+        <script src="{{ url('js/employee_details.js') }}"></script>
 @endsection

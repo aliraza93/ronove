@@ -1908,10 +1908,135 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _vue_asset__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../vue-asset */ "./resources/js/vue-asset.js");
+/* harmony import */ var _mixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixin */ "./resources/js/mixin.js");
+/* harmony import */ var _mixin__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mixin__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [_mixin__WEBPACK_IMPORTED_MODULE_1___default.a],
+  props: ['id'],
+  data: function data() {
+    return {
+      employee: {
+        account_name: '',
+        sort_code: '',
+        account_number: ''
+      },
+      errors: null,
+      notificationSystem: {
+        options: {
+          success: {
+            position: "topRight",
+            timeout: 3000,
+            "class": 'success_notification'
+          },
+          error: {
+            position: "topRight",
+            timeout: 4000,
+            "class": 'error_notification'
+          },
+          completed: {
+            position: 'center',
+            timeout: 1000,
+            "class": 'complete_notification'
+          },
+          info: {
+            overlay: true,
+            zindex: 999,
+            position: 'center',
+            timeout: 3000,
+            "class": 'info_notification'
+          }
+        }
+      }
+    };
+  },
+  methods: {
+    addBankDetails: function addBankDetails() {
+      var _this = this;
+
+      axios.post(base_url + "employee-bank-details/" + this.id, this.employee).then(function (response) {
+        $("#bank-details-modal").modal("hide");
+        _vue_asset__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("employee-added");
+
+        _this.showMessage(response.data);
+
+        _this.employee = {
+          account_name: '',
+          sort_code: '',
+          account_number: ''
+        };
+        _this.errors = null;
+      })["catch"](function (err) {
+        if (err.response) {
+          _this.errors = err.response.data.errors;
+
+          _this.showMessage(err.response.data);
+        }
+      });
+    },
+    showMessage: function showMessage(data) {
+      if (data.status == "success") {
+        this.$toast.success(data.message, 'Success Alert', this.notificationSystem.options.success);
+      } else {
+        this.$toast.error(data.message, "Error Alert", this.notificationSystem.options.error);
+      }
+    }
+  },
+  // end of method section
+  created: function created() {}
+});
 
 /***/ }),
 
@@ -53272,9 +53397,181 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "div",
+    {
+      staticClass: "modal custom-modal fade",
+      attrs: { id: "bank-details-modal", role: "dialog" }
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "modal-dialog modal-dialog-centered modal-lg",
+          attrs: { role: "document" }
+        },
+        [
+          _c("div", { staticClass: "modal-content" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _vm.errors
+                ? _c("div", { staticClass: "alert alert-danger" }, [
+                    _c(
+                      "ul",
+                      _vm._l(_vm.errors, function(error) {
+                        return _c("li", { key: error }, [
+                          _vm._v(_vm._s(error[0]))
+                        ])
+                      }),
+                      0
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("form", [
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Account Name")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.employee.account_name,
+                          expression: "employee.account_name"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.employee.account_name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.employee,
+                            "account_name",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Sort Code")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.employee.sort_code,
+                          expression: "employee.sort_code"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.employee.sort_code },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.employee,
+                            "sort_code",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Account Number")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.employee.account_number,
+                          expression: "employee.account_number"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.employee.account_number },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.employee,
+                            "account_number",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "submit-section" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary submit-btn",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.addBankDetails()
+                        }
+                      }
+                    },
+                    [_vm._v("Submit")]
+                  )
+                ])
+              ])
+            ])
+          ])
+        ]
+      )
+    ]
+  )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Bank Details")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -65511,6 +65808,17 @@ Vue.component('bank-details', __webpack_require__(/*! ./components/Employee/Bank
 var app = new Vue({
   el: '#employee_details'
 });
+
+/***/ }),
+
+/***/ "./resources/js/mixin.js":
+/*!*******************************!*\
+  !*** ./resources/js/mixin.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
 
 /***/ }),
 

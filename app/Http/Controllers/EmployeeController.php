@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\EmployeeBankDetails;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
@@ -145,6 +146,44 @@ class EmployeeController extends Controller
 
         }
     }
+
+
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeEmployeeBankDetails(Request $request, $id)
+    {   
+        $request->validate([
+            'account_name' => ['required', 'string', 'max:255'],
+            'sort_code' => ['required', 'string', 'max:255'],
+            'account_number' => 'required',
+            
+            ]);
+            //dd($request);
+        try{
+            $employee = new EmployeeBankDetails ;
+            $employee->account_name = $request->account_name;
+            $employee->sort_code = $request->sort_code;
+            $employee->account_number = $request->account_number;
+            $employee->employee_id = $id;
+            
+            $employee->save();
+            return response()->json(['status'=>'success','message'=>'Bank Details Added Successfully !']);
+        }
+        catch(\Exception $e)
+        {
+         
+            return response()->json(['status'=>'error','message'=>$e->getMessage()]);
+
+        }
+    }
+
+
 
     /**
      * Display the specified resource.
