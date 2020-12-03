@@ -121,13 +121,14 @@
                                 @if (Session::has('alert'))
                                 <div class="alert alert-success">
                                     {{ Session::get('alert') }}
-
-            </div>
+                                </div>
+                            </div>    
+                    </div>
             
             <div class="tab-content">
             
                 <!-- Profile Info Tab -->
-                <div id="emp_profile" class="pro-overview tab-pane fade show active">
+                <div id="emp_profile" class="pro-overview tab-pane fade ">
                     <div class="row">
                         <div class="col-md-6 d-flex">
                             <div class="card profile-box flex-fill">

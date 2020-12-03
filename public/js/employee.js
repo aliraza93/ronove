@@ -2956,13 +2956,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
+//
+//
 
->>>>>>> 0251f0e534efe2a3177c962e6616885e72e3ae64
->>>>>>> 1b8d4062cbc9d336ca257d210c752c1d678c7e46
 
 
 
@@ -57074,6 +57070,10 @@ var render = function() {
                             _vm._v(" "),
                             _vm._m(2, true),
                             _vm._v(" "),
+                            _vm._m(3, true),
+                            _vm._v(" "),
+                            _vm._m(4, true),
+                            _vm._v(" "),
                             _c(
                               "a",
                               {
@@ -57153,66 +57153,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-<<<<<<< HEAD
-    return _c("div", { staticClass: "dropdown profile-action" }, [
-      _c(
-        "a",
-        {
-          staticClass: "action-icon dropdown-toggle",
-          attrs: {
-            href: "#",
-            "data-toggle": "dropdown",
-            "aria-expanded": "false"
-          }
-        },
-        [_c("i", { staticClass: "material-icons" }, [_vm._v("more_vert")])]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "dropdown-menu dropdown-menu-right" }, [
-        _c(
-          "a",
-          {
-            staticClass: "dropdown-item",
-            attrs: {
-              href: "#",
-              "data-toggle": "modal",
-              "data-target": "#edit_employee"
-            }
-          },
-          [_c("i", { staticClass: "fa fa-pencil m-r-5" }), _vm._v(" Edit")]
-        ),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "dropdown-item",
-            attrs: {
-              href: "#",
-              "data-toggle": "modal",
-              "data-target": "#delete_employee"
-            }
-          },
-          [_c("i", { staticClass: "fa fa-trash-o m-r-5" }), _vm._v(" Delete")]
-        ),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "dropdown-item",
-            attrs: {
-              href: "#",
-              "data-toggle": "modal",
-              "data-target": "#assign-permissions"
-            }
-          },
-          [
-            _c("i", { staticClass: "fa fa-pencil m-r-5" }),
-            _vm._v(" Assign Permissions")
-          ]
-        )
-      ])
-    ])
-=======
     return _c(
       "a",
       {
@@ -57259,7 +57199,46 @@ var staticRenderFns = [
       },
       [_c("i", { staticClass: "fa fa-trash-o m-r-5" }), _vm._v(" Delete")]
     )
->>>>>>> 0251f0e534efe2a3177c962e6616885e72e3ae64
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "dropdown-item",
+        attrs: {
+          href: "#",
+          "data-toggle": "modal",
+          "data-target": "#assign-permissions"
+        }
+      },
+      [
+        _c("i", { staticClass: "fa fa-pencil m-r-5" }),
+        _vm._v(" Assign Permissions")
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "dropdown-item",
+        attrs: {
+          href: "#",
+          "data-toggle": "modal",
+          "data-target": "#assign-permissions"
+        }
+      },
+      [
+        _c("i", { staticClass: "fa fa-pencil m-r-5" }),
+        _vm._v(" Assign Permissions")
+      ]
+    )
   }
 ]
 render._withStripped = true
