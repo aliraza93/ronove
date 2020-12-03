@@ -14,7 +14,8 @@ Vue.use(IconsPlugin)
 Vue.use(VueIziToast);
 Vue.component('add-employee', require('./components/Employee/AddEmployee.vue').default);
 Vue.component('view-employees', require('./components/Employee/ViewEmployees.vue').default);
-Vue.component('update-employee', require('./components/Employee/UpdateEmployee.vue').default)
+Vue.component('add-employee', require('./components/Employee/AddEmployee.vue').default);
+Vue.component('bank-details', require('./components/Employee/BankDetails.vue').default)
 
 var app = new Vue({
 

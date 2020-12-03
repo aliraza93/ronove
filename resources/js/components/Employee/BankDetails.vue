@@ -1,82 +1,51 @@
 <template>
-<!-- bank_details_modal -->
-<div id="bank-details-modal" class="modal custom-modal fade" role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">BAnkkkkkkkkkkkkk</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Passport No</label>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Passport Expiry Date</label>
-                                <div class="cal-icon">
-                                    <input class="form-control datetimepicker" type="text">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Tel</label>
-                                <input class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Nationality <span class="text-danger">*</span></label>
-                                <input class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Religion</label>
-                                <div class="cal-icon">
-                                    <input class="form-control" type="text">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Marital status <span class="text-danger">*</span></label>
-                                <select class="select form-control">
-                                    <option>-</option>
-                                    <option>Single</option>
-                                    <option>Married</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Employment of spouse</label>
-                                <input class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>No. of children </label>
-                                <input class="form-control" type="text">
-                            </div>
-                        </div>
+    <!-- bank_details_modal -->
+    <div id="bank-details-modal" class="modal custom-modal fade" role="dialog">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Bank Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="submit-section">
-                        <button class="btn btn-primary submit-btn">Submit</button>
+                    <div class="modal-body">
+                        <div class="alert alert-danger" v-if="errors">
+                        <ul>
+                            <li v-for="error in errors" :key="error">{{ error[0] }}</li>
+                        </ul>
+                        </div>
+                        <form>
+                        
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Account Name</label>
+                                        <input type="text" class="form-control" v-model="employee.account_name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Sort Code</label>
+                                        <input type="text" class="form-control" v-model="employee.sort_code">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Account Number</label>
+                                        <input type="text" class="form-control" v-model="employee.account_number">
+                                    </div>
+                                </div>
+                                
+                            
+                        <div class="submit-section">
+                                <button type="button" @click="addBankDetails()" class="btn btn-primary submit-btn">Submit</button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
     </div>
-</div>
+
 </template>
 <script>
 import { EventBus } from "../../vue-asset";
@@ -84,20 +53,14 @@ import mixin from "../../mixin";
 
 export default {
   mixins: [mixin],
+  props: ['id'],
   data() {
     return {
       employee: {
-          first_name: '',
-          last_name: '',
-          address: '',
-          phone: '',
-          email: '',
-          password: '',
-          post_code: '',
-          gender: '',
-          image: '',
-          type: '',
-          password_confirmation: ''
+          account_name: '',
+          sort_code: '',
+          account_number: '',
+          
       },
 
       errors: null,
@@ -131,51 +94,20 @@ export default {
   },
 
   methods: {
-    onImageChange(e) {
-        let file = e.target.files[0];
-        let reader = new FileReader();  
-
-        if(file['size'] < 2111775)
-        {
-            reader.onloadend = (file) => {
-            //console.log('RESULT', reader.result)
-                //this.employee.image = reader.result;
-            }
-            console.log(this.employee.image)              
-            this.employee.image = reader.readAsDataURL(file);
-        }else{
-            alert('File size can not be bigger than 2 MB')
-        }
-    },
-    createImage(file) {
-        let reader = new FileReader();
-        let vm = this;
-        reader.onload = (e) => {
-            vm.employee.image = e.target.result;
-            console.log(vm.employee.image)
-        };
-        reader.readAsDataURL(file);
-    },
-    addEmployee() {
-        axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
+   
+    addBankDetails() {
         axios
-        .post(base_url + "employee", this.employee)
+        .post(base_url + "employee-bank-details/"+this.id, this.employee)
 
         .then(response => {
-          $("#add-employee").modal("hide");
+          $("#bank-details-modal").modal("hide");
           EventBus.$emit("employee-added");
           this.showMessage(response.data);
           this.employee = {
-            first_name: '',
-            last_name: '',
-            address: '',
-            phone: '',
-            email: '',
-            password: '',
-            post_code: '',
-            gender: '',
-            image: '',
-            type: '',
+            account_name: '',
+            sort_code: '',
+            account_number: '',
+            
           };
           this.errors = null;
           

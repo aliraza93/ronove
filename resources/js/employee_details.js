@@ -12,9 +12,9 @@ Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
 Vue.use(VueIziToast);
-Vue.component('bank-details', require('./components/Employee/Bankdetails.vue').default);
+Vue.component('bank-details', require('./components/Employee/BankDetails.vue').default)
 
 var app = new Vue({
 
-    el: '#details'
+    el: '#employee_details'
 });

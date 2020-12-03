@@ -1,7 +1,11 @@
 @extends('layouts.main')
 @section('content')
 <!-- Page Wrapper -->
+<<<<<<< HEAD
 <div class="page-wrapper" id="details">
+=======
+<div class="page-wrapper" id="employee_details">
+>>>>>>> 27bc51dada221bce8ae941c1811a6cb602a8360a
 			
         <!-- Page Content -->
         <div id="details" class="content container-fluid">
@@ -86,18 +90,19 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="card tab-box">
-                <div class="row user-tabs">
-                    <div class="col-lg-12 col-md-12 col-sm-12 line-tabs">
-                        <ul class="nav nav-tabs nav-tabs-bottom">
-                            <li class="nav-item"><a href="#emp_profile" data-toggle="tab" class="nav-link active">Profile</a></li>
-                            <li class="nav-item"><a href="#mar-sheet" data-toggle="tab" class="nav-link">MAR Sheet</a></li>
-                            <li class="nav-item"><a href="#emp_projects" data-toggle="tab" class="nav-link">Projects</a></li>
-                            <li class="nav-item"><a href="#bank_details" data-toggle="tab" class="nav-link">Bank Details</a></li>
-                            <li class="nav-item"><a href="#bank_statutory" data-toggle="tab" class="nav-link">Bank & Statutory <small class="text-danger">(Admin Only)</small></a></li>
-                        </ul>
+
+                
+                <div class="card tab-box">
+                    <div class="row user-tabs">
+                        <div class="col-lg-12 col-md-12 col-sm-12 line-tabs">
+                            <ul class="nav nav-tabs nav-tabs-bottom">
+                                <li class="nav-item"><a href="#emp_profile" data-toggle="tab" class="nav-link active">Profile</a></li>
+                                <li class="nav-item"><a href="#mar-sheet" data-toggle="tab" class="nav-link">MAR Sheet</a></li>
+                                <li class="nav-item"><a href="#emp_projects" data-toggle="tab" class="nav-link">Projects</a></li>
+                                <li class="nav-item"><a href="#bank_details" data-toggle="tab" class="nav-link">Bank Details</a></li>
+                                <li class="nav-item"><a href="#bank_statutory" data-toggle="tab" class="nav-link">Bank & Statutory <small class="text-danger">(Admin Only)</small></a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -519,13 +524,174 @@
                                             17 Apr 2019
                                         </div>
                                     </div>
-                                    <div class="project-members m-b-15">
-                                        <div>Project Leader :</div>
-                                        <ul class="team-members">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Profile Info Tab -->
+
+
+
+
+                    {{-- Bank details tab  --}}
+
+                    
+
+                    <div id="bank_details" class="pro-overview tab-pane fade">
+                        <div class="row">
+                            <div class="col-md-6 d-flex">
+                                <div class="card profile-box flex-fill">
+                                    <div class="card-body">
+                                        <bank-details :id="{{ $employee->id }}"></bank-details>
+                                        <h3 class="card-title">Account Details<a href="#" class="edit-icon" data-toggle="modal" data-target="#bank-details-modal"><i class="fa fa-pencil"></i></a></h3>
+                                        <ul class="personal-info">
                                             <li>
-                                                <a href="#" data-toggle="tooltip" title="Jeffery Lalor"><img alt="" src="img/profiles/avatar-16.jpg"></a>
+                                                <div class="title">Account Name</div>
+                                                <div class="text">HBL Bank</div>
                                             </li>
+                                            <li>
+                                                <div class="title">Sort Code</div>
+                                                <div class="text">11-33-44</div>
+                                            </li>
+                                            <li>
+                                                <div class="title">Account Number</div>
+                                                <div class="text"><a href="">9876543210</a></div>
+                                            </li>
+                                            
                                         </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- Bank detials tab  --}}
+
+
+                    <!-- Projects Tab -->
+                    <div class="tab-pane fade" id="emp_projects">
+                        <div class="row">
+                            <div class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="dropdown profile-action">
+                                            <a aria-expanded="false" data-toggle="dropdown" class="action-icon dropdown-toggle" href="#"><i class="material-icons">more_vert</i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a data-target="#edit_project" data-toggle="modal" href="#" class="dropdown-item"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                <a data-target="#delete_project" data-toggle="modal" href="#" class="dropdown-item"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                            </div>
+                                        </div>
+                                        <h4 class="project-title"><a href="project-view">Office Management</a></h4>
+                                        <small class="block text-ellipsis m-b-15">
+                                            <span class="text-xs">1</span> <span class="text-muted">open tasks, </span>
+                                            <span class="text-xs">9</span> <span class="text-muted">tasks completed</span>
+                                        </small>
+                                        <p class="text-muted">Lorem Ipsum is simply dummy text of the printing and
+                                            typesetting industry. When an unknown printer took a galley of type and
+                                            scrambled it...
+                                        </p>
+                                        <div class="pro-deadline m-b-15">
+                                            <div class="sub-title">
+                                                Deadline:
+                                            </div>
+                                            <div class="text-muted">
+                                                17 Apr 2019
+                                            </div>
+                                        </div>
+                                        <div class="project-members m-b-15">
+                                            <div>Project Leader :</div>
+                                            <ul class="team-members">
+                                                <li>
+                                                    <a href="#" data-toggle="tooltip" title="Jeffery Lalor"><img alt="" src="img/profiles/avatar-16.jpg"></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="project-members m-b-15">
+                                            <div>Team :</div>
+                                            <ul class="team-members">
+                                                <li>
+                                                    <a href="#" data-toggle="tooltip" title="John Doe"><img alt="" src="img/profiles/avatar-02.jpg"></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" data-toggle="tooltip" title="Richard Miles"><img alt="" src="img/profiles/avatar-09.jpg"></a></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" data-toggle="tooltip" title="John Smith"><img alt="" src="img/profiles/avatar-10.jpg"></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" data-toggle="tooltip" title="Mike Litorus"><img alt="" src="img/profiles/avatar-05.jpg"></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="all-users">+15</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <p class="m-b-5">Progress <span class="text-success float-right">40%</span></p>
+                                        <div class="progress progress-xs mb-0">
+                                            <div style="width: 40%" title="" data-toggle="tooltip" role="progressbar" class="progress-bar bg-success" data-original-title="40%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="dropdown profile-action">
+                                            <a aria-expanded="false" data-toggle="dropdown" class="action-icon dropdown-toggle" href="#"><i class="material-icons">more_vert</i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a data-target="#edit_project" data-toggle="modal" href="#" class="dropdown-item"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                <a data-target="#delete_project" data-toggle="modal" href="#" class="dropdown-item"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                            </div>
+                                        </div>
+                                        <h4 class="project-title"><a href="project-view">Project Management</a></h4>
+                                        <small class="block text-ellipsis m-b-15">
+                                            <span class="text-xs">2</span> <span class="text-muted">open tasks, </span>
+                                            <span class="text-xs">5</span> <span class="text-muted">tasks completed</span>
+                                        </small>
+                                        <p class="text-muted">Lorem Ipsum is simply dummy text of the printing and
+                                            typesetting industry. When an unknown printer took a galley of type and
+                                            scrambled it...
+                                        </p>
+                                        <div class="pro-deadline m-b-15">
+                                            <div class="sub-title">
+                                                Deadline:
+                                            </div>
+                                            <div class="text-muted">
+                                                17 Apr 2019
+                                            </div>
+                                        </div>
+                                        <div class="project-members m-b-15">
+                                            <div>Project Leader :</div>
+                                            <ul class="team-members">
+                                                <li>
+                                                    <a href="#" data-toggle="tooltip" title="Jeffery Lalor"><img alt="" src="img/profiles/avatar-16.jpg"></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="project-members m-b-15">
+                                            <div>Team :</div>
+                                            <ul class="team-members">
+                                                <li>
+                                                    <a href="#" data-toggle="tooltip" title="John Doe"><img alt="" src="img/profiles/avatar-02.jpg"></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" data-toggle="tooltip" title="Richard Miles"><img alt="" src="img/profiles/avatar-09.jpg"></a></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" data-toggle="tooltip" title="John Smith"><img alt="" src="img/profiles/avatar-10.jpg"></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" data-toggle="tooltip" title="Mike Litorus"><img alt="" src="img/profiles/avatar-05.jpg"></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="all-users">+15</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <p class="m-b-5">Progress <span class="text-success float-right">40%</span></p>
+                                        <div class="progress progress-xs mb-0">
+                                            <div style="width: 40%" title="" data-toggle="tooltip" role="progressbar" class="progress-bar bg-success" data-original-title="40%"></div>
+                                        </div>
                                     </div>
                                     <div class="project-members m-b-15">
                                         <div>Team :</div>
@@ -1451,17 +1617,10 @@
                 </div>
             </div>
         </div>
-        <!-- /Experience Modal -->
-        
-    </div>
-    <!-- /Page Wrapper -->
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.multi').selectpicker();
-        });
-    </script>
-    <script>
-        var base_url = "{{ url('/').'/' }}"; 
-    </script>
-    <script src="{{ url('js/employee_details.js') }}"></script>
+
+        <!-- /Page Wrapper -->
+        <script type="text/javascript">
+            var base_url = "{{ url('/').'/' }}"; 
+        </script>
+        <script src="{{ url('js/employee_details.js') }}"></script>
 @endsection
