@@ -19,4 +19,5 @@ mix.js('resources/js/client.js', 'public/js')
 mix.js('resources/js/service_user.js', 'public/js')
 mix.js('resources/js/mar_sheet.js', 'public/js')
 mix.js('resources/js/chat.js', 'public/js')
+mix.js('resources/js/employee_details.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
