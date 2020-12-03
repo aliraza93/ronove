@@ -46,11 +46,7 @@ class UserController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $user_id = $user->id;
-            dd($user->getRoleNames()->first());
-            if ($user->getRoleNames()->first() === 'admin') {
-                return redirect()->route('index');
-            }
-            elseif ($user->getRoleNames()->first() === 'employee') {
+            if ($user->getRoleNames()->first() === 'admin'|| $user->getRoleNames()->first() === 'Service User' || $user->getRoleNames()->first() === 'Service Staff') {
                 return redirect()->route('index');
             } 
             else {

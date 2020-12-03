@@ -760,13 +760,13 @@
                         </ul>
                     </div>		
                 @endrole
-                @role('employee')
+                @if (Auth::user()->hasAnyRole('Service User', 'Service Staff'))
                     @php
                     $system = \App\Models\System::where('id', Illuminate\Support\Facades\Session::get('system_id'))->first();
                     $names = array();
                     $permissions = array();
                     if(Auth::check()) {
-                        if(Auth::user()->hasRole('employee')) {
+                        if(Auth::user()->hasAnyRole('Service User', 'Service Staff')) {
                             $permissions = Auth::user()->getAllPermissions();
                         }
                     }
@@ -1154,8 +1154,8 @@
                             </li>    
                         -->
                     </ul>
-                </div>
-                @endrole
+                </div>        
+                @endif
             </div>
         </div>
         <!-- /Sidebar -->

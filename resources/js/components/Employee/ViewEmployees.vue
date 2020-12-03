@@ -70,8 +70,6 @@
         <pagination :pageData="employee"></pagination>
 
       <div class="row">
-        <update-employee></update-employee>
-        <assign-system></assign-system>
         <assign-permissions></assign-permissions>
       </div>
   </div>
@@ -80,10 +78,7 @@
 <script>
 import { EventBus } from "../../vue-asset";
 import mixin from "../../mixin";
-
-import UpdateEmployee from "./UpdateEmployee.vue";
 import AssignPermissions from "./AssignPermissions.vue";
-import AssignSystem from "./AssignSystem.vue";
 import Pagination  from '../pagination/pagination.vue';
 
 export default {
@@ -91,7 +86,6 @@ export default {
 
   components: {
     "assign-permissions": AssignPermissions,
-    "assign-system": AssignSystem,
     "pagination": Pagination,
   },
 
@@ -168,9 +162,6 @@ export default {
 
     // edit vendor
 
-    editOrganization(id) {
-      EventBus.$emit("employee-edit", id);
-    },
     assignPermissions(id) {
       EventBus.$emit("assign-permissions", id);
     },
