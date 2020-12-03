@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use App\Models\EmployeeHealth;
 use Session;
 use Hash;
 
@@ -65,6 +66,11 @@ class EmployeeController extends Controller
     {
         $employee = Employee::where('id', $id)->first();
         return view('organization.User.show_employee', compact('employee'));
+    }
+
+    public function showDashboard()
+    {
+        return view('dashboard');
     }
 
     /**
@@ -275,4 +281,42 @@ class EmployeeController extends Controller
         //$employee->removeRole('organization');
         //$employee->delete();
     }
+
+
+
+    public function storeEmployeeHealth(Request $request, $id)
+    {
+
+        // dd($request->arrangements_details);
+
+        $request->validate([
+                'ask' => 'required',
+                'disability_details' => 'required',
+                'what' => 'required',
+                'arrangements_details' => 'required',
+                'state_number' => 'required',
+                'days' => 'required'
+                
+                
+
+            ]);
+            
+                $employee = new EmployeeHealth;
+                $employee->disability = $request->ask;
+                $employee->disability_details = $request->disability_details;
+                $employee->arrangements = $request->what;
+                $employee->arrangements_details = $request->arrangements_details;
+                $employee->days = $request->days;
+                $employee->state_number = $request->state_number;
+                $employee->employee_id = $id; 
+               
+
+                $employee->save();
+                return redirect()->back() ->with('alert', 'Employee Health Added Successfully');
+                
+            
+        
+    }
+
+
 }

@@ -95,6 +95,7 @@
                                 <li class="nav-item"><a href="#emp_profile" data-toggle="tab" class="nav-link active">Profile</a></li>
                                 <li class="nav-item"><a href="#mar-sheet" data-toggle="tab" class="nav-link">MAR Sheet</a></li>
                                 <li class="nav-item"><a href="#emp_projects" data-toggle="tab" class="nav-link">Projects</a></li>
+                                <li class="nav-item"><a href="#emp_health" data-toggle="tab" class="nav-link">Health</a></li>
                                 <li class="nav-item"><a href="#bank_statutory" data-toggle="tab" class="nav-link">Bank & Statutory <small class="text-danger">(Admin Only)</small></a></li>
                             </ul>
                         </div>
@@ -334,7 +335,93 @@
                     </div>
                     <!-- /Profile Info Tab -->
 
-                    
+
+                    <!-- /Health Tab -->
+
+                                <div id="emp_health" class="pro-overview tab-pane fade">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                        @if ($errors->any())
+                                                        <div class="alert alert-danger">
+                                                            <ul>
+                                                                @foreach ($errors->all() as $error)
+                                                                <li>{{ $error }}</li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                        @endif
+                                                        @if (Session::has('alert'))
+                                                        <div class="alert alert-success">
+                                                          {{ Session::get('alert') }}
+                                                         </div>
+                                                         @endif
+                                                    <div>                                               
+                                            </div>    
+                                                                                                                                 
+                                            <div class="card profile-box flex-fill">                         
+                                            <form action="{{ url('employee-health')}}/{{ $employee->id }}" method="POST">
+                                                    @csrf
+                                                <div class="card-body" style="display: flex; flex-direction: row">
+                                                    
+                                                        <div><p>Do you have a disability which  is relevant to your application?</p></div>
+                                                        <div style="margin-left: 70px"> 
+                                                            <input type="radio" id="yes" name="ask" value="yes">
+                                                            <label for="yes">Yes</label><br> </div>
+                                                        <div style="margin-left:30px">
+                                                            <input type="radio" id="no" name="ask" value="no" name="ask">
+                                                            <label for="no">No</label><br>
+                                                        </div>                                                       
+                                                </div>
+                                                <div style="justify-content: center" class="card-body">
+                                                        <p>If This, please give details</p>
+                                                        <div>
+                                                            <textarea id="" cols="70" rows="5" placeholder="Enter Your Massage Here" name='disability_details' ></textarea>
+                                                        </div>
+                                                </div>
+                                                <div class="card-body" style="display: flex; flex-direction: row">
+                                                    <p>Do You need to make specific arrangements in order for you to attend the interview?</p>
+
+                                                    <div style="margin-left: 50px">
+                                                        <input type="radio" id="yes" name="what" value="yes">
+                                                        <label for="yes">Yes</label><br> </div>
+                                                    <div style="margin-left:20px">
+                                                        <input type="radio" id="no" name="what" value="no">
+                                                        <label for="no">No</label><br>
+                                                    </div>                                           
+                                                </div>
+                                                <div class="card-body">
+                                                    <div>
+                                                        <textarea id="" cols="70" rows="5" placeholder="Enter Your Massage Here" name='arrangements_details'></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body" style="display: flex; flex-direction: row">
+                                                    <div>
+                                                        <p>Number of days sickness absent in the last 2 years</p>                                                    
+                                                        <input type="text" id="" style="width: 300px; height: 40px" name='days'>
+                                                    </div>
+                                                    <div style="margin-left: 50px">
+                                                        <p>Please State number of occasions in last 2 year</p>                                                        
+                                                        <input type="text" id="" style="width: 300px; height: 40px" name='state_number'>                                           
+                                                    </div>
+                                                </div><br> 
+                                                <div style="margin-left: 24%" class="card-body" class="center" >
+                                                    <button type="submit" class="btn btn-primary">Update Details</button>
+                                                </div>
+                                                </form>
+                                            </div>
+                                        </div>  
+                                    </div>
+                                </div>    
+
+                    <!-- /Health Tab -->
+
+
+
+
+
+
+
+
                     <!-- Projects Tab -->
                     <div class="tab-pane fade" id="emp_projects">
                         <div class="row">
