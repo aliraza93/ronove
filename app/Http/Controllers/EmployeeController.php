@@ -96,6 +96,7 @@ class EmployeeController extends Controller
     {
         $employee = Employee::where('id', $id)->first();
         $employeeHealth = EmployeeHealth::where('employee_id', $id)->first();
+        
 
         return view('organization.User.show_employee', compact('employee', 'employeeHealth'));
     }

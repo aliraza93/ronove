@@ -62,7 +62,7 @@ Route::group(['middleware' => ['role:organization']], function () {
     //EMployee Health
     Route::post('employee-health/{id}','EmployeeController@storeEmployeeHealth');
     Route::post('employee-health-update/{id}','EmployeeController@updateEmployeeHealth');
-    //Employee Personal Dwetails
+    //Employee Personal Details
     Route::post('details/{id}','EmployeeController@personalDetails');
 
     Route::get('assign-permissions/{id}','EmployeeController@PermissionsList');

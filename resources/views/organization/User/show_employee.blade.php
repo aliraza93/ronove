@@ -251,47 +251,52 @@
 
                                 <div class="card-body" style="display: flex; flex-direction: row">
 
-                                        <div><p>Do you have a disability which  is relevant to your application?</p></div>
+                                        <div>
+                                            <p>Do you have a disability which  is relevant to your application?</p>
+                                        </div>
                                         <div style="margin-left: 70px">
-                                            <input type="radio" class="flat" name="ask"  value="yes" {{ $employeeHealth->ask == 'yes' ? 'checked' : '' }}>
-                                            <label for="yes">Yes</label><br> </div>
+                                            <input type="radio" class="form-control" name="ask"  value="yes" {{ $employeeHealth->disability == 'yes' ? 'checked' : '' }}>
+                                            <label for="yes">Yes</label><br>
+                                        </div>
                                         <div style="margin-left:30px">
-                                            <input type="radio" class="flat" name="ask"  value="no" {{ $employeeHealth->ask == 'no' ? 'checked' : '' }}>
+                                            <input type="radio" class="form-control" name="ask"  value="no" {{ $employeeHealth->disability == 'no' ? 'checked' : '' }}>
                                             <label for="no">No</label><br>
                                         </div>
                                 </div>
                                 <div style="justify-content: center" class="card-body">
-                                        <p>If This, please give details</p>
+                                        <p>If yes, please give details</p>
                                         <div>
-                                        <textarea id="" cols="70" rows="5" placeholder="Enter Your Massage Here" name='disability_details' >{{ $employeeHealth->disability_details }}</textarea>
+                                            <textarea class="form-control" id="" cols="70" rows="5" placeholder="Enter Your Massage Here" name='disability_details' >{{ $employeeHealth->disability_details }}</textarea>
                                         </div>
                                 </div>
                                 <div class="card-body" style="display: flex; flex-direction: row">
                                     <p>Do You need to make specific arrangements in order for you to attend the interview?</p>
 
                                     <div style="margin-left: 50px">
-                                        <input type="radio" class="flat" name="what"  value="yes" {{ $employeeHealth->what == 'yes' ? 'checked' : '' }}>
-                                        <label for="yes">Yes</label><br> </div>
+                                        <input type="radio" class="form-control" name="what"  value="yes" {{ $employeeHealth->arrangements == 'yes' ? 'checked' : '' }}>
+                                        <label for="yes">Yes</label><br>
+                                     </div>
                                     <div style="margin-left:20px">
-                                        <input type="radio" class="flat" name="what"  value="no" {{ $employeeHealth->what == 'no' ? 'checked' : '' }}>
+                                        <input type="radio" class="form-control" name="what"  value="no" {{ $employeeHealth->arrangements == 'no' ? 'checked' : '' }}>
                                         <label for="no">No</label><br>
                                     </div>
                                 </div>
                                 <div class="card-body">
+                                    <p>If Yes, Please give details</p>
                                     <div>
-                                    <textarea id="" cols="70" rows="5" placeholder="Enter Your Massage Here" name='arrangements_details' >{{ $employeeHealth->arrangements_details }}</textarea>
+                                        <textarea class="form-control" id="" cols="70" rows="5" placeholder="Enter Your Massage Here" name='arrangements_details' >{{ $employeeHealth->arrangements_details }}</textarea>
                                     </div>
                                 </div>
                                 <div class="card-body" style="display: flex; flex-direction: row">
                                     <div>
                                         <p>Number of days sickness absent in the last 2 years</p>
-                                        <input type="text" id="" style="width: 300px; height: 40px" name='days' value="{{ $employeeHealth->days }}">
+                                        <input class="form-control" type="text" id="" style="width: 300px; height: 40px" name='days' value="{{ $employeeHealth->days }}">
                                     </div>
                                     <div style="margin-left: 50px">
                                         <p>Please State number of occasions in last 2 year</p>
-                                        <input type="text" id="" style="width: 300px; height: 40px" name='state_number' value="{{ $employeeHealth->state_number }}">
+                                        <input class="form-control" type="text" id="" style="width: 300px; height: 40px" name='state_number' value="{{ $employeeHealth->state_number }}">
                                     </div>
-                                </div><br>
+                                </div>
                                 <div style="margin-left: 24%" class="card-body" class="center" >
                                     <button type="submit" class="btn btn-primary">Update Details</button>
                                 </div>
@@ -302,47 +307,52 @@
 
                                 <div class="card-body" style="display: flex; flex-direction: row">
 
-                                        <div><p>Do you have a disability which  is relevant to your application?</p></div>
+                                        <div>
+                                            <p>Do you have a disability which  is relevant to your application?</p>
+                                        </div>
                                         <div style="margin-left: 70px">
-                                            <input type="radio" class="flat" name="ask"  value="yes">
-                                            <label for="yes">Yes</label><br> </div>
+                                            <input class="form-control" type="radio"  name="ask"  value="yes">
+                                            <label for="yes">Yes</label><br>
+                                        </div>
                                         <div style="margin-left:30px">
-                                            <input type="radio" class="flat" name="ask"  value="no">
+                                            <input class="form-control" type="radio"  name="ask"  value="no">
                                             <label for="no">No</label><br>
                                         </div>
                                 </div>
                                 <div style="justify-content: center" class="card-body">
                                         <p>If This, please give details</p>
                                         <div>
-                                        <textarea id="" cols="70" rows="5" placeholder="Enter Your Massage Here" name='disability_details' ></textarea>
+                                            <textarea class="form-control" id="" cols="70" rows="5" placeholder="Enter Your Massage Here" name='disability_details' ></textarea>
                                         </div>
                                 </div>
                                 <div class="card-body" style="display: flex; flex-direction: row">
                                     <p>Do You need to make specific arrangements in order for you to attend the interview?</p>
 
                                     <div style="margin-left: 50px">
-                                        <input type="radio" class="flat" name="what"  value="yes">
-                                        <label for="yes">Yes</label><br> </div>
+                                        <input class="form-control" type="radio"  name="what"  value="yes">
+                                        <label for="yes">Yes</label><br>
+                                    </div>
                                     <div style="margin-left:20px">
-                                        <input type="radio" class="flat" name="what"  value="no">
+                                        <input class="form-control" type="radio"  name="what"  value="no">
                                         <label for="no">No</label><br>
                                     </div>
                                 </div>
                                 <div class="card-body">
+                                    <p>If yes, please give details</p>
                                     <div>
-                                    <textarea id="" cols="70" rows="5" placeholder="Enter Your Massage Here" name='arrangements_details' ></textarea>
+                                        <textarea class="form-control" id="" cols="70" rows="5" placeholder="Enter Your Massage Here" name='arrangements_details' ></textarea>
                                     </div>
                                 </div>
                                 <div class="card-body" style="display: flex; flex-direction: row">
                                     <div>
                                         <p>Number of days sickness absent in the last 2 years</p>
-                                        <input type="text" id="" style="width: 300px; height: 40px" name='days'>
+                                        <input class="form-control" type="text" id="" style="width: 300px; height: 40px" name='days'>
                                     </div>
                                     <div style="margin-left: 50px">
                                         <p>Please State number of occasions in last 2 year</p>
-                                        <input type="text" id="" style="width: 300px; height: 40px" name='state_number'>
+                                        <input class="form-control" type="text" id="" style="width: 300px; height: 40px" name='state_number'>
                                     </div>
-                                </div><br>
+                                </div>
                                 <div style="margin-left: 24%" class="card-body" class="center" >
                                     <button type="submit" class="btn btn-primary">Save Details</button>
                                 </div>
