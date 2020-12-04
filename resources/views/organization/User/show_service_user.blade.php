@@ -96,6 +96,7 @@
                                 <li class="nav-item"><a href="#mar-sheet" data-toggle="tab" class="nav-link">MAR Sheet</a></li>
                                 <li class="nav-item"><a href="#emp_projects" data-toggle="tab" class="nav-link">Projects</a></li>
                                 <li class="nav-item"><a href="#bank_statutory" data-toggle="tab" class="nav-link">Bank & Statutory <small class="text-danger">(Admin Only)</small></a></li>
+                                
                             </ul>
                         </div>
                     </div>
@@ -841,7 +842,9 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /Bank Statutory Tab -->
+                    <!-- /Bank Statutory Tab -->  
+                </div>
+            </div>
                     
                 </div>
             </div>

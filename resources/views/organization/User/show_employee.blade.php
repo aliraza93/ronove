@@ -8,6 +8,16 @@
             
                 <!-- Page Header -->
                 <div class="page-header">
+                @if (session()->has('alert'))
+                        <div class="alert alert-dismissable alert-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>
+                                {{ Session::get('alert') }}
+                            </strong>
+                        </div>
+                    @endif
                     <div class="row">
                         <div class="col-sm-12">
                             <h3 class="page-title">Profile</h3>
@@ -96,6 +106,9 @@
                                 <li class="nav-item"><a href="#mar-sheet" data-toggle="tab" class="nav-link">MAR Sheet</a></li>
                                 <li class="nav-item"><a href="#emp_projects" data-toggle="tab" class="nav-link">Projects</a></li>
                                 <li class="nav-item"><a href="#bank_statutory" data-toggle="tab" class="nav-link">Bank & Statutory <small class="text-danger">(Admin Only)</small></a></li>
+                                <li class="nav-item"><a href="#emp_nextkin" data-toggle="tab" class="nav-link">Next of Kin Detail</a></li>
+                                
+
                             </ul>
                         </div>
                     </div>
@@ -804,9 +817,120 @@
                         </div>
                     </div>
                     <!-- /Bank Statutory Tab -->
+
+
+                 <!--  next kin detail tab -->
+
+                 <div id="emp_nextkin" class="pro-overview tab-pane fade ">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Next of Kin Detail</h3>
+                                @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                @endif
+                                @if (!$result->isEmpty())
+                                <div class="form-group">
+                                                        <label class="col-form-label">First Name <span class="text-danger"></span></label>
+                                                        <input class="form-control" name="first_name" type="text" value="{{ $employeeNextkin->first_name }}">
+                                                    </div>
+
+
+                                @endif
+                                 <form method="POST" action="{{ url('next-kin') }}/{{ $employee->id }}">
+                                     @csrf
+                                           <div class="row">
+                                                <div class="col-sm-6">
+                                                    
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Second Name <span class="text-danger"></span></label>
+                                                        <input class="form-control" name="last_name" type="text"value="{{$employeeNextkin->last_name }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Address First Line <span class="text-danger"></span></label>
+                                                        <input class="form-control" name="address_first_line" type="text"value="{{ $employeeNextkin ->address_first_line}}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Address Second Line <span class="text-danger"></span></label>
+                                                        <input class="form-control" name="address_second_line" type="text" value="{{$employeeNextkin->address_second_line}}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">City <span class="text-danger"></span></label>
+                                                        <input class="form-control" name="city" type="text" value="{{ $employeeNextkin->city }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">County <span class="text-danger"></span></label>
+                                                        <input class="form-control" name="county" type="text" value="{{  $employeeNextkin->county}}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Country <span class="text-danger"></span></label>
+                                                        <input class="form-control" name="country" type="text" value="{{ $employeeNextkin->country }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Postcode <span class="text-danger"></span></label>
+                                                        <input class="form-control" name="postcode" type="text" value="{{  $employeeNextkin->postcode }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Home Tel <span class="text-danger"></span></label>
+                                                        <input class="form-control" name="home_tel" type="text" value="{{ $employeeNextkin->home_tel }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Mobile <span class="text-danger"></span></label>
+                                                        <input class="form-control" name="mobile" type="text" value="{{ $employeeNextkin->mobile }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Email <span class="text-danger"></span></label>
+                                                        <input class="form-control" name="email" type="text" value="{{ $employeeNextkin->email }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Relatioship <span class="text-danger"></span></label>
+                                                        <input class="form-control" name="relationship" type="text" value="{{ $employeeNextkin->relationship }}">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            
+                                       
+                              
+                                          <div class="submit-section">
+                                           <button class="btn btn-primary submit-btn" type="submit">Submit</button>
+                                        </div>
+                        </form>
                     
                 </div>
             </div>
+
+             <!--  /next kin detail tab -->
+
+
+                    
             <!-- /Page Content -->
             
             <!-- Profile Modal -->
@@ -1424,6 +1548,8 @@
                 </div>
             </div>
             <!-- /Experience Modal -->
+
+            
             
         </div>
         <!-- /Page Wrapper -->

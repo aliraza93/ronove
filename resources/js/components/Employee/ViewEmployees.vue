@@ -50,6 +50,7 @@
                       <div class="dropdown-menu dropdown-menu-right">
                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_employee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#assign-permissions"><i class="fa fa-pencil m-r-5"></i> Assign Permissions</a>
                       </div>
                   </div>
                   <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="profile">{{ value.first_name }} {{ value.last_name }}</a></h4>
@@ -68,6 +69,7 @@
       <div class="row">
         <update-employee></update-employee>
         <assign-system></assign-system>
+        <assign-permissions></assign-permissions>
       </div>
   </div>
 </template>

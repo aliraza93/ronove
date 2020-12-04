@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\EmployeeNextKin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
@@ -64,7 +65,17 @@ class EmployeeController extends Controller
     public function showProfile($id)
     {
         $employee = Employee::where('id', $id)->first();
-        return view('organization.User.show_employee', compact('employee'));
+        $employeeNextkin = EmployeeNextKin::where('employee_id', $id)->first();
+        //dd($employeeNextkin);
+        return view('organization.User.show_employee', compact('employee','employeeNextkin'));
+       
+        
+    
+    }
+
+    public function showDashboard()
+    {
+        return view('dashboard');
     }
 
     /**
@@ -275,4 +286,38 @@ class EmployeeController extends Controller
         //$employee->removeRole('organization');
         //$employee->delete();
     }
+
+    public function nextKin(Request $request, $id){
+        $request->validate([
+            'county' => 'required',
+            'country' => 'required',
+            'first_name' => 'required', 
+            'last_name' => 'required',
+            'address_first_line' => 'required',
+            'city' => 'required',
+            'postcode' => 'required',
+            'mobile' => 'required',
+            'email' => 'required',
+        ]);
+        
+            
+            $employee = new EmployeeNextKin;           
+            $employee->first_name = $request->first_name;
+            $employee->last_name = $request->last_name;
+            $employee->address_first_line = $request->address_first_line;
+            $employee->address_second_line = $request->address_second_line;
+            $employee->city = $request->city;
+            $employee->county = $request->county;
+            $employee->country = $request->country;
+            $employee->postcode = $request->postcode;
+            $employee->home_tel = $request->home_tel;
+            $employee->mobile = $request->mobile;
+            $employee->email = $request->email;
+            $employee->relationship = $request->relationship;
+            $employee->employee_id = $id;
+        
+            $employee->save();
+            return redirect()->back() ->with('alert', 'Employee Next Of Kin Added Successfully');
+        }
+        
 }

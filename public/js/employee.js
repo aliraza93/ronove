@@ -2618,6 +2618,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -56329,7 +56331,13 @@ var render = function() {
       _c(
         "div",
         { staticClass: "row" },
-        [_c("update-employee"), _vm._v(" "), _c("assign-system")],
+        [
+          _c("update-employee"),
+          _vm._v(" "),
+          _c("assign-system"),
+          _vm._v(" "),
+          _c("assign-permissions")
+        ],
         1
       )
     ],
@@ -56380,6 +56388,22 @@ var staticRenderFns = [
             }
           },
           [_c("i", { staticClass: "fa fa-trash-o m-r-5" }), _vm._v(" Delete")]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "dropdown-item",
+            attrs: {
+              href: "#",
+              "data-toggle": "modal",
+              "data-target": "#assign-permissions"
+            }
+          },
+          [
+            _c("i", { staticClass: "fa fa-pencil m-r-5" }),
+            _vm._v(" Assign Permissions")
+          ]
         )
       ])
     ])
