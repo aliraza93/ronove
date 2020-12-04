@@ -2562,238 +2562,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
-<<<<<<< HEAD
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'update-organization',
-  mixins: [_mixin__WEBPACK_IMPORTED_MODULE_1___default.a],
-  data: function data() {
-    return {
-      organization: {
-        id: '',
-        name: '',
-        address: '',
-        phone: '',
-        email: '',
-        password: '',
-        code: '',
-        status: '',
-        password_confirmation: ''
-      },
-      errors: null,
-      notificationSystem: {
-        options: {
-          success: {
-            position: "topRight",
-            timeout: 3000,
-            "class": 'success_notification'
-          },
-          error: {
-            position: "topRight",
-            timeout: 4000,
-            "class": 'error_notification'
-          },
-          completed: {
-            position: 'center',
-            timeout: 1000,
-            "class": 'complete_notification'
-          },
-          info: {
-            overlay: true,
-            zindex: 999,
-            position: 'center',
-            timeout: 3000,
-            "class": 'info_notification'
-          }
-        }
-      }
-    };
-  },
-  created: function created() {
-    var _this = this;
-
-    _vue_asset__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('organization-edit', function (id) {
-      _this.organization.id = id;
-
-      _this.getEditData(id);
-
-      $('#update-organization').modal('show');
-    });
-    $('#update-organization').on('hidden.bs.modal', function () {
-      _this.resetForm();
-    });
-  },
-  methods: {
-    getEditData: function getEditData(id) {
-      var _this2 = this;
-
-      axios.get(base_url + 'organization/' + id + '/edit').then(function (response) {
-        _this2.organization = {
-          id: response.data.id,
-          name: response.data.name,
-          status: response.data.status,
-          address: response.data.address,
-          phone: response.data.phone,
-          email: response.data.email,
-          password: response.data.password,
-          code: response.data.code,
-          password_confirmation: response.data.password
-        };
-      });
-    },
-    updateOrganization: function updateOrganization() {
-      var _this3 = this;
-
-      axios.post(base_url + "organization/update/" + this.organization.id, this.organization).then(function (response) {
-        $("#update-organization").modal("hide");
-        _vue_asset__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("organization-added");
-
-        _this3.showMessage(response.data);
-
-        _this3.resetForm();
-      })["catch"](function (err) {
-        if (err.response) {
-          _this3.errors = err.response.data.errors;
-
-          _this3.showMessage(err.response.data); //this.$toast.error("Something Went Wrong", 'Error', { timeout: 3000 } );
-
-        }
-      });
-    },
-    showMessage: function showMessage(data) {
-      if (data.status == "success") {
-        this.$toast.success(data.message, 'Success Alert', this.notificationSystem.options.success);
-      } else {
-        this.$toast.error(data.message, "Error Alert", this.notificationSystem.options.error);
-      }
-    },
-    resetForm: function resetForm() {
-      this.organization = {
-        id: '',
-        name: '',
-        address: '',
-        phone: '',
-        email: '',
-        password: '',
-        code: '',
-        status: '',
-        password_confirmation: ''
-      };
-      this.errors = null;
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Employee/ViewEmployees.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Employee/ViewEmployees.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _vue_asset__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../vue-asset */ "./resources/js/vue-asset.js");
-/* harmony import */ var _mixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixin */ "./resources/js/mixin.js");
-/* harmony import */ var _mixin__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mixin__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _UpdateEmployee_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UpdateEmployee.vue */ "./resources/js/components/Employee/UpdateEmployee.vue");
-/* harmony import */ var _AssignPermissions_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AssignPermissions.vue */ "./resources/js/components/Employee/AssignPermissions.vue");
-/* harmony import */ var _AssignSystem_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./AssignSystem.vue */ "./resources/js/components/Employee/AssignSystem.vue");
-/* harmony import */ var _pagination_pagination_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../pagination/pagination.vue */ "./resources/js/components/pagination/pagination.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-=======
->>>>>>> 2bfccdc20c06b242cd4c8b9a0b5bf814018a50a9
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -56273,23 +56043,11 @@ var render = function() {
                             _vm._m(1, true),
                             _vm._v(" "),
                             _vm._m(2, true),
-<<<<<<< HEAD
                             _vm._v(" "),
                             _vm._m(3, true),
                             _vm._v(" "),
                             _vm._m(4, true),
                             _vm._v(" "),
-=======
-                            _vm._v(
-                              "\n<<<<<<< HEAD\n                          "
-                            ),
-                            _vm._m(3, true),
-                            _vm._v(
-                              "\n=======\n<<<<<<< HEAD\n                          "
-                            ),
-                            _vm._m(4, true),
-                            _vm._v("\n=======\n                          "),
->>>>>>> 2bfccdc20c06b242cd4c8b9a0b5bf814018a50a9
                             _c(
                               "a",
                               {
@@ -56309,9 +56067,6 @@ var render = function() {
                                 _c("i", { staticClass: "fa fa-pencil m-r-5" }),
                                 _vm._v(" Assign Permissions")
                               ]
-                            ),
-                            _vm._v(
-                              "\n\n>>>>>>> 0251f0e534efe2a3177c962e6616885e72e3ae64\n>>>>>>> 1b8d4062cbc9d336ca257d210c752c1d678c7e46\n                      "
                             )
                           ]
                         )

@@ -29,7 +29,7 @@ Route::post('/login','UserController@login')->name('login');
 |
 */
 Route::group(['middleware' => ['role:admin']], function () {
-    
+
     //System
     Route::resource('system', 'SystemController');
     Route::get('system/delete/{id}','SystemController@destroy');
@@ -51,7 +51,7 @@ Route::group(['middleware' => ['role:admin']], function () {
 Route::group(['middleware' => ['role:organization']], function () {
     Route::get('my-organization', 'OrganizationController@create')->name('MyOrganization');
     Route::get('Organization', 'UserController@AccessOrganizationAndSystems')->name('admin.systems.Organization');
-    
+
     //Employee
     Route::resource('employee', 'EmployeeController');
     Route::get('employee/delete/{id}','EmployeeController@destroy');
@@ -59,9 +59,12 @@ Route::group(['middleware' => ['role:organization']], function () {
     Route::get('employee-list','EmployeeController@EmployeeList');
     Route::get('employee-show/{id}','EmployeeController@showProfile');
     Route::get('dashboard', 'EmployeeController@showDashboard')->name('employee.dashboard');
+    //EMployee Health
     Route::post('employee-health/{id}','EmployeeController@storeEmployeeHealth');
+    Route::post('employee-health-update/{id}','EmployeeController@updateEmployeeHealth');
+    //Employee Personal Dwetails
     Route::post('details/{id}','EmployeeController@personalDetails');
-    
+
     Route::get('assign-permissions/{id}','EmployeeController@PermissionsList');
     Route::post('assign-permissions/update/{employee}/{id}','EmployeeController@assignPermission');
     Route::post('employee-bank-details/{id}','EmployeeController@storeEmployeeBankDetails' );

@@ -2,10 +2,10 @@
 @section('content')
 <!-- Page Wrapper -->
 <div class="page-wrapper" id="employee_details">
-        
+
     <!-- Page Content -->
     <div class="content container-fluid">
-    
+
         <!-- Page Header -->
         <div class="page-header">
             @if (session()->has('alert'))
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <!-- /Page Header -->
-        
+
         <div class="card mb-0">
             <div class="card-body">
                 <div class="row">
@@ -96,7 +96,7 @@
                 </div>
             </div>
 
-            
+
             <div class="card tab-box">
                 <div class="row user-tabs">
                     <div class="col-lg-12 col-md-12 col-sm-12 line-tabs">
@@ -113,7 +113,7 @@
                 </div>
             </div>
         </div>
-            
+
         <div class="tab-content">
             <!-- Profile Info Tab -->
             <div id="emp_profile" class="pro-overview tab-pane fade show active">
@@ -160,30 +160,30 @@
                                         <input class="form-control" value="" type="email" name="email_address">
                                     </div>
                                 </div>
-                                
+
                                 <div class="card-body" style="display: flex; flex-direction: row">
                                         <div><p>Can we contact you at work?</p>
                                         </div>
-                                        <div style="margin-left: 70px"> 
+                                        <div style="margin-left: 70px">
                                         <input type="radio" id="yes" name="ask" value="yes">
-                                        <label for="yes">Yes</label> 
+                                        <label for="yes">Yes</label>
                                         </div>
                                         <div style="margin-left:30px">
                                         <input type="radio" id="no" name="ask" value="no">
                                         <label for="female">No</label>
-                                        </div>                                                     
+                                        </div>
                                 </div>
-                                
+
                                 <div class="card-body" style="display: flex; flex-direction: row">
-                                    <div><p>Are you free to remain and take up employment 
-                                        in the UK with no current migration 
+                                    <div><p>Are you free to remain and take up employment
+                                        in the UK with no current migration
                                     restrictions?</p></div>
                                     <div style="margin-left: 70px"> <input type="radio" id="yes" name="ask1" value="yes">
                                         <label for="yes">Yes</label><br> </div>
                                         <div style="margin-left:30px">
                                         <input type="radio" id="no" name="ask1" value="no">
                                         <label for="female">No</label><br>
-                                    </div>   <br>                                                    
+                                    </div>   <br>
                                 </div>
                                 <div class="card-body" style="display: flex; flex-direction: row">
                                     <div><p>Are you applying on a job share basis?</p></div>
@@ -192,7 +192,7 @@
                                         <div style="margin-left:30px">
                                         <input type="radio" id="no" name="ask2" value="no">
                                         <label for="female">No</label><br>
-                                    </div>                                                       
+                                    </div>
                                 </div>
                                 <div class="card-body" style="display: flex; flex-direction: row">
                                     <div><p>Do you hold a full clean driving licence valid in the UK? </p></div>
@@ -201,7 +201,7 @@
                                         <div style="margin-left:30px">
                                         <input type="radio" id="no" name="ask3" value="no">
                                         <label for="female">No</label><br>
-                                    </div>                                                       
+                                    </div>
                                 </div>
                                 <div class="card-body" style="display: flex; flex-direction: row">
                                     <div><p>Does your licence inckude C1 category?</p></div>
@@ -210,14 +210,14 @@
                                         <div style="margin-left:30px">
                                         <input type="radio" id="no" name="ask4" value="no">
                                         <label for="female">No</label><br>
-                                    </div>                                                       
+                                    </div>
                                 </div>
-                            
-                            </div>    
+
+                            </div>
                             <div class="submit-section margin: 50%;">
                                 <button type="submit" class="btn btn-primary submit-btn" >Save</button>
                             </div>
-                            
+
                         </form>
                     </div>
                 </div>
@@ -242,59 +242,112 @@
                                 {{ Session::get('alert') }}
                             </div>
                             @endif     --}}
-                            
-                    </div>                                                                   
-                    <div class="card profile-box flex-fill">                         
-                        <form action="{{ url('employee-health')}}/{{ $employee->id }}" method="POST">
-                                @csrf
-                                
-                            <div class="card-body" style="display: flex; flex-direction: row">
-                                
-                                    <div><p>Do you have a disability which  is relevant to your application?</p></div>
-                                    <div style="margin-left: 70px"> 
-                                        <input type="radio" class="flat" name="ask"  value="yes" {{ $employeeHealth->ask == 'yes' ? 'checked' : '' }}>
-                                        <label for="yes">Yes</label><br> </div>
-                                    <div style="margin-left:30px">
-                                        <input type="radio" class="flat" name="ask"  value="no" {{ $employeeHealth->ask == 'no' ? 'checked' : '' }}>
-                                        <label for="no">No</label><br>
-                                    </div>                                                       
-                            </div>
-                            <div style="justify-content: center" class="card-body">
-                                    <p>If This, please give details</p>
-                                    <div>
-                                    <textarea id="" cols="70" rows="5" placeholder="Enter Your Massage Here" name='disability_details' >{{ $employeeHealth->disability_details }}</textarea>
-                                    </div>
-                            </div>
-                            <div class="card-body" style="display: flex; flex-direction: row">
-                                <p>Do You need to make specific arrangements in order for you to attend the interview?</p>
 
-                                <div style="margin-left: 50px">
-                                    <input type="radio" class="flat" name="what"  value="yes" {{ $employeeHealth->what == 'yes' ? 'checked' : '' }}>
-                                    <label for="yes">Yes</label><br> </div>
-                                <div style="margin-left:20px">
-                                    <input type="radio" class="flat" name="what"  value="no" {{ $employeeHealth->what == 'no' ? 'checked' : '' }}>
-                                    <label for="no">No</label><br>
-                                </div>                                           
-                            </div>
-                            <div class="card-body">
-                                <div>
-                                <textarea id="" cols="70" rows="5" placeholder="Enter Your Massage Here" name='arrangements_details' >{{ $employeeHealth->arrangements_details }}</textarea>
+                    </div>
+                    <div class="card profile-box flex-fill">
+                        @if (!empty($employeeHealth))
+                            <form action="{{ url('employee-health-update')}}/{{ $employeeHealth->id }}" method="POST">
+                                @csrf
+
+                                <div class="card-body" style="display: flex; flex-direction: row">
+
+                                        <div><p>Do you have a disability which  is relevant to your application?</p></div>
+                                        <div style="margin-left: 70px">
+                                            <input type="radio" class="flat" name="ask"  value="yes" {{ $employeeHealth->ask == 'yes' ? 'checked' : '' }}>
+                                            <label for="yes">Yes</label><br> </div>
+                                        <div style="margin-left:30px">
+                                            <input type="radio" class="flat" name="ask"  value="no" {{ $employeeHealth->ask == 'no' ? 'checked' : '' }}>
+                                            <label for="no">No</label><br>
+                                        </div>
                                 </div>
-                            </div>
-                            <div class="card-body" style="display: flex; flex-direction: row">
-                                <div>
-                                    <p>Number of days sickness absent in the last 2 years</p>                                                    
-                                    <input type="text" id="" style="width: 300px; height: 40px" name='days' value="{{ $employeeHealth->days }}">
+                                <div style="justify-content: center" class="card-body">
+                                        <p>If This, please give details</p>
+                                        <div>
+                                        <textarea id="" cols="70" rows="5" placeholder="Enter Your Massage Here" name='disability_details' >{{ $employeeHealth->disability_details }}</textarea>
+                                        </div>
                                 </div>
-                                <div style="margin-left: 50px">
-                                    <p>Please State number of occasions in last 2 year</p>                                                        
-                                    <input type="text" id="" style="width: 300px; height: 40px" name='state_number' value="{{ $employeeHealth->state_number }}">                                                                              
+                                <div class="card-body" style="display: flex; flex-direction: row">
+                                    <p>Do You need to make specific arrangements in order for you to attend the interview?</p>
+
+                                    <div style="margin-left: 50px">
+                                        <input type="radio" class="flat" name="what"  value="yes" {{ $employeeHealth->what == 'yes' ? 'checked' : '' }}>
+                                        <label for="yes">Yes</label><br> </div>
+                                    <div style="margin-left:20px">
+                                        <input type="radio" class="flat" name="what"  value="no" {{ $employeeHealth->what == 'no' ? 'checked' : '' }}>
+                                        <label for="no">No</label><br>
+                                    </div>
                                 </div>
-                            </div><br> 
-                            <div style="margin-left: 24%" class="card-body" class="center" >
-                                <button type="submit" class="btn btn-primary">Update Details</button>
-                            </div>
-                        </form>
+                                <div class="card-body">
+                                    <div>
+                                    <textarea id="" cols="70" rows="5" placeholder="Enter Your Massage Here" name='arrangements_details' >{{ $employeeHealth->arrangements_details }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="card-body" style="display: flex; flex-direction: row">
+                                    <div>
+                                        <p>Number of days sickness absent in the last 2 years</p>
+                                        <input type="text" id="" style="width: 300px; height: 40px" name='days' value="{{ $employeeHealth->days }}">
+                                    </div>
+                                    <div style="margin-left: 50px">
+                                        <p>Please State number of occasions in last 2 year</p>
+                                        <input type="text" id="" style="width: 300px; height: 40px" name='state_number' value="{{ $employeeHealth->state_number }}">
+                                    </div>
+                                </div><br>
+                                <div style="margin-left: 24%" class="card-body" class="center" >
+                                    <button type="submit" class="btn btn-primary">Update Details</button>
+                                </div>
+                            </form>
+                        @else
+                            <form action="{{ url('employee-health')}}/{{ $employee->id }}" method="POST">
+                                @csrf
+
+                                <div class="card-body" style="display: flex; flex-direction: row">
+
+                                        <div><p>Do you have a disability which  is relevant to your application?</p></div>
+                                        <div style="margin-left: 70px">
+                                            <input type="radio" class="flat" name="ask"  value="yes">
+                                            <label for="yes">Yes</label><br> </div>
+                                        <div style="margin-left:30px">
+                                            <input type="radio" class="flat" name="ask"  value="no">
+                                            <label for="no">No</label><br>
+                                        </div>
+                                </div>
+                                <div style="justify-content: center" class="card-body">
+                                        <p>If This, please give details</p>
+                                        <div>
+                                        <textarea id="" cols="70" rows="5" placeholder="Enter Your Massage Here" name='disability_details' ></textarea>
+                                        </div>
+                                </div>
+                                <div class="card-body" style="display: flex; flex-direction: row">
+                                    <p>Do You need to make specific arrangements in order for you to attend the interview?</p>
+
+                                    <div style="margin-left: 50px">
+                                        <input type="radio" class="flat" name="what"  value="yes">
+                                        <label for="yes">Yes</label><br> </div>
+                                    <div style="margin-left:20px">
+                                        <input type="radio" class="flat" name="what"  value="no">
+                                        <label for="no">No</label><br>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div>
+                                    <textarea id="" cols="70" rows="5" placeholder="Enter Your Massage Here" name='arrangements_details' ></textarea>
+                                    </div>
+                                </div>
+                                <div class="card-body" style="display: flex; flex-direction: row">
+                                    <div>
+                                        <p>Number of days sickness absent in the last 2 years</p>
+                                        <input type="text" id="" style="width: 300px; height: 40px" name='days'>
+                                    </div>
+                                    <div style="margin-left: 50px">
+                                        <p>Please State number of occasions in last 2 year</p>
+                                        <input type="text" id="" style="width: 300px; height: 40px" name='state_number'>
+                                    </div>
+                                </div><br>
+                                <div style="margin-left: 24%" class="card-body" class="center" >
+                                    <button type="submit" class="btn btn-primary">Save Details</button>
+                                </div>
+                            </form>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -347,7 +400,7 @@
                                     </li>
                                 </ul> -->
                             </div>
-                        </div>  
+                        </div>
                     </div>
                     <div class="col-md-6 d-flex">
                         <div class="card profile-box flex-fill">
@@ -369,7 +422,7 @@
                                     </li>
                                 </ul> -->
                             </div>
-                        </div>   
+                        </div>
                     </div>
                     <div class="col-md-6 d-flex">
                         <div class="card profile-box flex-fill">
@@ -391,13 +444,13 @@
                                     </li>
                                 </ul> -->
                             </div>
-                        </div>   
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>    
+        </div>
         <!-- /Page Content -->
-        
+
         <!-- Profile Modal -->
         <div id="profile_info" class="modal custom-modal fade" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -526,7 +579,7 @@
             </div>
         </div>
         <!-- /Profile Modal -->
-        
+
         <!-- Personal Info Modal -->
         <div id="personal_info_modal" class="modal custom-modal fade" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -606,7 +659,7 @@
             </div>
         </div>
         <!-- /Personal Info Modal -->
-        
+
         <!-- Family Info Modal -->
         <div id="family_info_modal" class="modal custom-modal fade" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -651,7 +704,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="card">
                                     <div class="card-body">
                                         <h3 class="card-title">Education Informations <a href="javascript:void(0);" class="delete-icon"><i class="fa fa-trash-o"></i></a></h3>
@@ -696,7 +749,7 @@
             </div>
         </div>
         <!-- /Family Info Modal -->
-        
+
         <!-- Emergency Contact Modal -->
         <div id="emergency_contact_modal" class="modal custom-modal fade" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -740,7 +793,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="card">
                                 <div class="card-body">
                                     <h3 class="card-title">Primary Contact</h3>
@@ -781,7 +834,7 @@
             </div>
         </div>
         <!-- /Emergency Contact Modal -->
-        
+
         <!-- Education Modal -->
         <div id="education_info" class="modal custom-modal fade" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -842,7 +895,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="card">
                                     <div class="card-body">
                                         <h3 class="card-title">Education Informations <a href="javascript:void(0);" class="delete-icon"><i class="fa fa-trash-o"></i></a></h3>
@@ -903,7 +956,7 @@
             </div>
         </div>
         <!-- /Education Modal -->
-        
+
         <!-- Experience Modal -->
         <div id="experience_info" class="modal custom-modal fade" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -958,7 +1011,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="card">
                                     <div class="card-body">
                                         <h3 class="card-title">Experience Informations <a href="javascript:void(0);" class="delete-icon"><i class="fa fa-trash-o"></i></a></h3>
@@ -1016,7 +1069,7 @@
 </div>
     <!-- /Page Wrapper -->
     <script type="text/javascript">
-        var base_url = "{{ url('/').'/' }}"; 
+        var base_url = "{{ url('/').'/' }}";
     </script>
     <script src="{{ url('js/employee_details.js') }}"></script>
 @endsection
