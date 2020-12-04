@@ -96,9 +96,12 @@ class EmployeeController extends Controller
     {
         $employee = Employee::where('id', $id)->first();
         $employeeHealth = EmployeeHealth::where('employee_id', $id)->first();
-        
-
         return view('organization.User.show_employee', compact('employee', 'employeeHealth'));
+
+        $employee = Employee::where('id', $id)->first();
+        $personaldetails = EmployeePersonalDetails::where('employee_id', $id)->first();
+        return view('organization.User.show_employee', compact('employee','personaldetails' ));
+
     }
 
     public function showDashboard()
@@ -443,10 +446,37 @@ class EmployeeController extends Controller
 
         $employee->save();
 
-        return redirect()->back() ->with('alert', 'Employee Personal Details Updated Succesfully!');
+        return redirect()->back() ->with('alert', 'Employee Personal Details Save Successfully!');
 
 
 
 
+    }
+
+    public function updatePersonalDetails(Request $request, $id)
+        {
+        $request->validate([
+            'home_tel_no' => 'required',
+            'day_tel_no' => 'required',
+            'national_no' => 'required',
+            'email_address' => 'required',
+            // 'contact_at_work' => 'required',
+            // 'are_you_free' => 'required',
+            // 'are_you_applying' => 'required',
+            // 'driving_license' => 'required',
+            // 'license_category' => 'required',
+        ]);
+            $employee = EmployeePersonalDetails::find($id);
+            $employee->home_tel_no = $request->home_tel_no;
+            $employee->day_tel_no = $request->day_tel_no;
+            $employee->national_no = $request->national_no;
+            $employee->email_address = $request->email_address;
+            $employee->contact_at_work = $request->ask;
+            $employee->are_you_free = $request->ask1;
+            $employee->are_you_applying = $request->ask2;
+            $employee->driving_license = $request->ask3;
+            $employee->license_category = $request->ask4;
+            $employee->save();
+            return redirect()->back() ->with('alert', 'Employee Personal Details Updated Successfully!');
     }
 }

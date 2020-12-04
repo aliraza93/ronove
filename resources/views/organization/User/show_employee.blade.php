@@ -222,6 +222,210 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Personal Details -->
+            <div id="emp_profile" class="pro-overview tab-pane fade">
+                <div class="row">
+                    <div class="col-md-12">
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+                        @if (!empty($personadetails))
+                            <form action="{{ url('details-update') }}/{{$personadetails->id}}" method="POST">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Home Telephone No <span class="text-danger">*</span></label>
+                                            <input class="form-control" value="{{  $personadetails->home_tel_no }}" type="text" name="home_tel_no">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">DayTime Telephone No</label>
+                                            <input class="form-control" value="{{  $personadetails->day_tel_no }}" type="text" name="day_tel_no">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">National Insurance No <span class="text-danger">*</span></label>
+                                            <input class="form-control" value="{{  $personadetails->national_no }}" type="text" name="national_no">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">E-mail Address <span class="text-danger">*</span></label>
+                                            <input class="form-control" value="{{  $personadetails->email_address }}" type="email" name="email_address">
+                                        </div>
+                                    </div>
+                                    <div class="card-body" style="display: flex; flex-direction: row">
+                                            <div><p>Can we contact you at work?</p>
+                                            </div>
+                                            <div style="margin-left: 70px">
+                                                <input class="form-control" type="radio" id="yes" name="ask" value="yes" {{ $personadetails->contact_at_work == 'yes' ? 'checked' : '' }} >
+                                                <label for="yes">Yes</label>
+                                            </div><br>
+                                            <div style="margin-left: 30px">
+                                                <input class="form-control" type="radio" id="yes" name="ask" value="no" {{ $personadetails->contact_at_work == 'no' ? 'checked' : '' }} >
+                                                <label for="no">No</label>
+                                            </div>
+                                    </div>
+                                    <div class="card-body" style="display: flex; flex-direction: row">
+                                        <div><p>Are you free to remain and take up employment
+                                            in the UK with no current migration
+                                        restrictions?</p>
+                                        </div>
+                                        <div style="margin-left: 70px">
+                                            <input class="form-control" type="radio" id="yes" name="ask1" value="yes" {{ $personadetails->contact_at_work == 'yes' ? 'checked' : '' }} >
+                                            <label for="yes">Yes</label>
+                                        </div><br>
+                                        <div style="margin-left: 30px">
+                                            <input class="form-control" type="radio" id="yes" name="ask1" value="no" {{ $personadetails->contact_at_work == 'no' ? 'checked' : '' }} >
+                                            <label for="no">No</label>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" style="display: flex; flex-direction: row">
+                                        <div><p>Are you applying on a job share basis?</p>
+                                        </div>
+                                        <div style="margin-left: 70px">
+                                            <input class="form-control" type="radio" id="yes" name="ask2" value="yes" {{ $personadetails->contact_at_work == 'yes' ? 'checked' : '' }} >
+                                            <label for="yes">Yes</label>
+                                        </div><br>
+                                        <div style="margin-left: 30px">
+                                            <input class="form-control" type="radio" id="yes" name="ask2" value="no" {{ $personadetails->contact_at_work == 'no' ? 'checked' : '' }} >
+                                            <label for="no">No</label>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" style="display: flex; flex-direction: row">
+                                        <div><p>Do you hold a full clean driving licence valid in the UK? </p>
+                                        </div>
+                                        <div style="margin-left: 70px">
+                                            <input class="form-control" type="radio" id="yes" name="ask3" value="yes" {{ $personadetails->contact_at_work == 'yes' ? 'checked' : '' }} >
+                                            <label for="yes">Yes</label>
+                                        </div><br>
+                                        <div style="margin-left: 30px">
+                                            <input class="form-control" type="radio" id="yes" name="ask3" value="no" {{ $personadetails->contact_at_work == 'no' ? 'checked' : '' }} >
+                                            <label for="no">No</label>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" style="display: flex; flex-direction: row">
+                                        <div><p>Does your licence inckude C1 category?</p>
+                                        </div>
+                                        <div style="margin-left: 70px">
+                                            <input type="radio" id="yes" name="ask4" value="yes" {{ $personadetails->contact_at_work == 'yes' ? 'checked' : '' }} >
+                                            <label for="yes">Yes</label>
+                                        </div><br>
+                                        <div style="margin-left: 30px; margin-top: -15px">
+                                            <input class="form-control" type="radio" id="yes" name="ask4" value="no" {{ $personadetails->contact_at_work == 'no' ? 'checked' : '' }} >
+                                            <label for="no">No</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="submit-section margin: 50%;">
+                                    <button type="submit" class="btn btn-primary submit-btn" >Update</button>
+                                </div>
+                            </form>
+                        @else
+                            <form action="{{ url('details') }}/{{$employee->id}}" method="POST">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Home Telephone No <span class="text-danger">*</span></label>
+                                            <input class="form-control"  type="text" name="home_tel_no">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">DayTime Telephone No</label>
+                                            <input class="form-control"  type="text" name="day_tel_no">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">National Insurance No <span class="text-danger">*</span></label>
+                                            <input class="form-control"  type="text" name="national_no">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">E-mail Address <span class="text-danger">*</span></label>
+                                            <input class="form-control"  type="email" name="email_address">
+                                        </div>
+                                    </div>
+                                    <div class="card-body" style="display: flex; flex-direction: row">
+                                            <div><p>Can we contact you at work?</p>
+                                            </div>
+                                            <div style="margin-left: 70px">
+                                                <input type="radio" id="yes" name="ask" >
+                                                <label for="yes">Yes</label>
+                                            </div><br>
+                                            <div style="margin-left:30px">
+                                                <input type="radio" id="no" name="ask" >
+                                                <label for="female">No</label>
+                                            </div>
+                                    </div>
+                                    <div class="card-body" style="display: flex; flex-direction: row">
+                                        <div><p>Are you free to remain and take up employment
+                                            in the UK with no current migration
+                                            restrictions?</p>
+                                        </div>
+                                        <div style="margin-left: 70px">
+                                            <input type="radio" id="yes" name="ask1" >
+                                            <label for="yes">Yes</label><br>
+                                        </div>
+                                        <div style="margin-left:30px">
+                                            <input type="radio" id="no" name="ask1" >
+                                            <label for="female">No</label><br>
+                                        </div>   <br>
+                                    </div>
+                                    <div class="card-body" style="display: flex; flex-direction: row">
+                                        <div><p>Are you applying on a job share basis?</p></div>
+                                        <div style="margin-left: 70px"> <input type="radio" id="yes" name="ask2">
+                                            <label for="yes">Yes</label><br>
+                                        </div>
+                                            <div style="margin-left:30px">
+                                            <input type="radio" id="no" name="ask2" >
+                                            <label for="female">No</label><br>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" style="display: flex; flex-direction: row">
+                                        <div><p>Do you hold a full clean driving licence valid in the UK? </p></div>
+                                        <div style="margin-left: 70px"> <input type="radio" id="yes" name="ask3" >
+                                            <label for="yes">Yes</label><br>
+                                        </div>
+                                            <div style="margin-left:30px">
+                                            <input type="radio" id="no" name="ask3" >
+                                            <label for="female">No</label><br>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" style="display: flex; flex-direction: row">
+                                        <div><p>Does your licence inckude C1 category?</p></div>
+                                        <div style="margin-left: 70px"> <input type="radio" id="yes" name="ask4">
+                                            <label for="yes">Yes</label><br>
+                                        </div>
+                                            <div style="margin-left:30px">
+                                            <input type="radio" id="no" name="ask4">
+                                            <label for="female">No</label><br>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="submit-section margin: 50%;">
+                                    <button type="submit" class="btn btn-primary submit-btn" >Save</button>
+                                </div>
+                            </form>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+
             <!-- /Health Tab -->
 
             <div id="emp_health" class="pro-overview tab-pane fade">
