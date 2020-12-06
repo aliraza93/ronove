@@ -315,9 +315,43 @@ class EmployeeController extends Controller
             $employee->email = $request->email;
             $employee->relationship = $request->relationship;
             $employee->employee_id = $id;
-        
+            
             $employee->save();
             return redirect()->back() ->with('alert', 'Employee Next Of Kin Added Successfully');
         }
+        public function updateNextKin(Request $request, $id){
+            $request->validate([
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'address_first_line' => 'required',
+                'city' => 'required',
+                'county' => 'required',
+                'country' => 'required',
+                'postcode' => 'required',
+                'mobile' => 'required',
+                'email' => 'required',
+            ]);
+            
+                
+            $employee =  EmployeeNextKin::find($id);
+            $employee->first_name = $request->first_name;
+            $employee->last_name = $request->last_name;
+            $employee->address_first_line = $request->address_first_line;
+            $employee->address_second_line = $request->address_second_line;
+            $employee->city = $request->city;
+            $employee->county = $request->county;
+            $employee->country = $request->country;
+            $employee->postcode = $request->postcode;
+            $employee->home_tel = $request->home_tel;
+            $employee->mobile = $request->mobile;
+            $employee->email = $request->email;
+            $employee->relationship = $request->relationship;
+
+            // dd($employee);
+        
+            $employee->update();
+            return redirect()->back() ->with('alert', 'Employee Next Of Kin updated Successfully');
+            }
         
 }
+    

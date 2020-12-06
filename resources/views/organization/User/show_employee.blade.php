@@ -819,113 +819,188 @@
                     <!-- /Bank Statutory Tab -->
 
 
-                 <!--  next kin detail tab -->
+                 <!--  next of kin detail tab -->
 
                  <div id="emp_nextkin" class="pro-overview tab-pane fade ">
                         <div class="card">
                             <div class="card-body">
                                 <h3 class="card-title">Next of Kin Detail</h3>
                                 @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                @endforeach
+                                        </ul>
+                                    </div>
+                                
                                 @endif
-                                @if (!$result->isEmpty())
-                                <div class="form-group">
+             <!--  next of kin detail tab -->
+
+                                @if (!empty($employeeNextkin))
+                                    <form method="POST" action="{{ url('next-kin-update') }}/{{ $employeeNextkin->id }}">
+                                        @csrf 
+                                                <div class="row">
+                                                        <div class="col-sm-6">
+                                                        <div class="form-group">
                                                         <label class="col-form-label">First Name <span class="text-danger"></span></label>
-                                                        <input class="form-control" name="first_name" type="text" value="{{ $employeeNextkin->first_name }}">
+                                                                <input class="form-control" name="first_name" type="text"" value="{{$employeeNextkin->last_name }}">
+                                                        </div></div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Second Name <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="last_name" type="text"value="{{$employeeNextkin->last_name }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Address First Line <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="address_first_line" type="text"value="{{ $employeeNextkin ->address_first_line}}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Address Second Line <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="address_second_line" type="text" value="{{$employeeNextkin->address_second_line}}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">City <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="city" type="text" value="{{ $employeeNextkin->city }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">County <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="county" type="text" value="{{  $employeeNextkin->county}}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Country <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="country" type="text" value="{{ $employeeNextkin->country }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Postcode <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="postcode" type="text" value="{{  $employeeNextkin->postcode }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Home Tel <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="home_tel" type="text" value="{{ $employeeNextkin->home_tel }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Mobile <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="mobile" type="text" value="{{ $employeeNextkin->mobile }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Email <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="email" type="text" value="{{ $employeeNextkin->email }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Relatioship <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="relationship" type="text" value="{{ $employeeNextkin->relationship }}">
+                                                            </div>
+                                                        </div>
+                                                    </div>                                                                                                                                   
+                                                <div class="submit-section">
+                                                <button class="btn btn-primary submit-btn" type="submit">Update</button>
+                                                </div>
+                                    </form>
+                                @else
+                                    <form method="POST" action="{{ url('next-kin') }}/{{ $employee->id }}">
+                                        @csrf 
+                                                <div class="row">
+                                                        <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                        <label class="col-form-label">First Name <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="first_name" type="text">                                                            
+                                                        </div></div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Second Name <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="last_name" type="text">
+                                                            </div>
+                                                        </div></din>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Address First Line <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="address_first_line" type="text">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Address Second Line <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="address_second_line" type="text" >
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">City <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="city" type="text">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">County <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="county" type="text" >
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Country <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="country" type="text" >
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Postcode <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="postcode" type="text" >
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Home Tel <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="home_tel" type="text" >
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Mobile <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="mobile" type="text" >
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Email <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="email" type="text" >
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Relatioship <span class="text-danger"></span></label>
+                                                                <input class="form-control" name="relationship" type="text">
+                                                            </div>
+                                                        </div>
+
                                                     </div>
-
-
-                                @endif
-                                 <form method="POST" action="{{ url('next-kin') }}/{{ $employee->id }}">
-                                     @csrf
-                                           <div class="row">
-                                                <div class="col-sm-6">
+                                                
                                                     
+                                                <div class="submit-section">
+                                                <button class="btn btn-primary submit-btn" type="submit">Submit</button>
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="col-form-label">Second Name <span class="text-danger"></span></label>
-                                                        <input class="form-control" name="last_name" type="text"value="{{$employeeNextkin->last_name }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="col-form-label">Address First Line <span class="text-danger"></span></label>
-                                                        <input class="form-control" name="address_first_line" type="text"value="{{ $employeeNextkin ->address_first_line}}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="col-form-label">Address Second Line <span class="text-danger"></span></label>
-                                                        <input class="form-control" name="address_second_line" type="text" value="{{$employeeNextkin->address_second_line}}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="col-form-label">City <span class="text-danger"></span></label>
-                                                        <input class="form-control" name="city" type="text" value="{{ $employeeNextkin->city }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="col-form-label">County <span class="text-danger"></span></label>
-                                                        <input class="form-control" name="county" type="text" value="{{  $employeeNextkin->county}}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="col-form-label">Country <span class="text-danger"></span></label>
-                                                        <input class="form-control" name="country" type="text" value="{{ $employeeNextkin->country }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="col-form-label">Postcode <span class="text-danger"></span></label>
-                                                        <input class="form-control" name="postcode" type="text" value="{{  $employeeNextkin->postcode }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="col-form-label">Home Tel <span class="text-danger"></span></label>
-                                                        <input class="form-control" name="home_tel" type="text" value="{{ $employeeNextkin->home_tel }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="col-form-label">Mobile <span class="text-danger"></span></label>
-                                                        <input class="form-control" name="mobile" type="text" value="{{ $employeeNextkin->mobile }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="col-form-label">Email <span class="text-danger"></span></label>
-                                                        <input class="form-control" name="email" type="text" value="{{ $employeeNextkin->email }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="col-form-label">Relatioship <span class="text-danger"></span></label>
-                                                        <input class="form-control" name="relationship" type="text" value="{{ $employeeNextkin->relationship }}">
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            
-                                       
-                              
-                                          <div class="submit-section">
-                                           <button class="btn btn-primary submit-btn" type="submit">Submit</button>
-                                        </div>
-                        </form>
-                    
-                </div>
-            </div>
+                                    </form>
+                                @endif
 
              <!--  /next kin detail tab -->
 

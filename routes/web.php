@@ -59,7 +59,10 @@ Route::group(['middleware' => ['role:organization']], function () {
     Route::get('employee-list','EmployeeController@EmployeeList');
     Route::get('employee-show/{id}','EmployeeController@showProfile');
     Route::get('dashboard', 'EmployeeController@showDashboard')->name('employee.dashboard');
+   //Next of kin
     Route::post('next-kin/{id}','EmployeeController@nextKin');
+    //update next kin
+    Route::post('next-kin-update/{id}','EmployeeController@updateNextKin');
     //Route::get('assign/{id}','EmployeeController@SystemsList');
     //Route::post('assign/update/{employee}/{id}','EmployeeController@assignSystem');
 
