@@ -29,7 +29,7 @@ Route::post('/login','UserController@login')->name('login');
 |
 */
 Route::group(['middleware' => ['role:admin']], function () {
-    
+
     //System
     Route::resource('system', 'SystemController');
     Route::get('system/delete/{id}','SystemController@destroy');
@@ -51,7 +51,7 @@ Route::group(['middleware' => ['role:admin']], function () {
 Route::group(['middleware' => ['role:organization']], function () {
     Route::get('my-organization', 'OrganizationController@create')->name('MyOrganization');
     Route::get('Organization', 'UserController@AccessOrganizationAndSystems')->name('admin.systems.Organization');
-    
+
     //Employee
     Route::resource('employee', 'EmployeeController');
     Route::get('employee/delete/{id}','EmployeeController@destroy');
@@ -63,6 +63,16 @@ Route::group(['middleware' => ['role:organization']], function () {
     Route::post('next-kin/{id}','EmployeeController@nextKin');
     //update next kin
     Route::post('next-kin-update/{id}','EmployeeController@updateNextKin');
+    //EMployee Health
+    Route::post('employee-health/{id}','EmployeeController@storeEmployeeHealth');
+    Route::post('employee-health-update/{id}','EmployeeController@updateEmployeeHealth');
+    //Employee Personal Details
+    Route::post('details/{id}','EmployeeController@personalDetails');
+    Route::post('details-update/{id}','EmployeeController@updatePersonalDetails');
+
+    Route::get('assign-permissions/{id}','EmployeeController@PermissionsList');
+    Route::post('assign-permissions/update/{employee}/{id}','EmployeeController@assignPermission');
+    Route::post('employee-bank-details/{id}','EmployeeController@storeEmployeeBankDetails' );
     //Route::get('assign/{id}','EmployeeController@SystemsList');
     //Route::post('assign/update/{employee}/{id}','EmployeeController@assignSystem');
 

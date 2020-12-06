@@ -2625,6 +2625,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_mixin__WEBPACK_IMPORTED_MODULE_1___default.a],
   components: {
@@ -56293,6 +56296,44 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _vm._m(0, true),
+                      _c("div", { staticClass: "dropdown profile-action" }, [
+                        _vm._m(0, true),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "dropdown-menu dropdown-menu-right" },
+                          [
+                            _vm._m(1, true),
+                            _vm._v(" "),
+                            _vm._m(2, true),
+                            _vm._v(" "),
+                            _vm._m(3, true),
+                            _vm._v(" "),
+                            _vm._m(4, true),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass: "dropdown-item",
+                                attrs: {
+                                  href: "#",
+                                  "data-toggle": "modal",
+                                  "data-target": "#assign-permissions"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.assignPermissions(value.id)
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", { staticClass: "fa fa-pencil m-r-5" }),
+                                _vm._v(" Assign Permissions")
+                              ]
+                            )
+                          ]
+                        )
+                      ]),
                       _vm._v(" "),
                       _c(
                         "h4",

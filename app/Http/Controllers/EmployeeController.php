@@ -56,6 +56,31 @@ class EmployeeController extends Controller
         ]);
     }
 
+    public function assignPermission(Request $request, $id)
+    {
+        $array = explode(',', $request->id);
+        $permissions = Permission::all();
+        $employee = Employee::where('id', $id)->first();
+        $user = User::where('employee_id', $employee->id)->first();
+        foreach ($permissions as $key => $value) {
+            if($user->hasPermissionTo($value->id)) {
+                $user->revokePermissionTo($value->id);
+            }
+        }
+        try{
+            foreach ($array as $key => $value) {
+                $user->givePermissionTo(Permission::find($value)->id);
+            }
+            return response()->json(['status'=>'success','message'=>'Permissions Granted Successfully !']);
+        }
+        catch(\Exception $e)
+        {
+
+            return response()->json(['status'=>'error','message'=>$e->getMessage()]);
+
+        }
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -71,6 +96,13 @@ class EmployeeController extends Controller
        
         
     
+        $employeeHealth = EmployeeHealth::where('employee_id', $id)->first();
+        return view('organization.User.show_employee', compact('employee', 'employeeHealth'));
+
+        $employee = Employee::where('id', $id)->first();
+        $personaldetails = EmployeePersonalDetails::where('employee_id', $id)->first();
+        return view('organization.User.show_employee', compact('employee','personaldetails' ));
+
     }
 
     public function showDashboard()
@@ -95,7 +127,7 @@ class EmployeeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
@@ -105,7 +137,7 @@ class EmployeeController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'post_code' => 'required',
             'gender' => 'required',
-            
+
             ]);
             //dd($request);
         try{
@@ -121,7 +153,7 @@ class EmployeeController extends Controller
             $employee->organization_id = Session::get('OrganizationId');
             /*if ($request->has('image')) {
                 $employee->clearMediaCollection('employees');
-    
+
                 $employee->addMedia($request->image)
                         ->toMediaCollection('employees');
             }
@@ -139,18 +171,55 @@ class EmployeeController extends Controller
             }
             else{
                 $role = Role::where('name', $type)->first();
-                $user->assignRole($role);    
+                $user->assignRole($role);
             }
             $user->save();
             return response()->json(['status'=>'success','message'=>'Employee Added Successfully !']);
         }
         catch(\Exception $e)
         {
-         
+
             return response()->json(['status'=>'error','message'=>$e->getMessage()]);
 
         }
     }
+
+
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeEmployeeBankDetails(Request $request, $id)
+    {
+        $request->validate([
+            'account_name' => 'required',
+            'sort_code' => 'required',
+            'account_number' => 'required',
+
+            ]);
+        try{
+            $employee = new EmployeeBankDetails ;
+            $employee->account_name = $request->account_name;
+            $employee->sort_code = $request->sort_code;
+            $employee->account_number = $request->account_number;
+            $employee->employee_id = $id;
+
+            $employee->save();
+            return response()->json(['status'=>'success','message'=>'Employee Bank Details Added Successfully !']);
+        }
+        catch(\Exception $e)
+        {
+
+            return response()->json(['status'=>'error','message'=>$e->getMessage()]);
+
+        }
+    }
+
+
 
     /**
      * Display the specified resource.
@@ -218,14 +287,14 @@ class EmployeeController extends Controller
             }
             else{
                 $role = Role::where('name', $type)->first();
-                $user->assignRole($role->id);    
+                $user->assignRole($role->id);
             }
             $user->update();
             return response()->json(['status'=>'success','message'=>'Employee Updated Successfully !']);
         }
         catch(\Exception $e)
         {
-         
+
             return response()->json(['status'=>'error','message'=>'Something Went Wrong']);
 
         }
@@ -253,7 +322,7 @@ class EmployeeController extends Controller
         }
         catch(\Exception $e)
         {
-         
+
             return response()->json(['status'=>'error','message'=>$e->getMessage()]);
 
         }
@@ -353,5 +422,120 @@ class EmployeeController extends Controller
             return redirect()->back() ->with('alert', 'Employee Next Of Kin updated Successfully');
             }
         
+                'ask' => 'required',
+                'disability_details' => 'required',
+                'what' => 'required',
+                'arrangements_details' => 'required',
+                'state_number' => 'required',
+                'days' => 'required'
+
+
+
+            ]);
+
+                $employee = new EmployeeHealth;
+                $employee->disability = $request->ask;
+                $employee->disability_details = $request->disability_details;
+                $employee->arrangements = $request->what;
+                $employee->arrangements_details = $request->arrangements_details;
+                $employee->days = $request->days;
+                $employee->state_number = $request->state_number;
+                $employee->employee_id = $id;
+
+
+                $employee->save();
+                return redirect()->back() ->with('alert', 'Employee Health Added Successfully');
+
+
+
+    }
+
+    public function updateEmployeeHealth(Request $request, $id)
+    {
+
+        // dd($request->arrangements_details);
+        $request->validate([
+            'ask' => 'required',
+            'disability_details' => 'required',
+            'what' => 'required',
+            'arrangements_details' => 'required',
+            'state_number' => 'required',
+            'days' => 'required'
+
+
+
+        ]);
+
+            $employee = EmployeeHealth::find($id);
+            $employee->disability = $request->ask;
+            $employee->disability_details = $request->disability_details;
+            $employee->arrangements = $request->what;
+            $employee->arrangements_details = $request->arrangements_details;
+            $employee->days = $request->days;
+            $employee->state_number = $request->state_number;
+            $employee->save();
+            return redirect()->back() ->with('alert', 'Employee Health Updated Successfully');
+
+
+
+    }
+
+
+    public function personalDetails(Request $request, $id)
+    {
+        //dd($request->ask);
+        $request->validate([
+            'home_tel_no' => 'required',
+            'day_tel_no' => 'required',
+            'national_no' => 'required',
+            'email_address' => 'required',
+        ]);
+        $employee = new EmployeePersonalDetails;
+
+        $employee->home_tel_no = $request->home_tel_no;
+        $employee->day_tel_no = $request->day_tel_no;
+        $employee->national_no = $request->national_no;
+        $employee->email_address = $request->email_address;
+        $employee->contact_at_work = $request->ask;
+        $employee->are_you_free = $request->ask1;
+        $employee->are_you_applying = $request->ask2;
+        $employee->driving_license = $request->ask3;
+        $employee->license_category = $request->ask4;
+        $employee->employee_id = $id;
+
+        $employee->save();
+
+        return redirect()->back() ->with('alert', 'Employee Personal Details Save Successfully!');
+
+
+
+
+    }
+
+    public function updatePersonalDetails(Request $request, $id)
+        {
+        $request->validate([
+            'home_tel_no' => 'required',
+            'day_tel_no' => 'required',
+            'national_no' => 'required',
+            'email_address' => 'required',
+            // 'contact_at_work' => 'required',
+            // 'are_you_free' => 'required',
+            // 'are_you_applying' => 'required',
+            // 'driving_license' => 'required',
+            // 'license_category' => 'required',
+        ]);
+            $employee = EmployeePersonalDetails::find($id);
+            $employee->home_tel_no = $request->home_tel_no;
+            $employee->day_tel_no = $request->day_tel_no;
+            $employee->national_no = $request->national_no;
+            $employee->email_address = $request->email_address;
+            $employee->contact_at_work = $request->ask;
+            $employee->are_you_free = $request->ask1;
+            $employee->are_you_applying = $request->ask2;
+            $employee->driving_license = $request->ask3;
+            $employee->license_category = $request->ask4;
+            $employee->save();
+            return redirect()->back() ->with('alert', 'Employee Personal Details Updated Successfully!');
+    }
 }
-    
