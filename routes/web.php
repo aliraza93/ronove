@@ -48,6 +48,19 @@ Route::group(['middleware' => ['role:admin']], function () {
 
 });
 
+Route::group(['middleware' => ['role:Service Staff']], function () {
+    
+    //System
+    Route::resource('booking', 'BookServiceStaffController');
+    Route::get('booking/delete/{id}','BookServiceStaffController@destroy');
+    Route::post('booking/update/{id}','BookServiceStaffController@update');
+    Route::get('booking-list','BookServiceStaffController@BookingList');
+    Route::get('permissions/{id}','BookServiceStaffController@PermissionsList');
+    Route::post('permissions/update/{booking}/{id}','BookServiceStaffController@updatePermissions');
+
+});
+
+
 Route::group(['middleware' => ['role:organization']], function () {
     Route::get('my-organization', 'OrganizationController@create')->name('MyOrganization');
     Route::get('Organization', 'UserController@AccessOrganizationAndSystems')->name('admin.systems.Organization');
@@ -62,6 +75,10 @@ Route::group(['middleware' => ['role:organization']], function () {
     Route::post('employee-health/{id}','EmployeeController@storeEmployeeHealth');
     Route::post('details/{id}','EmployeeController@personalDetails');
     
+    //Employee Schedule
+    Route::post('employee-schedule/{id}','EmployeeController@storeEmployeeSchedule');
+    Route::post('employee-schedule-update/{id}','EmployeeController@updateEmployeeSchedule');
+
     Route::get('assign-permissions/{id}','EmployeeController@PermissionsList');
     Route::post('assign-permissions/update/{employee}/{id}','EmployeeController@assignPermission');
     Route::post('employee-bank-details/{id}','EmployeeController@storeEmployeeBankDetails' );
@@ -92,6 +109,10 @@ Route::group(['middleware' => ['role:organization']], function () {
     Route::post('service-user/update/{id}','ServiceUserController@update');
     Route::get('service-user-list','ServiceUserController@ServiceUserList');
     Route::get('service-user-show/{id}','ServiceUserController@showProfile');
+    
+    //Book Service Staff
+    Route::get('service-staff-list','ServiceUserController@ServiceStaffList');
+    Route::post('book-service-staff/{employee_id}/{id}/{service_user_id}', 'BookServiceStaffController@store');
 
     //chat
     Route::get('chat', 'MessageController@showChat');

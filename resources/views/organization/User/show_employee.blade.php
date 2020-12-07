@@ -10,6 +10,11 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-sm-12">
+                    @if (Session::has('alert'))
+                    <div class="alert alert-success">
+                        {{ Session::get('alert') }}
+                    </div>
+                    @endif
                     <h3 class="page-title">Profile</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index">Dashboard</a></li>
@@ -98,6 +103,7 @@
                             <li class="nav-item"><a href="#emp_health" data-toggle="tab" class="nav-link">Health</a></li>
                             <li class="nav-item"><a href="#bank_details" data-toggle="tab" class="nav-link">Bank Details</a></li>
                             <li class="nav-item"><a href="#etw" data-toggle="tab" class="nav-link">Education, Training and Work</a></li>
+                            <li class="nav-item"><a href="#schedule" data-toggle="tab" class="nav-link">Schedule</a></li>
                             <li class="nav-item"><a href="#bank_statutory" data-toggle="tab" class="nav-link">Bank & Statutory <small class="text-danger">(Admin Only)</small></a></li>
                         </ul>
                     </div>
@@ -284,6 +290,80 @@
                             </div>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div id="schedule" class="pro-overview tab-pane fade">
+                <div class="row">
+                    <div class="col-md-12">
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+                    </div>
+                    @if (!empty($employee_schedule))
+                        <div class="card profile-box flex-fill">                         
+                            <form action="{{ url('employee-schedule-update')}}/{{ $employee_schedule->id }}" method="POST">
+                                @csrf
+                                <div class="card-body" style="display: flex; flex-direction: row">
+                                    <div>
+                                        <p>Start Date</p>                                                    
+                                        <input type="date" class="form-control" value="{{ $employee_schedule->start_date }}" style="width: 300px; height: 40px" name='start_date'>
+                                    </div>
+                                    <div style="margin-left: 50px">
+                                        <p>End Date</p>                                                        
+                                        <input type="date" class="form-control" value="{{ $employee_schedule->end_date }}" style="width: 300px; height: 40px" name='end_date'>                                           
+                                    </div>
+                                </div><br>
+                                <div class="card-body" style="display: flex; flex-direction: row">
+                                    <div>
+                                        <p>Start Time</p>                                                    
+                                        <input type="time" class="form-control" value="{{ $employee_schedule->start_time }}" style="width: 300px; height: 40px" name='start_time'>
+                                    </div>
+                                    <div style="margin-left: 50px">
+                                        <p>End Time</p>                                                        
+                                        <input type="time" class="form-control" value="{{ $employee_schedule->end_time }}" style="width: 300px; height: 40px" name='end_time'>                                           
+                                    </div>
+                                </div><br> 
+                                <div style="margin-left: 24%" class="card-body" class="center" >
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    @else
+                        <div class="card profile-box flex-fill">                         
+                            <form action="{{ url('employee-schedule')}}/{{ $employee->id }}" method="POST">
+                                @csrf
+                                <div class="card-body" style="display: flex; flex-direction: row">
+                                    <div>
+                                        <p>Start Date</p>                                                    
+                                        <input type="date" class="form-control" style="width: 300px; height: 40px" name='start_date'>
+                                    </div>
+                                    <div style="margin-left: 50px">
+                                        <p>End Date</p>                                                        
+                                        <input type="date" class="form-control" style="width: 300px; height: 40px" name='end_date'>                                           
+                                    </div>
+                                </div><br>
+                                <div class="card-body" style="display: flex; flex-direction: row">
+                                    <div>
+                                        <p>Start Time</p>                                                    
+                                        <input type="time" class="form-control" style="width: 300px; height: 40px" name='start_time'>
+                                    </div>
+                                    <div style="margin-left: 50px">
+                                        <p>End Time</p>                                                        
+                                        <input type="time" class="form-control" style="width: 300px; height: 40px" name='end_time'>                                           
+                                    </div>
+                                </div><br> 
+                                <div style="margin-left: 24%" class="card-body" class="center" >
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    @endif
                 </div>
             </div>
             <div id="bank_details" class="pro-overview tab-pane fade">

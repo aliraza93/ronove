@@ -13,6 +13,7 @@ use Spatie\Permission\Models\Role;
 use App\Models\EmployeeHealth;
 use Session;
 use Hash;
+use App\Models\EmployeeSchedule;
 
 class EmployeeController extends Controller
 {
@@ -95,7 +96,8 @@ class EmployeeController extends Controller
     public function showProfile($id)
     {
         $employee = Employee::where('id', $id)->first();
-        return view('organization.User.show_employee', compact('employee'));
+        $employee_schedule = EmployeeSchedule::where('employee_id', $id)->first();
+        return view('organization.User.show_employee', compact('employee', 'employee_schedule'));
     }
 
     public function showDashboard()
@@ -353,39 +355,62 @@ class EmployeeController extends Controller
 
     public function storeEmployeeHealth(Request $request, $id)
     {
-
-        // dd($request->arrangements_details);
-
         $request->validate([
-                'ask' => 'required',
-                'disability_details' => 'required',
-                'what' => 'required',
-                'arrangements_details' => 'required',
-                'state_number' => 'required',
-                'days' => 'required'
-                
-                
-
-            ]);
-            
-                $employee = new EmployeeHealth;
-                $employee->disability = $request->ask;
-                $employee->disability_details = $request->disability_details;
-                $employee->arrangements = $request->what;
-                $employee->arrangements_details = $request->arrangements_details;
-                $employee->days = $request->days;
-                $employee->state_number = $request->state_number;
-                $employee->employee_id = $id; 
-               
-
-                $employee->save();
-                return redirect()->back() ->with('alert', 'Employee Health Added Successfully');
-                
-            
+            'ask' => 'required',
+            'disability_details' => 'required',
+            'what' => 'required',
+            'arrangements_details' => 'required',
+            'state_number' => 'required',
+            'days' => 'required'
+        ]);
+        $employee = new EmployeeHealth;
+        $employee->disability = $request->ask;
+        $employee->disability_details = $request->disability_details;
+        $employee->arrangements = $request->what;
+        $employee->arrangements_details = $request->arrangements_details;
+        $employee->days = $request->days;
+        $employee->state_number = $request->state_number;
+        $employee->employee_id = $id; 
         
+
+        $employee->save();
+        return redirect()->back() ->with('alert', 'Employee Health Added Successfully');
     }
 
+    public function storeEmployeeSchedule(Request $request, $id)
+    {
+        $request->validate([
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
+        ]);
+        $employee = new EmployeeSchedule;
+        $employee->start_date = $request->start_date;
+        $employee->end_date = $request->end_date;
+        $employee->start_time = $request->start_time;
+        $employee->end_time = $request->end_time;
+        $employee->employee_id = $id; 
+        $employee->save();
+        return redirect()->back() ->with('alert', 'Employee Schedule Added Successfully');
+    }
 
+    public function updateEmployeeSchedule(Request $request, $id)
+    {
+        $request->validate([
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
+        ]);
+        $employee = EmployeeSchedule::find($id);
+        $employee->start_date = $request->start_date;
+        $employee->end_date = $request->end_date;
+        $employee->start_time = $request->start_time;
+        $employee->end_time = $request->end_time;
+        $employee->update();
+        return redirect()->back() ->with('alert', 'Employee Schedule Updated Successfully');
+    }
    
 
     public function personalDetails(Request $request, $id)

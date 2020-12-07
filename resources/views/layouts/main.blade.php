@@ -1156,6 +1156,18 @@
                     </ul>
                 </div>        
                 @endif
+                @role('Service Staff')
+                    <div id="sidebar-menu" class="sidebar-menu">
+                        <ul>
+                            <li class="submenu">
+                                <a href="#"><i class="la la-cog"></i> <span> Booings</span> <span class="menu-arrow"></span></a>
+                                <ul style="display: none;">
+                                    <li><a href="{{ url('booking') }}">Bookings</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                @endrole
             </div>
         </div>
         <!-- /Sidebar -->

@@ -10,8 +10,8 @@ use Spatie\Permission\Models\Role;
 use Session;
 use Hash;
 use App\Models\MarSheet;
-
-
+use App\Models\Employee;
+use App\Models\EmployeeSchedule;
 class ServiceUserController extends Controller
 {
     /**
@@ -37,6 +37,38 @@ class ServiceUserController extends Controller
         }
         $service_user = $service_user->paginate(10);
         return $service_user;
+    }
+
+    public function ServiceStaffList(Request $request){
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+        $start_time = $request->start_time;
+        $end_time = $request->end_time;
+        $matchThese = array();
+        $data = [];
+        $employees = Employee::where('organization_id', Session::get('OrganizationId'))->get();
+        foreach ($employees as $id => $value) {
+            $matchThese[$id] = $value->id;
+        }
+        foreach ($matchThese as $key => $value) {
+            $schedules[$key] = EmployeeSchedule::where('employee_id', $value)->orderBy('created_at','desc');    
+        }
+        foreach ($schedules as $key => $schedule) {
+            if($start_date != ''){
+                $schedule->where('start_date','>=',$start_date);
+            }
+            if($end_date != ''){
+                $schedule->where('end_date','<=',$end_date);
+            }
+            if($start_time != ''){
+                $schedule->where('start_time','>=', $start_time);
+            }
+            if($end_time != ''){
+                $schedule->where('end_time','<=', $end_time);
+            }
+            $data[$key] = $schedule->paginate();
+        }
+        return $data;
     }
 
     public function SystemsList(Request $request){
