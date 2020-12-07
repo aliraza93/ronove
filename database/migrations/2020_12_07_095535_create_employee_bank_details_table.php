@@ -19,7 +19,6 @@ class CreateEmployeeBankDetailsTable extends Migration
             $table->string('sort_code');
             $table->string('account_number');
             $table->integer('employee_id')->unsigned();
-
             $table->timestamps();
         });
     }

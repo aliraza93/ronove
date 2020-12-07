@@ -1,72 +1,88 @@
 <template>
   <div class="wrap">
-    <!-- Add ServiceUser Modal -->
-    <div id="update-service-user" class="modal custom-modal fade" role="dialog">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Update Service User</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="alert alert-danger" v-if="errors">
-                    <ul>
-                        <li v-for="error in errors" :key="error">{{ error[0] }}</li>
-                    </ul>
-                    </div>
-                    <form>
+    <div class="modal fade" id="update-employee" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-name" id="defaultModalLabel">Update Employee</h4>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-danger" v-if="errors">
+              <ul>
+                <li v-for="error in errors" :key="error">{{ error[0] }}</li>
+              </ul>
+            </div>
+                <form>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="col-form-label">Salutation <span class="text-danger">*</span></label>
-                                    <input class="form-control" v-model="service_user.salutation" type="text">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
                                     <label class="col-form-label">First Name <span class="text-danger">*</span></label>
-                                    <input class="form-control" v-model="service_user.first_name" type="text">
+                                    <input class="form-control" v-model="employee.first_name" type="text">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Last Name <span class="text-danger">*</span></label>
-                                    <input class="form-control" v-model="service_user.last_name" type="text">
+                                    <input class="form-control" v-model="employee.last_name" type="text">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Email <span class="text-danger">*</span></label>
-                                    <input class="form-control" v-model="service_user.email" type="email">
+                                    <input class="form-control" v-model="employee.email" type="email">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Address <span class="text-danger">*</span></label>
-                                    <input class="form-control" v-model="service_user.address" type="text">
+                                    <input class="form-control" v-model="employee.address" type="text">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="col-form-label">Date Of Birth <span class="text-danger">*</span></label>
-                                    <datepicker style="width: 100%;" :disabled-dates="state.disabledDates" placeholder="Enter Date of Birth" :bootstrap-styling="true" v-model="service_user.dob"></datepicker>
+                                    <label class="col-form-label">Password <span class="text-danger">*</span></label>
+                                    <input class="form-control" v-model="employee.password" type="password">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Confirm Password <span class="text-danger">*</span></label>
+                                    <input class="form-control" v-model="employee.password_confirmation" type="password">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Post Code <span class="text-danger">*</span></label>
-                                    <input class="form-control" v-model="service_user.post_code" type="text">
+                                    <input class="form-control" v-model="employee.post_code" type="text">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="col-form-label">Phone <span class="text-danger">*</span></label>
-                                    <input class="form-control" v-model="service_user.phone" type="text">
+                                    <input class="form-control" v-model="employee.phone" type="text">
                                 </div>
                             </div>
-                            
+                            <!-- <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Employee Type <span class="text-danger">*</span></label>
+                                    <select v-model="employee.type" class="form-control">
+                                        <option value="">Select Employee Type</option>
+                                        <option value="Service Staff">Service Staff</option>
+                                        <option value="Service User">Service User</option>
+                                    </select>
+                                </div>
+                            </div> -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Gender <span class="text-danger">*</span></label>
+                                    <select v-model="employee.gender" class="form-control">
+                                        <option value="">Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+
                         </div>
                         <!--
                             <div class="row">
@@ -76,60 +92,37 @@
                             </div>
                         -->
                         <div class="submit-section">
-                            <button type="button" @click="updateServiceUser()" class="btn btn-primary submit-btn">Submit</button>
+                            <button type="button" @click="updateEmployee()" class="btn btn-primary submit-btn">Update</button>
                         </div>
-                    </form>
-                </div>
-            </div>
+                </form>
+          </div>
         </div>
+      </div>
     </div>
-    <!-- /Add ServiceUser Modal -->
   </div>
 </template>
 
 <script>
-import { EventBus } from "../../../vue-asset";
-import mixin from "../../../mixin";
-import Datepicker from 'vuejs-datepicker';
+import { EventBus } from "../../vue-asset";
+import mixin from "../../mixin";
 
 export default {
-  name : 'update-service-user',  
+  name : 'update-employee',
   mixins: [mixin],
-  components: {
-    Datepicker
-  },
   data() {
     return {
-      service_user: {
-          salutation: '',
+      employee: {
+          id:'',
           first_name: '',
           last_name: '',
-          address: '',
-          phone: '',
           email: '',
-          dob: '',
+          address: '',
+          password: '',
+          password_confirmation: '',
+          phone: '',
           post_code: '',
+         gender: '',
       },
-      state: {
-        disabledDates: {
-            from: new Date(), // Disable all dates up to specific date
-            days: [],
-            dates: [
-                
-            ], 
-            // Disable Saturday's and Sunday's
-            // a custom function that returns true if the date is disabled
-            // this can be used for wiring you own logic to disable a date if none
-            // of the above conditions serve your purpose
-            // this function should accept a date and return true if is disabled
-            customPredictor: function() {
-                // disables the date if it is a multiple of 5
-                //if(this.day[i]Time.mon_start_time == '' || this.dayTime.mon_end_time == ''){
-                //    return true
-                //}
-            }
-        }
-    },
       errors: null,
       notificationSystem: {
           options: {
@@ -160,59 +153,60 @@ export default {
     };
   },
 
-  
+
   created(){
 
       var _this = this;
-       
-     EventBus.$on('service-user-edit',function(id){
-       
-       _this.service_user.id = id;
+
+     EventBus.$on('employee-edit',function(id){
+
+       _this.employee.id = id;
 
        _this.getEditData(id);
 
-       $('#update-service-user').modal('show');
+       $('#update-employee').modal('show');
 
 
- 
+
      });
 
-      $('#update-service-user').on('hidden.bs.modal', function(){
+      $('#update-employee').on('hidden.bs.modal', function(){
             _this.resetForm();
         });
 
   },
 
   methods: {
-    
+
     getEditData(id){
-     
-     axios.get(base_url+'service-user/'+id+'/edit')
+
+     axios.get(base_url+'employee/'+id+'/edit')
 
      .then(response => {
-      
-       
-           this.service_user = {
-            id : response.data.id,   
-            salutation: response.data.salutation,
+
+
+
+           this.employee = {
+            id : response.data.id,
             first_name: response.data.first_name,
             last_name: response.data.last_name,
+            email: response.data. email,
             address: response.data.address,
-            phone: response.data.phone,
-            email: response.data.email,
-            dob: response.data.dob,
             post_code: response.data.post_code,
+            phone: response.data.phone,
+            employee_type: response.data.employee_type,
+            gender: response.data.gender
           };
 
      })
 
     },
-    updateServiceUser() {
-        axios.post(base_url + "service-user/update/"+this.service_user.id, this.service_user)
+    updateEmployee() {
+        axios.post(base_url + "employee/update/"+this.employee.id, this.employee)
 
         .then(response => {
-          $("#update-service-user").modal("hide");
-          EventBus.$emit("service-user-added");
+          $("#update-employee").modal("hide");
+          EventBus.$emit("employee-added");
           this.showMessage(response.data)
           this.resetForm();
         })
@@ -232,19 +226,21 @@ export default {
       }
     },
     resetForm(){
-    
-      this.service_user = {
-        id: '',
-        name: '',
-        address: '',
-        phone: '',
-        email: '',
-        password: '',
-        code: '',
-        status: '',
-        password_confirmation: ''
+
+      this.employee = {
+          id:'',
+          first_name: '',
+          last_name: '',
+          email: '',
+          address: '',
+          password: '',
+          password_confirmation: '',
+          phone: '',
+          post_code: '',
+          employee_type:'',
+         gender: '',
       };
-      this.errors = null; 
+      this.errors = null;
 
     },
 

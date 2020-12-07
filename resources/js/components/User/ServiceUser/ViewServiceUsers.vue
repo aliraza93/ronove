@@ -57,9 +57,33 @@
                   <div class="dropdown profile-action">
                       <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                       <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_service_user"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                          <a class="dropdown-item" href="#" @click="editServiceUser(value.id)"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_service_user"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                       </div>
+                      <!-- Delete Employee Modal -->
+                        <div class="modal custom-modal fade" id="delete_service_user" role="dialog">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="form-header">
+                                            <h3>Delete Employee</h3>
+                                            <p>Are you sure want to delete?</p>
+                                        </div>
+                                        <div class="modal-btn delete-action">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <a href="javascript:void(0);" @click="deleteServiceUser(value.id)" class="btn btn-primary continue-btn">Delete</a>
+                                                </div>
+                                                <div class="col-6">
+                                                    <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Delete Employee Modal -->
                   </div>
                   <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="#">{{ value.first_name }} {{ value.last_name }}</a></h4>
                   <!--
@@ -95,6 +119,7 @@ export default {
   components: {
     "assign-system": AssignSystem,
     "pagination": Pagination,
+    'update-service-user': UpdateServiceUser
   },
 
   data() {
@@ -170,7 +195,7 @@ export default {
 
     // edit vendor
 
-    editOrganization(id) {
+    editServiceUser(id) {
       EventBus.$emit("service-user-edit", id);
     },
     assignSystem(id) {
@@ -180,11 +205,11 @@ export default {
       var vm = this;
       vm.getData(pageNo);
     },
-    deleteOrganization (id) {
+    deleteServiceUser (id) {
       axios.delete(base_url + "service-user/" + id)
         .then(({data}) => {
             location.reload();
-            this.$toast.success('System Deleted Successfully !', 'Success',this.notificationSystem.options.success);
+            this.$toast.success('Service User Deleted Successfully !', 'Success',this.notificationSystem.options.success);
         });       
     },
   },

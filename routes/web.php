@@ -29,7 +29,7 @@ Route::post('/login','UserController@login')->name('login');
 |
 */
 Route::group(['middleware' => ['role:admin']], function () {
-    
+
     //System
     Route::resource('system', 'SystemController');
     Route::get('system/delete/{id}','SystemController@destroy');
@@ -64,7 +64,7 @@ Route::group(['middleware' => ['role:Service Staff']], function () {
 Route::group(['middleware' => ['role:organization']], function () {
     Route::get('my-organization', 'OrganizationController@create')->name('MyOrganization');
     Route::get('Organization', 'UserController@AccessOrganizationAndSystems')->name('admin.systems.Organization');
-    
+
     //Employee
     Route::resource('employee', 'EmployeeController');
     Route::get('employee/delete/{id}','EmployeeController@destroy');
@@ -72,12 +72,35 @@ Route::group(['middleware' => ['role:organization']], function () {
     Route::get('employee-list','EmployeeController@EmployeeList');
     Route::get('employee-show/{id}','EmployeeController@showProfile');
     Route::get('dashboard', 'EmployeeController@showDashboard')->name('employee.dashboard');
-    Route::post('employee-health/{id}','EmployeeController@storeEmployeeHealth');
-    Route::post('details/{id}','EmployeeController@personalDetails');
+
+   //Next of kin
+    Route::post('next-kin/{id}','EmployeeController@nextKin');
+    Route::post('next-kin-update/{id}','EmployeeController@updateNextKin');
     
+    //EMployee Health
+    Route::post('employee-health/{id}','EmployeeController@storeEmployeeHealth');
+    Route::post('employee-health-update/{id}','EmployeeController@updateEmployeeHealth');
+
+    //Employee Education
+    Route::post('employee-education-details/{id}','EmployeeController@storeEmployeeEducationDetails' );
+    Route::post('employee-education-update/{id}','EmployeeController@UpdateEmployeeEducationDetails' );
+    
+    //Employee Present
+    Route::post('employee-present-details/{id}','EmployeeController@storeEmployeePresentDetails' );
+    Route::post('employee-present-update/{id}','EmployeeController@UpdateEmployeePresentDetails' );
+    
+    //Employee Training
+    Route::post('employee-training-details/{id}','EmployeeController@storeEmployeeTrainingDetails' );
+    Route::post('employee-training-update/{id}','EmployeeController@updateEmployeeTrainingDetails' );
+    
+    //Employee Personal Details
+    Route::post('details/{id}','EmployeeController@personalDetails');
+    Route::post('details-update/{id}','EmployeeController@updatePersonalDetails');
+
     //Employee Schedule
     Route::post('employee-schedule/{id}','EmployeeController@storeEmployeeSchedule');
     Route::post('employee-schedule-update/{id}','EmployeeController@updateEmployeeSchedule');
+    Route::post('details-update/{id}','EmployeeController@updatePersonalDetails');
 
     Route::get('assign-permissions/{id}','EmployeeController@PermissionsList');
     Route::post('assign-permissions/update/{employee}/{id}','EmployeeController@assignPermission');

@@ -2290,6 +2290,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_asset__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../vue-asset */ "./resources/js/vue-asset.js");
 /* harmony import */ var _mixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../mixin */ "./resources/js/mixin.js");
 /* harmony import */ var _mixin__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mixin__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
 //
 //
 //
@@ -2376,23 +2377,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'update-organization',
+  name: 'update-service-user',
   mixins: [_mixin__WEBPACK_IMPORTED_MODULE_1___default.a],
+  components: {
+    Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
   data: function data() {
     return {
-      organization: {
-        id: '',
-        name: '',
+      service_user: {
+        salutation: '',
+        first_name: '',
+        last_name: '',
         address: '',
         phone: '',
         email: '',
-        password: '',
-        code: '',
-        status: '',
-        password_confirmation: ''
+        dob: '',
+        post_code: ''
+      },
+      state: {
+        disabledDates: {
+          from: new Date(),
+          // Disable all dates up to specific date
+          days: [],
+          dates: [],
+          // Disable Saturday's and Sunday's
+          // a custom function that returns true if the date is disabled
+          // this can be used for wiring you own logic to disable a date if none
+          // of the above conditions serve your purpose
+          // this function should accept a date and return true if is disabled
+          customPredictor: function customPredictor() {// disables the date if it is a multiple of 5
+            //if(this.day[i]Time.mon_start_time == '' || this.dayTime.mon_end_time == ''){
+            //    return true
+            //}
+          }
+        }
       },
       errors: null,
       notificationSystem: {
@@ -2426,14 +2451,14 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    _vue_asset__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('organization-edit', function (id) {
-      _this.organization.id = id;
+    _vue_asset__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('service-user-edit', function (id) {
+      _this.service_user.id = id;
 
       _this.getEditData(id);
 
-      $('#update-organization').modal('show');
+      $('#update-service-user').modal('show');
     });
-    $('#update-organization').on('hidden.bs.modal', function () {
+    $('#update-service-user').on('hidden.bs.modal', function () {
       _this.resetForm();
     });
   },
@@ -2441,26 +2466,26 @@ __webpack_require__.r(__webpack_exports__);
     getEditData: function getEditData(id) {
       var _this2 = this;
 
-      axios.get(base_url + 'organization/' + id + '/edit').then(function (response) {
-        _this2.organization = {
+      axios.get(base_url + 'service-user/' + id + '/edit').then(function (response) {
+        _this2.service_user = {
           id: response.data.id,
-          name: response.data.name,
-          status: response.data.status,
+          salutation: response.data.salutation,
+          first_name: response.data.first_name,
+          last_name: response.data.last_name,
           address: response.data.address,
           phone: response.data.phone,
           email: response.data.email,
-          password: response.data.password,
-          code: response.data.code,
-          password_confirmation: response.data.password
+          dob: response.data.dob,
+          post_code: response.data.post_code
         };
       });
     },
-    updateOrganization: function updateOrganization() {
+    updateServiceUser: function updateServiceUser() {
       var _this3 = this;
 
-      axios.post(base_url + "organization/update/" + this.organization.id, this.organization).then(function (response) {
-        $("#update-organization").modal("hide");
-        _vue_asset__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("organization-added");
+      axios.post(base_url + "service-user/update/" + this.service_user.id, this.service_user).then(function (response) {
+        $("#update-service-user").modal("hide");
+        _vue_asset__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("service-user-added");
 
         _this3.showMessage(response.data);
 
@@ -2482,7 +2507,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     resetForm: function resetForm() {
-      this.organization = {
+      this.service_user = {
         id: '',
         name: '',
         address: '',
@@ -2598,6 +2623,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2607,7 +2656,8 @@ __webpack_require__.r(__webpack_exports__);
   mixins: [_mixin__WEBPACK_IMPORTED_MODULE_1___default.a],
   components: {
     "assign-system": _AssignSystem_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    "pagination": _pagination_pagination_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    "pagination": _pagination_pagination_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    'update-service-user': _UpdateServiceUser_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -2670,7 +2720,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     // edit vendor
-    editOrganization: function editOrganization(id) {
+    editServiceUser: function editServiceUser(id) {
       _vue_asset__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("service-user-edit", id);
     },
     assignSystem: function assignSystem(id) {
@@ -2680,14 +2730,14 @@ __webpack_require__.r(__webpack_exports__);
       var vm = this;
       vm.getData(pageNo);
     },
-    deleteOrganization: function deleteOrganization(id) {
+    deleteServiceUser: function deleteServiceUser(id) {
       var _this3 = this;
 
       axios["delete"](base_url + "service-user/" + id).then(function (_ref) {
         var data = _ref.data;
         location.reload();
 
-        _this3.$toast.success('System Deleted Successfully !', 'Success', _this3.notificationSystem.options.success);
+        _this3.$toast.success('Service User Deleted Successfully !', 'Success', _this3.notificationSystem.options.success);
       });
     }
   },
@@ -55657,13 +55707,13 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "modal fade",
-        attrs: { id: "update-organization", tabindex: "-1", role: "dialog" }
+        staticClass: "modal custom-modal fade",
+        attrs: { id: "update-service-user", role: "dialog" }
       },
       [
         _c(
           "div",
-          { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
+          { staticClass: "modal-dialog modal-dialog-centered modal-lg" },
           [
             _c("div", { staticClass: "modal-content" }, [
               _vm._m(0),
@@ -55685,30 +55735,30 @@ var render = function() {
                 _vm._v(" "),
                 _c("form", [
                   _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "col-sm-6" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Name of Organization:")]),
+                        _vm._m(1),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.organization.name,
-                              expression: "organization.name"
+                              value: _vm.service_user.salutation,
+                              expression: "service_user.salutation"
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "text", placeholder: "Name" },
-                          domProps: { value: _vm.organization.name },
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.service_user.salutation },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
                               _vm.$set(
-                                _vm.organization,
-                                "name",
+                                _vm.service_user,
+                                "salutation",
                                 $event.target.value
                               )
                             }
@@ -55717,30 +55767,30 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "col-sm-6" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Address")]),
+                        _vm._m(2),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.organization.address,
-                              expression: "organization.address"
+                              value: _vm.service_user.first_name,
+                              expression: "service_user.first_name"
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "text", placeholder: "Address" },
-                          domProps: { value: _vm.organization.address },
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.service_user.first_name },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
                               _vm.$set(
-                                _vm.organization,
-                                "address",
+                                _vm.service_user,
+                                "first_name",
                                 $event.target.value
                               )
                             }
@@ -55749,30 +55799,30 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "col-sm-6" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Phone:")]),
+                        _vm._m(3),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.organization.phone,
-                              expression: "organization.phone"
+                              value: _vm.service_user.last_name,
+                              expression: "service_user.last_name"
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "text", placeholder: "Phone" },
-                          domProps: { value: _vm.organization.phone },
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.service_user.last_name },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
                               _vm.$set(
-                                _vm.organization,
-                                "phone",
+                                _vm.service_user,
+                                "last_name",
                                 $event.target.value
                               )
                             }
@@ -55781,29 +55831,29 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "col-sm-6" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Email")]),
+                        _vm._m(4),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.organization.email,
-                              expression: "organization.email"
+                              value: _vm.service_user.email,
+                              expression: "service_user.email"
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "email", placeholder: "Email" },
-                          domProps: { value: _vm.organization.email },
+                          attrs: { type: "email" },
+                          domProps: { value: _vm.service_user.email },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
                               _vm.$set(
-                                _vm.organization,
+                                _vm.service_user,
                                 "email",
                                 $event.target.value
                               )
@@ -55813,30 +55863,30 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "col-sm-6" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Password:")]),
+                        _vm._m(5),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.organization.password,
-                              expression: "organization.password"
+                              value: _vm.service_user.address,
+                              expression: "service_user.address"
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "password", placeholder: "Password" },
-                          domProps: { value: _vm.organization.password },
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.service_user.address },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
                               _vm.$set(
-                                _vm.organization,
-                                "password",
+                                _vm.service_user,
+                                "address",
                                 $event.target.value
                               )
                             }
@@ -55845,168 +55895,114 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Confirm Password:")]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.organization.password_confirmation,
-                              expression: "organization.password_confirmation"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "password", placeholder: "Password" },
-                          domProps: {
-                            value: _vm.organization.password_confirmation
-                          },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.organization,
-                                "password_confirmation",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Organization Code")]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.organization.code,
-                              expression: "organization.code"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            placeholder: "Organization Code"
-                          },
-                          domProps: { value: _vm.organization.code },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.organization,
-                                "code",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Status")]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "input-group" }, [
-                          _c(
-                            "select",
-                            {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.organization.status,
-                                  expression: "organization.status"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              on: {
-                                change: function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.$set(
-                                    _vm.organization,
-                                    "status",
-                                    $event.target.multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  )
-                                }
-                              }
+                    _c("div", { staticClass: "col-sm-6" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _vm._m(6),
+                          _vm._v(" "),
+                          _c("datepicker", {
+                            staticStyle: { width: "100%" },
+                            attrs: {
+                              "disabled-dates": _vm.state.disabledDates,
+                              placeholder: "Enter Date of Birth",
+                              "bootstrap-styling": true
                             },
-                            [
-                              _c(
-                                "option",
-                                {
-                                  attrs: {
-                                    value: "",
-                                    selected: "",
-                                    disabled: ""
-                                  }
-                                },
-                                [_vm._v("Select Status")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "Active" } }, [
-                                _vm._v("Active")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "Inactive" } }, [
-                                _vm._v("Inactive")
-                              ])
-                            ]
-                          )
-                        ])
+                            model: {
+                              value: _vm.service_user.dob,
+                              callback: function($$v) {
+                                _vm.$set(_vm.service_user, "dob", $$v)
+                              },
+                              expression: "service_user.dob"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _vm._m(7),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.service_user.post_code,
+                              expression: "service_user.post_code"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.service_user.post_code },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.service_user,
+                                "post_code",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _vm._m(8),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.service_user.phone,
+                              expression: "service_user.phone"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.service_user.phone },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.service_user,
+                                "phone",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
                       ])
                     ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "submit-section" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary submit-btn",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.updateServiceUser()
+                          }
+                        }
+                      },
+                      [_vm._v("Submit")]
+                    )
                   ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c("br"),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-success waves-effect",
-                    attrs: { type: "button" },
-                    on: { click: _vm.updateOrganization }
-                  },
-                  [_vm._v("Update")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-default waves-effect",
-                    attrs: { type: "button", "data-dismiss": "modal" },
-                    on: {
-                      click: function($event) {
-                        return _vm.resetForm()
-                      }
-                    }
-                  },
-                  [_vm._v("CLOSE")]
-                )
               ])
             ])
           ]
@@ -56021,11 +56017,92 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Update Service User")]),
+      _vm._v(" "),
       _c(
-        "h4",
-        { staticClass: "modal-name", attrs: { id: "defaultModalLabel" } },
-        [_vm._v("Update Organization")]
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-form-label" }, [
+      _vm._v("Salutation "),
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-form-label" }, [
+      _vm._v("First Name "),
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-form-label" }, [
+      _vm._v("Last Name "),
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-form-label" }, [
+      _vm._v("Email "),
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-form-label" }, [
+      _vm._v("Address "),
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-form-label" }, [
+      _vm._v("Date Of Birth "),
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-form-label" }, [
+      _vm._v("Post Code "),
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-form-label" }, [
+      _vm._v("Phone "),
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")])
     ])
   }
 ]
@@ -56149,7 +56226,91 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _vm._m(0, true),
+                      _c("div", { staticClass: "dropdown profile-action" }, [
+                        _vm._m(0, true),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "dropdown-menu dropdown-menu-right" },
+                          [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "dropdown-item",
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.editServiceUser(value.id)
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", { staticClass: "fa fa-pencil m-r-5" }),
+                                _vm._v(" Edit")
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _vm._m(1, true)
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "modal custom-modal fade",
+                            attrs: { id: "delete_service_user", role: "dialog" }
+                          },
+                          [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "modal-dialog modal-dialog-centered"
+                              },
+                              [
+                                _c("div", { staticClass: "modal-content" }, [
+                                  _c("div", { staticClass: "modal-body" }, [
+                                    _vm._m(2, true),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass: "modal-btn delete-action"
+                                      },
+                                      [
+                                        _c("div", { staticClass: "row" }, [
+                                          _c("div", { staticClass: "col-6" }, [
+                                            _c(
+                                              "a",
+                                              {
+                                                staticClass:
+                                                  "btn btn-primary continue-btn",
+                                                attrs: {
+                                                  href: "javascript:void(0);"
+                                                },
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.deleteServiceUser(
+                                                      value.id
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Delete")]
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          _vm._m(3, true)
+                                        ])
+                                      ]
+                                    )
+                                  ])
+                                ])
+                              ]
+                            )
+                          ]
+                        )
+                      ]),
                       _vm._v(" "),
                       _c(
                         "h4",
@@ -56200,47 +56361,59 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "dropdown profile-action" }, [
+    return _c(
+      "a",
+      {
+        staticClass: "action-icon dropdown-toggle",
+        attrs: {
+          href: "#",
+          "data-toggle": "dropdown",
+          "aria-expanded": "false"
+        }
+      },
+      [_c("i", { staticClass: "material-icons" }, [_vm._v("more_vert")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "dropdown-item",
+        attrs: {
+          href: "#",
+          "data-toggle": "modal",
+          "data-target": "#delete_service_user"
+        }
+      },
+      [_c("i", { staticClass: "fa fa-trash-o m-r-5" }), _vm._v(" Delete")]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-header" }, [
+      _c("h3", [_vm._v("Delete Employee")]),
+      _vm._v(" "),
+      _c("p", [_vm._v("Are you sure want to delete?")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-6" }, [
       _c(
         "a",
         {
-          staticClass: "action-icon dropdown-toggle",
-          attrs: {
-            href: "#",
-            "data-toggle": "dropdown",
-            "aria-expanded": "false"
-          }
+          staticClass: "btn btn-primary cancel-btn",
+          attrs: { href: "javascript:void(0);", "data-dismiss": "modal" }
         },
-        [_c("i", { staticClass: "material-icons" }, [_vm._v("more_vert")])]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "dropdown-menu dropdown-menu-right" }, [
-        _c(
-          "a",
-          {
-            staticClass: "dropdown-item",
-            attrs: {
-              href: "#",
-              "data-toggle": "modal",
-              "data-target": "#edit_service_user"
-            }
-          },
-          [_c("i", { staticClass: "fa fa-pencil m-r-5" }), _vm._v(" Edit")]
-        ),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "dropdown-item",
-            attrs: {
-              href: "#",
-              "data-toggle": "modal",
-              "data-target": "#delete_service_user"
-            }
-          },
-          [_c("i", { staticClass: "fa fa-trash-o m-r-5" }), _vm._v(" Delete")]
-        )
-      ])
+        [_vm._v("Cancel")]
+      )
     ])
   }
 ]

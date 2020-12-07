@@ -46,10 +46,9 @@ class UserController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $user_id = $user->id;
-            if ($user->getRoleNames()->first() === 'admin'|| $user->getRoleNames()->first() === 'Service User' || $user->getRoleNames()->first() === 'Service Staff') {
+            if ($user->getRoleNames()->first() === 'admin') {
                 return redirect()->route('index');
-            } 
-            else {
+            } else {
                 Session::put('OrganizationId', $user->organization_id);
                 $systems = System::where('organization_id', $user->organization_id);
                 if(!$systems->exists()) {

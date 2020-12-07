@@ -1,10 +1,10 @@
 <template>
   <div class="wrap">
-    <div class="modal fade" id="update-organization" tabindex="-1" role="dialog">
+    <div class="modal fade" id="update-client" tabindex="-1" role="dialog">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-name" id="defaultModalLabel">Update Organization</h4>
+            <h4 class="modal-name" id="defaultModalLabel">Update client</h4>
           </div>
           <div class="modal-body">
             <div class="alert alert-danger" v-if="errors">
@@ -12,71 +12,81 @@
                 <li v-for="error in errors" :key="error">{{ error[0] }}</li>
               </ul>
             </div>
-            <form>
-                <div class="row">
-                   <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Name of Organization:</label>
-                          <input type="text" placeholder="Name" class="form-control" v-model="organization.name">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Address</label>
-                          <input type="text" placeholder="Address" class="form-control" v-model="organization.address">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Phone:</label>
-                          <input type="text" placeholder="Phone" class="form-control" v-model="organization.phone">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Email</label>
-                          <input type="email" placeholder="Email" class="form-control" v-model="organization.email">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Password:</label>
-                          <input type="password" placeholder="Password" class="form-control" v-model="organization.password">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Confirm Password:</label>
-                          <input type="password" placeholder="Password" class="form-control" v-model="organization.password_confirmation">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Organization Code</label>
-                          <input type="text" placeholder="Organization Code" class="form-control" v-model="organization.code">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Status</label>
+                <form>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">First Name <span class="text-danger">*</span></label>
+                                    <input class="form-control" v-model="client.first_name" type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Last Name <span class="text-danger">*</span></label>
+                                    <input class="form-control" v-model="client.last_name" type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Email <span class="text-danger">*</span></label>
+                                    <input class="form-control" v-model="client.email" type="email">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Address <span class="text-danger">*</span></label>
+                                    <input class="form-control" v-model="client.address" type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Company <span class="text-danger">*</span></label>
+                                    <input class="form-control" v-model="client.company" type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Company Registration Number <span class="text-danger">*</span></label>
+                                    <input class="form-control" v-model="client.company_register" type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Unique Tax Refference Number <span class="text-danger">*</span></label>
+                                    <input class="form-control" v-model="client.unique_tax_reference" type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Charity Number <span class="text-danger">*</span></label>
+                                    <input class="form-control" v-model="client.charity" type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Post Code <span class="text-danger">*</span></label>
+                                    <input class="form-control" v-model="client.post_code" type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Phone <span class="text-danger">*</span></label>
+                                    <input class="form-control" v-model="client.phone" type="text">
+                                </div>
+                            </div>
 
-                          <div class="input-group">
-                              <select v-model="organization.status" class="form-control">
-                                  <option value="" selected disabled>Select Status</option>
-                                  <option value="Active">Active</option>
-                                  <option value="Inactive">Inactive</option>
-                              </select>
-                          </div>
-                          <!-- /.input group -->
                         </div>
-                    </div>
-                </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <br>
-            <button @click="updateOrganization" type="button" class="btn btn-success waves-effect">Update</button>
-            <button  @click="resetForm()" type="button" class="btn btn-default waves-effect" data-dismiss="modal">CLOSE</button>
+                        <!--
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="file" name="image" v-on:change="onImageChange" class="form-control">
+                                </div>
+                            </div>
+                        -->
+                        <div class="submit-section">
+                            <button type="button" @click="updateClient()" class="btn btn-primary submit-btn">Submit</button>
+                        </div>
+                </form>
           </div>
         </div>
       </div>
@@ -89,20 +99,21 @@ import { EventBus } from "../../vue-asset";
 import mixin from "../../mixin";
 
 export default {
-  name : 'update-organization',  
+  name : 'update-client',
   mixins: [mixin],
   data() {
     return {
-      organization: {
-          id: '',
-          name: '',
+      client: {
+          first_name: '',
+          last_name: '',
           address: '',
           phone: '',
           email: '',
-          password: '',
-          code: '',
-          status: '',
-          password_confirmation: ''
+          company: '',
+          post_code: '',
+          company_register: '',
+          unique_tax_reference: '',
+          charity: ''
       },
       errors: null,
       notificationSystem: {
@@ -134,59 +145,62 @@ export default {
     };
   },
 
-  
+
   created(){
 
       var _this = this;
-       
-     EventBus.$on('organization-edit',function(id){
-       
-       _this.organization.id = id;
+
+     EventBus.$on('client-edit',function(id){
+
+       _this.client.id = id;
 
        _this.getEditData(id);
 
-       $('#update-organization').modal('show');
+       $('#update-client').modal('show');
 
 
- 
+
      });
 
-      $('#update-organization').on('hidden.bs.modal', function(){
+      $('#update-client').on('hidden.bs.modal', function(){
             _this.resetForm();
         });
 
   },
 
   methods: {
-    
+
     getEditData(id){
-     
-     axios.get(base_url+'organization/'+id+'/edit')
+
+     axios.get(base_url+'client/'+id+'/edit')
 
      .then(response => {
-      
-       
-           this.organization = {
-            id : response.data.id,   
-            name: response.data.name,
-            status: response.data.status,
+
+
+
+           this.client = {
+            id : response.data.id,
+            first_name: response.data.first_name,
+            last_name: response.data.last_name,
+            email: response.data. email,
             address: response.data.address,
+            post_code: response.data.post_code,
             phone: response.data.phone,
-            email: response.data.email,
-            password: response.data.password,
-            code: response.data.code,
-            password_confirmation: response.data.password
+            company: response.data.company,
+            company_register: response.data.company_register,
+            unique_tax_reference: response.data.unique_tax_reference,
+            charity: response.data.charity
           };
 
      })
 
     },
-    updateOrganization() {
-        axios.post(base_url + "organization/update/"+this.organization.id, this.organization)
+    updateClient() {
+        axios.post(base_url + "client/update/"+this.client.id, this.client)
 
         .then(response => {
-          $("#update-organization").modal("hide");
-          EventBus.$emit("organization-added");
+          $("#update-client").modal("hide");
+          EventBus.$emit("client-added");
           this.showMessage(response.data)
           this.resetForm();
         })
@@ -206,19 +220,20 @@ export default {
       }
     },
     resetForm(){
-    
-      this.organization = {
-        id: '',
-        name: '',
-        address: '',
-        phone: '',
-        email: '',
-        password: '',
-        code: '',
-        status: '',
-        password_confirmation: ''
-      };
-      this.errors = null; 
+
+      this.client= {
+          first_name: '',
+          last_name: '',
+          address: '',
+          phone: '',
+          email: '',
+          company: '',
+          post_code: '',
+          company_register: '',
+          unique_tax_reference: '',
+          charity: ''
+      },
+      this.errors = null;
 
     },
 

@@ -363,8 +363,7 @@
                             </li>
                         </ul>
                     </div>
-                @endrole
-                @role('organization')
+                @else
                     @php
                         $system = \App\Models\System::where('id', Illuminate\Support\Facades\Session::get('system_id'))->first();
                         $names = array();

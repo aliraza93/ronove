@@ -85,7 +85,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <!--
                                 <div class="row">
@@ -105,6 +105,7 @@
         <!-- /Add Employee Modal -->
 </template>
 <script>
+
 import { EventBus } from "../../vue-asset";
 import mixin from "../../mixin";
 
@@ -159,7 +160,7 @@ export default {
   methods: {
     onImageChange(e) {
         let file = e.target.files[0];
-        let reader = new FileReader();  
+        let reader = new FileReader();
 
         if(file['size'] < 2111775)
         {
@@ -167,7 +168,7 @@ export default {
             //console.log('RESULT', reader.result)
                 //this.employee.image = reader.result;
             }
-            console.log(this.employee.image)              
+            console.log(this.employee.image)
             this.employee.image = reader.readAsDataURL(file);
         }else{
             alert('File size can not be bigger than 2 MB')
@@ -204,7 +205,7 @@ export default {
             type: '',
           };
           this.errors = null;
-          
+
         })
         .catch(err => {
           if (err.response) {

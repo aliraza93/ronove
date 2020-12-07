@@ -32,7 +32,7 @@
                   name=""
               v-model="name"
               style="margin-bottom: 1px;"
-            >  
+            >
         </div>
       </div>
       <!-- Search Filter -->
@@ -48,11 +48,35 @@
                   <div class="dropdown profile-action">
                       <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                       <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_employee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                          <a class="dropdown-item" href="#" @click="editEmployee(value.id)"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                           <a class="dropdown-item" href="#" @click="assignPermissions(value.id)" data-toggle="modal" data-target="#assign-permissions"><i class="fa fa-pencil m-r-5"></i> Assign Permissions</a>
-
+                            
                       </div>
+                      <!-- Delete Employee Modal -->
+                        <div class="modal custom-modal fade" id="delete_employee" role="dialog">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="form-header">
+                                            <h3>Delete Employee</h3>
+                                            <p>Are you sure want to delete?</p>
+                                        </div>
+                                        <div class="modal-btn delete-action">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <a href="javascript:void(0);" @click="deleteEmployee(value.id)" class="btn btn-primary continue-btn">Delete</a>
+                                                </div>
+                                                <div class="col-6">
+                                                    <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Delete Employee Modal -->
                   </div>
                   <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="profile">{{ value.first_name }} {{ value.last_name }}</a></h4>
                   <!--
@@ -68,6 +92,8 @@
         <pagination :pageData="employee"></pagination>
 
       <div class="row">
+        <update-employee></update-employee>
+        <assign-system></assign-system>
         <assign-permissions></assign-permissions>
       </div>
   </div>
@@ -76,7 +102,10 @@
 <script>
 import { EventBus } from "../../vue-asset";
 import mixin from "../../mixin";
+
+import UpdateEmployee from "./UpdateEmployee.vue";
 import AssignPermissions from "./AssignPermissions.vue";
+import AssignSystem from "./AssignSystem.vue";
 import Pagination  from '../pagination/pagination.vue';
 
 export default {
@@ -84,6 +113,7 @@ export default {
 
   components: {
     "assign-permissions": AssignPermissions,
+    "assign-system": AssignSystem,
     "pagination": Pagination,
   },
 
@@ -160,6 +190,10 @@ export default {
 
     // edit vendor
 
+   editEmployee(id) {
+      EventBus.$emit("employee-edit", id);
+    },
+
     assignPermissions(id) {
       EventBus.$emit("assign-permissions", id);
     },
@@ -167,12 +201,12 @@ export default {
       var vm = this;
       vm.getData(pageNo);
     },
-    deleteOrganization (id) {
+    deleteEmployee (id) {
       axios.delete(base_url + "employee/" + id)
         .then(({data}) => {
             location.reload();
-            this.$toast.success('System Deleted Successfully !', 'Success',this.notificationSystem.options.success);
-        });       
+            this.$toast.success('Employee Deleted Successfully !', 'Success',this.notificationSystem.options.success);
+        });
     },
   },
 

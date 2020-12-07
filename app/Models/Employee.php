@@ -7,13 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\Permission\Traits\HasRoles;
 
 class Employee extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia,  HasRoles;
-    
-    protected $guard_name = 'web';
+    use HasFactory, InteractsWithMedia;
     /**
      * Register the media conversions.
      * 

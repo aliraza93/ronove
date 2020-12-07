@@ -26,7 +26,6 @@ class CreateEmployeePersonalDetailsTable extends Migration
             $table->string('license_category');
             $table->integer('employee_id')->unsigned();
             $table->timestamps();
- 
         });
     }
 
