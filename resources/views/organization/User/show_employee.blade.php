@@ -837,27 +837,33 @@
                     </div>
                 </div>
             </div>
+            <!-- bank details-->
             <div id="bank_details" class="pro-overview tab-pane fade">
                 <div class="row">
                     <div class="col-md-6 d-flex">
                         <div class="card profile-box flex-fill">
                             <div class="card-body">
-                                <bank-details :id="{{ $employee->id }}"></bank-details>
-                                <h3 class="card-title">Account Details<a href="#" class="edit-icon" data-toggle="modal" data-target="#bank-details-modal"><i class="fa fa-pencil"></i></a></h3>
-                                <ul class="personal-info">
-                                    <li>
-                                        <div class="title">Account Name</div>
-                                        <div class="text">HBL Bank</div>
-                                    </li>
-                                    <li>
-                                        <div class="title">Sort Code</div>
-                                        <div class="text">11-33-44</div>
-                                    </li>
-                                    <li>
-                                        <div class="title">Account Number</div>
-                                        <div class="text"><a href="">9876543210</a></div>
-                                    </li>
-                                </ul>
+                                @if (empty($employee_bank_details))
+                                            <bank-details :id="{{ $employee->id }}"></bank-details>
+                                        <h3 class="card-title">Account Details<a href="#" class="edit-icon" data-toggle="modal" data-target="#bank-details-modal"><i class="fa fa-plus"></i></a></h3>
+                                @else
+                                    <bank-details-update :employee_bank_details="{{ $employee_bank_details }}"></bank-details-update>
+                                    <h3 class="card-title">Account Details<a href="#" class="edit-icon" data-toggle="modal" data-target="#bank-details-update-modal"><i class="fa fa-pencil"></i></a></h3>
+                                    <ul class="personal-info">
+                                        <li>
+                                            <div class="title">Account Name</div>
+                                            <div class="text">{{ $employee_bank_details->account_name}}</div>
+                                        </li>
+                                        <li>
+                                            <div class="title">Sort Code</div>
+                                            <div class="text">{{ $employee_bank_details->sort_code}}</div>
+                                        </li>
+                                        <li>
+                                            <div class="title">Account number</div>
+                                            <div class="text">{{ $employee_bank_details->account_number}}</div>
+                                        </li>
+                                    </ul>
+                                @endif
                             </div>
                         </div>
                     </div>

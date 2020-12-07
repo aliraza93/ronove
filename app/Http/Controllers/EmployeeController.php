@@ -124,8 +124,9 @@ class EmployeeController extends Controller
         $personaldetails = EmployeePersonalDetails::where('employee_id', $id)->first();
         $employee_education = EmployeeEducationDetails::where('employee_id', $id)->first();
         $employee_present = EmployeePresentDetails::where('employee_id', $id)->first();
+        $employee_bank_details = EmployeeBankDetails::where('employee_id', $id)->first();
         $employee_training = EmployeeTrainingDetails::where('employee_id', $id)->first();
-        return view('organization.User.show_employee', compact('employee', 'employeeNextkin', 'employee_education', 'employee_present', 'employee_training', 'employeeHealth', 'personaldetails', 'employee_schedule'));
+        return view('organization.User.show_employee', compact('employee', 'employeeNextkin', 'employee_bank_details','employee_education', 'employee_present', 'employee_training', 'employeeHealth', 'personaldetails', 'employee_schedule'));
     }
 
     public function showDashboard()
@@ -359,6 +360,29 @@ class EmployeeController extends Controller
             
             $employee->save();
             return response()->json(['status'=>'success','message'=>'Employee Bank Details Added Successfully !']);
+        }
+        catch(\Exception $e)
+        {
+         
+            return response()->json(['status'=>'error','message'=>$e->getMessage()]);
+        }
+    }
+
+    public function updateEmployeeBankDetails(Request $request, $id)
+    {   
+        $request->validate([
+            'account_name' => 'required',
+            'sort_code' => 'required',
+            'account_number' => 'required',
+            
+            ]);
+        try{
+            $employee = EmployeeBankDetails::find($id);
+            $employee->account_name = $request->account_name;
+            $employee->sort_code = $request->sort_code;
+            $employee->account_number = $request->account_number;
+            $employee->update();
+            return response()->json(['status'=>'success','message'=>'Employee Bank Details Updated Successfully !']);
         }
         catch(\Exception $e)
         {

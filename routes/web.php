@@ -105,6 +105,7 @@ Route::group(['middleware' => ['role:organization']], function () {
     Route::get('assign-permissions/{id}','EmployeeController@PermissionsList');
     Route::post('assign-permissions/update/{employee}/{id}','EmployeeController@assignPermission');
     Route::post('employee-bank-details/{id}','EmployeeController@storeEmployeeBankDetails' );
+    Route::post('employee-bank-details-update/{id}','EmployeeController@updateEmployeeBankDetails' );
     //Route::get('assign/{id}','EmployeeController@SystemsList');
     //Route::post('assign/update/{employee}/{id}','EmployeeController@assignSystem');
 

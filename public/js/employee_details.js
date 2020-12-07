@@ -2039,6 +2039,158 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Employee/BankDetailsUpdate.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Employee/BankDetailsUpdate.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _vue_asset__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../vue-asset */ "./resources/js/vue-asset.js");
+/* harmony import */ var _mixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixin */ "./resources/js/mixin.js");
+/* harmony import */ var _mixin__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mixin__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [_mixin__WEBPACK_IMPORTED_MODULE_1___default.a],
+  props: ['employee_bank_details'],
+  data: function data() {
+    return {
+      employee: {
+        id: '',
+        account_name: '',
+        sort_code: '',
+        account_number: ''
+      },
+      errors: null,
+      notificationSystem: {
+        options: {
+          success: {
+            position: "topRight",
+            timeout: 3000,
+            "class": 'success_notification'
+          },
+          error: {
+            position: "topRight",
+            timeout: 4000,
+            "class": 'error_notification'
+          },
+          completed: {
+            position: 'center',
+            timeout: 1000,
+            "class": 'complete_notification'
+          },
+          info: {
+            overlay: true,
+            zindex: 999,
+            position: 'center',
+            timeout: 3000,
+            "class": 'info_notification'
+          }
+        }
+      }
+    };
+  },
+  created: function created() {
+    this.getEditData();
+  },
+  methods: {
+    getEditData: function getEditData() {
+      this.employee = {
+        id: this.employee_bank_details.id,
+        account_name: this.employee_bank_details.account_name,
+        sort_code: this.employee_bank_details.sort_code,
+        account_number: this.employee_bank_details.account_number
+      };
+    },
+    updateBankDetails: function updateBankDetails() {
+      var _this = this;
+
+      axios.post(base_url + "employee-bank-details-update/" + this.employee_bank_details.id, this.employee).then(function (response) {
+        $("#bank-details-update-modal").modal("hide");
+        location.reload();
+
+        _this.showMessage(response.data);
+
+        location.reload();
+        _this.employee = {
+          id: '',
+          account_name: '',
+          sort_code: '',
+          account_number: ''
+        };
+        _this.errors = null;
+      })["catch"](function (err) {
+        if (err.response) {
+          _this.errors = err.response.data.errors;
+
+          _this.showMessage(err.response.data);
+        }
+      });
+    },
+    showMessage: function showMessage(data) {
+      if (data.status == "success") {
+        this.$toast.success(data.message, 'Success Alert', this.notificationSystem.options.success);
+      } else {
+        this.$toast.error(data.message, "Error Alert", this.notificationSystem.options.error);
+      }
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Employee/EmployeeEducation.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Employee/EmployeeEducation.vue?vue&type=script&lang=js& ***!
@@ -54591,6 +54743,202 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Employee/BankDetailsUpdate.vue?vue&type=template&id=774b5339&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Employee/BankDetailsUpdate.vue?vue&type=template&id=774b5339& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "modal custom-modal fade",
+      attrs: { id: "bank-details-update-modal", role: "dialog" }
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "modal-dialog modal-dialog-centered modal-lg",
+          attrs: { role: "document" }
+        },
+        [
+          _c("div", { staticClass: "modal-content" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _vm.errors
+                ? _c("div", { staticClass: "alert alert-danger" }, [
+                    _c(
+                      "ul",
+                      _vm._l(_vm.errors, function(error) {
+                        return _c("li", { key: error }, [
+                          _vm._v(_vm._s(error[0]))
+                        ])
+                      }),
+                      0
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("form", [
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Account Name")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.employee.account_name,
+                          expression: "employee.account_name"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.employee.account_name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.employee,
+                            "account_name",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Sort Code")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.employee.sort_code,
+                          expression: "employee.sort_code"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.employee.sort_code },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.employee,
+                            "sort_code",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Account Number")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.employee.account_number,
+                          expression: "employee.account_number"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.employee.account_number },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.employee,
+                            "account_number",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "submit-section" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary submit-btn",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.updateBankDetails()
+                        }
+                      }
+                    },
+                    [_vm._v("Update")]
+                  )
+                ])
+              ])
+            ])
+          ])
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("UpdateBank Details")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Employee/EmployeeEducation.vue?vue&type=template&id=7328b184&":
 /*!*****************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Employee/EmployeeEducation.vue?vue&type=template&id=7328b184& ***!
@@ -68831,6 +69179,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Employee/BankDetailsUpdate.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/Employee/BankDetailsUpdate.vue ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _BankDetailsUpdate_vue_vue_type_template_id_774b5339___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BankDetailsUpdate.vue?vue&type=template&id=774b5339& */ "./resources/js/components/Employee/BankDetailsUpdate.vue?vue&type=template&id=774b5339&");
+/* harmony import */ var _BankDetailsUpdate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BankDetailsUpdate.vue?vue&type=script&lang=js& */ "./resources/js/components/Employee/BankDetailsUpdate.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _BankDetailsUpdate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _BankDetailsUpdate_vue_vue_type_template_id_774b5339___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _BankDetailsUpdate_vue_vue_type_template_id_774b5339___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Employee/BankDetailsUpdate.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Employee/BankDetailsUpdate.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/Employee/BankDetailsUpdate.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BankDetailsUpdate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./BankDetailsUpdate.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Employee/BankDetailsUpdate.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BankDetailsUpdate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Employee/BankDetailsUpdate.vue?vue&type=template&id=774b5339&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/Employee/BankDetailsUpdate.vue?vue&type=template&id=774b5339& ***!
+  \***********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BankDetailsUpdate_vue_vue_type_template_id_774b5339___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./BankDetailsUpdate.vue?vue&type=template&id=774b5339& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Employee/BankDetailsUpdate.vue?vue&type=template&id=774b5339&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BankDetailsUpdate_vue_vue_type_template_id_774b5339___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BankDetailsUpdate_vue_vue_type_template_id_774b5339___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Employee/EmployeeEducation.vue":
 /*!****************************************************************!*\
   !*** ./resources/js/components/Employee/EmployeeEducation.vue ***!
@@ -69274,6 +69691,7 @@ Vue.use(bootstrap_vue__WEBPACK_IMPORTED_MODULE_2__["BootstrapVue"]); // Optional
 Vue.use(bootstrap_vue__WEBPACK_IMPORTED_MODULE_2__["IconsPlugin"]);
 Vue.use(vue_izitoast__WEBPACK_IMPORTED_MODULE_0___default.a);
 Vue.component('bank-details', __webpack_require__(/*! ./components/Employee/BankDetails.vue */ "./resources/js/components/Employee/BankDetails.vue")["default"]);
+Vue.component('bank-details-update', __webpack_require__(/*! ./components/Employee/BankDetailsUpdate.vue */ "./resources/js/components/Employee/BankDetailsUpdate.vue")["default"]);
 Vue.component('employee-education', __webpack_require__(/*! ./components/Employee/EmployeeEducation.vue */ "./resources/js/components/Employee/EmployeeEducation.vue")["default"]);
 Vue.component('employee-education-update', __webpack_require__(/*! ./components/Employee/EmployeeEducationUpdate.vue */ "./resources/js/components/Employee/EmployeeEducationUpdate.vue")["default"]);
 Vue.component('employee-present', __webpack_require__(/*! ./components/Employee/EmployeePresent.vue */ "./resources/js/components/Employee/EmployeePresent.vue")["default"]);

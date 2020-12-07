@@ -13,6 +13,7 @@ Vue.use(IconsPlugin)
 
 Vue.use(VueIziToast);
 Vue.component('bank-details', require('./components/Employee/BankDetails.vue').default)
+Vue.component('bank-details-update', require('./components/Employee/BankDetailsUpdate.vue').default)
 Vue.component('employee-education', require('./components/Employee/EmployeeEducation.vue').default)
 Vue.component('employee-education-update', require('./components/Employee/EmployeeEducationUpdate.vue').default)
 Vue.component('employee-present', require('./components/Employee/EmployeePresent.vue').default)
