@@ -21,4 +21,7 @@ mix.js('resources/js/mar_sheet.js', 'public/js')
 mix.js('resources/js/chat.js', 'public/js')
 mix.js('resources/js/employee_details.js', 'public/js')
 mix.js('resources/js/booking.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix.js('resources/js/setting.js', 'public/js')
+mix.js('resources/js/dosage.js', 'public/js')
+mix.js('resources/js/route.js', 'public/js')
+.sass('resources/sass/app.scss', 'public/css');

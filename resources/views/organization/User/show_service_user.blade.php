@@ -96,6 +96,7 @@
                         <li class="nav-item"><a href="#emp_projects" data-toggle="tab" class="nav-link">Projects</a></li>
                         <li class="nav-item"><a href="#book-service-staff" data-toggle="tab" class="nav-link">Book Service Staff</a></li>
                         <li class="nav-item"><a href="#bank_statutory" data-toggle="tab" class="nav-link">Bank & Statutory <small class="text-danger">(Admin Only)</small></a></li>
+                        <li class="nav-item"><a href="#care_plan" data-toggle="tab" class="nav-link">Care Plan</a></li>
                     </ul>
                 </div>
             </div>
@@ -859,6 +860,277 @@
             </div>
             <!-- /Bank Statutory Tab -->
             
+            <!-- Care Plan -->
+            <div id="care_plan" class="pro-overview tab-pane fade" id=$care-plan>     
+
+                        <h3 class="card-title"><b>Care Plan</b></h3>
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        
+                        @endif
+
+                        @if (!empty($serviceCarePlan))
+                        <form method="POST" action="{{ url('care-plan-update')}}/{{$serviceCarePlan->id}}">
+                            @csrf
+                            <h3>Basic Salary Information</h3>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Salary basics <span class="text-danger">*</span></label>
+                                        <input class="form-control" name="Salary_basic" type="text" value=" {{$serviceCarePlan->Salary_basic }}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Salary Amount par month <span class="text-danger"></span></label>
+                                        <input class="form-control" name="salary_amount" type="text" value=" {{$serviceCarePlan->salary_amount }}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Payment Type <span class="text-danger"></span></label>
+                                        <input class="form-control" name="payment_type" type="text" value=" {{$serviceCarePlan->payment_type }}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-form-label"><h3>PF Information</h3> <span class="text-danger"></span></label> 
+                                    </div>
+                                </div>    
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">PF contribution <span class="text-danger"></span></label>
+                                        <input class="form-control" name="pf_cuntribution" type="text" value=" {{$serviceCarePlan->pf_cuntribution }}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">PF No: <span class="text-danger">*</span></label>
+                                        <input class="form-control" name="pf_no" type="text" value=" {{$serviceCarePlan->pf_no }}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">     
+                                </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Employee PF Rate <span class="text-danger"></span></label>
+                                        <input class="form-control" name="emp_pf_rate" type="text" value=" {{$serviceCarePlan->emp_pf_rate }}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Additional Rate <span class="text-danger">*</span></label>
+                                        <input class="form-control" name="additional_rate" type="text" value=" {{$serviceCarePlan->additional_rate }}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Totel Rate<span class="text-danger"></span></label>
+                                        <input class="form-control" name="total_rate" type="text" value=" {{$serviceCarePlan->total_rate }}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Employee Pf Rate <span class="text-danger"></span></label>
+                                        <input class="form-control" name="emp_pf_rate2" type="text" value=" {{$serviceCarePlan->emp_pf_rate2 }}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Additional Rate  <span class="text-danger"></span></label>
+                                        <input class="form-control" name="additional_rate2" type="text" value=" {{$serviceCarePlan->additional_rate2 }}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Totel Rate <span class="text-danger"></span></label>
+                                        <input class="form-control" name="total_rate2" type="text" value=" {{$serviceCarePlan->total_rate2 }}">
+                                    </div>
+                                </div>                                
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-form-label"><h3>ESI Information</h3> <span class="text-danger"></span></label> 
+                                    </div>
+                                </div> 
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">ESI contribution <span class="text-danger"></span></label>
+                                        <input class="form-control" name="esi_contribution" type="text" value=" {{$serviceCarePlan->esi_contribution }}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">ESI No: <span class="text-danger">*</span></label>
+                                        <input class="form-control" name="esi_no" type="text" value=" {{$serviceCarePlan->esi_no }}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group"> 
+                                    </div>  
+                                   </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Employee ESI Rate <span class="text-danger"></span></label>
+                                        <input class="form-control" name="em_esi_rate" type="text" value=" {{$serviceCarePlan->em_esi_rate }}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Additional rate <span class="text-danger">*</span></label>
+                                        <input class="form-control" name="additional_esi_rate" type="text" value=" {{$serviceCarePlan->additional_esi_rate }}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Totel rate  <span class="text-danger"></span></label>
+                                        <input class="form-control" name="total_esi_rate" type="text" value=" {{$serviceCarePlan->total_esi_rate }}">
+                                    </div>
+                                </div>
+
+                            </div>
+                                <div class="submit-section">
+                                    <button class="btn btn-primary submit-btn" type="submit">Update</button>
+                                </div>
+                        </form>
+                        @else
+                        <form method="POST" action="{{ url('care-plan')}}/{{$service_user->id}}">
+                            @csrf
+                            <h3>Basic Salary Information</h3>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Salary basics <span class="text-danger">*</span></label>
+                                        <input class="form-control" name="Salary_basic" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Salary Amount par month <span class="text-danger"></span></label>
+                                        <input class="form-control" name="salary_amount" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Payment Type <span class="text-danger"></span></label>
+                                        <input class="form-control" name="payment_type" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-form-label"><h3>PF Information</h3> <span class="text-danger"></span></label> 
+                                    </div>
+                                </div>    
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">PF contribution <span class="text-danger"></span></label>
+                                        <input class="form-control" name="pf_cuntribution" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">PF No: <span class="text-danger">*</span></label>
+                                        <input class="form-control" name="pf_no" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">     
+                                </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Employee PF Rate <span class="text-danger"></span></label>
+                                        <input class="form-control" name="emp_pf_rate" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Additional Rate <span class="text-danger">*</span></label>
+                                        <input class="form-control" name="additional_rate" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Totel Rate<span class="text-danger"></span></label>
+                                        <input class="form-control" name="total_rate" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Employee Pf Rate <span class="text-danger"></span></label>
+                                        <input class="form-control" name="emp_pf_rate2" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Additional Rate  <span class="text-danger"></span></label>
+                                        <input class="form-control" name="additional_rate2" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Totel Rate <span class="text-danger"></span></label>
+                                        <input class="form-control" name="total_rate2" type="text">
+                                    </div>
+                                </div>                                
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-form-label"><h3>ESI Information</h3> <span class="text-danger"></span></label> 
+                                    </div>
+                                </div> 
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">ESI contribution <span class="text-danger"></span></label>
+                                        <input class="form-control" name="esi_contribution" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">ESI No: <span class="text-danger">*</span></label>
+                                        <input class="form-control" name="esi_no" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group"> </div>    
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Employee ESI Rate <span class="text-danger"></span></label>
+                                        <input class="form-control" name="em_esi_rate" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Additional rate <span class="text-danger">*</span></label>
+                                        <input class="form-control" name="additional_esi_rate" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Totel rate  <span class="text-danger"></span></label>
+                                        <input class="form-control" name="total_esi_rate" type="text">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="submit-section">
+                                <button class="btn btn-primary submit-btn" type="submit">Submit</button>
+                            </div>
+                        </form>
+                        @endif
+                        </div>
+            
+                
+            
+            </div>
+            <!-- /Care Plan -->
+
         </div>
     </div>
     <!-- /Page Content -->

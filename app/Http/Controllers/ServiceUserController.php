@@ -12,6 +12,7 @@ use Hash;
 use App\Models\MarSheet;
 use App\Models\Employee;
 use App\Models\EmployeeSchedule;
+use App\Models\ServiceCarePlan;
 class ServiceUserController extends Controller
 {
     /**
@@ -278,4 +279,73 @@ class ServiceUserController extends Controller
         //$service_user->removeRole('organization');
         //$service_user->delete();
     }
+    public function serviceCarePlan(Request $request, $id){
+        $request->validate([
+            'Salary_basic' => 'required',
+            'salary_amount' => 'required', 
+            'payment_type' => 'required',
+            'emp_pf_rate' => 'required',
+            'total_rate' => 'required',
+            'em_esi_rate' => 'required',
+            'additional_esi_rate' => 'required',
+            'total_esi_rate' => 'required',
+        ]);
+        $service = new ServiceCarePlan();           
+        $service->Salary_basic = $request->Salary_basic;
+        $service->salary_amount = $request->salary_amount;
+        $service->payment_type = $request->payment_type;
+        $service->pf_cuntribution = $request->pf_cuntribution;
+        $service->pf_no = $request->pf_no;
+        $service->emp_pf_rate = $request->emp_pf_rate;
+        $service->additional_rate = $request->additional_rate;
+        $service->total_rate = $request->total_rate;
+        $service->emp_pf_rate2 = $request->emp_pf_rate2;
+        $service->additional_rate2 = $request->additional_rate2;
+        $service->total_rate2 = $request->total_rate2;
+        $service->esi_contribution = $request->esi_contribution;
+        $service->esi_no = $request->esi_no;
+        $service->em_esi_rate = $request->em_esi_rate;
+        $service->additional_esi_rate = $request->additional_esi_rate;
+        $service->total_esi_rate = $request->total_esi_rate;
+
+        $service->service_user_id = $id;
+        
+        $service->save();
+        return redirect()->back() ->with('alert', 'Services Care Added Successfully');
+   }
+   public function updateserviceCarePlan(Request $request, $id){
+    $request->validate([
+        'Salary_basic' => 'required',
+        'salary_amount' => 'required', 
+        'payment_type' => 'required',
+        'emp_pf_rate' => 'required',
+        'total_rate' => 'required',
+        'em_esi_rate' => 'required',
+        'additional_esi_rate' => 'required',
+        'total_esi_rate' => 'required',
+    ]);
+    $service =serviceCarePlan::find($id);          
+    $service->Salary_basic = $request->Salary_basic;
+    $service->salary_amount = $request->salary_amount;
+    $service->payment_type = $request->payment_type;
+    $service->pf_cuntribution = $request->pf_cuntribution;
+    $service->pf_no = $request->pf_no;
+    $service->emp_pf_rate = $request->emp_pf_rate;
+    $service->additional_rate = $request->additional_rate;
+    $service->total_rate = $request->total_rate;
+    $service->emp_pf_rate2 = $request->emp_pf_rate2;
+    $service->additional_rate2 = $request->additional_rate2;
+    $service->total_rate2 = $request->total_rate2;
+    $service->esi_contribution = $request->esi_contribution;
+    $service->esi_no = $request->esi_no;
+    $service->em_esi_rate = $request->em_esi_rate;
+    $service->additional_esi_rate = $request->additional_esi_rate;
+    $service->total_esi_rate = $request->total_esi_rate;
+
+    $service->update();
+    
+    $service->save();
+    return redirect()->back() ->with('alert', 'Services Care Updated Successfully');
+    }
+
 }

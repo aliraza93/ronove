@@ -4,10 +4,13 @@
     "/js/booking.js": "/js/booking.js",
     "/js/chat.js": "/js/chat.js",
     "/js/client.js": "/js/client.js",
+    "/js/dosage.js": "/js/dosage.js",
     "/js/employee.js": "/js/employee.js",
     "/js/employee_details.js": "/js/employee_details.js",
     "/js/mar_sheet.js": "/js/mar_sheet.js",
     "/js/organization.js": "/js/organization.js",
+    "/js/route.js": "/js/route.js",
     "/js/service_user.js": "/js/service_user.js",
+    "/js/setting.js": "/js/setting.js",
     "/js/system.js": "/js/system.js"
 }

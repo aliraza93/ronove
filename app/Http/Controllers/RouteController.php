@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Medicine;
+use App\Models\Route;
 use Illuminate\Http\Request;
 use Session;
 
-class MedicineController extends Controller
+class RouteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,27 +15,27 @@ class MedicineController extends Controller
      */
     public function index()
     {
-        $medicine = Medicine::latest()->get()->first();
-        return view('organization.setting.medicines', compact('medicine'));
+        $route = Route::latest()->get()->first();
+        return view('organization.setting.route', compact('route'));
     }
 
-    public function MedicineList(Request $request){
+    public function RouteList(Request $request){
         $name = $request->name;
-        $medicine = Medicine::where('organization_id', Session::get('OrganizationId'))->orderBy('created_at','desc');
+        $route = Route::where('organizations_id', Session::get('OrganizationId'))->orderBy('created_at','desc');
         if($name != ''){
-            $medicine->where('name','LIKE','%'.$name.'%');
+            $route->where('name','LIKE','%'.$name.'%');
         }
-        $medicine = $medicine->paginate(10);
-        return $medicine;
+        $route = $route->paginate(10);
+        return $route;
     }
 
     public function PermissionsList(Request $request){
         $permissions = Permission::all();
         $ids = array();
-        $medicine = Medicine::where('id', $request->id)->first();
+        $route = Route::where('id', $request->id)->first();
         foreach ($permissions as $key => $value) {
-            if($medicine->hasPermissionTo($value)) {
-                if($medicine != null) {
+            if($route->hasPermissionTo($value)) {
+                if($route != null) {
                     $ids[$key] = $value->id;
                 }
             }
@@ -68,12 +68,12 @@ class MedicineController extends Controller
             'name' => 'required',
         ]);
         try{
-            $medicine = new Medicine;
-            $medicine->name = $request->name;
-            $medicine->organization_id = Session::get('OrganizationId');
-            $medicine->save();
+            $route = new Route;
+            $route->name = $request->name;
+            $route->organizations_id = Session::get('OrganizationId');
+            $route->save();
 
-            return response()->json(['status'=>'success','message'=>'Medicine Added Successfully !']);
+            return response()->json(['status'=>'success','message'=>'Route Added Successfully !']);
         }
         catch(\Exception $e)
         {
@@ -100,9 +100,9 @@ class MedicineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Medicine $medicine)
+    public function edit(Route $route)
     {
-        return $medicine;
+        return $route;
     }
 
     /**
@@ -118,11 +118,11 @@ class MedicineController extends Controller
             'name' => 'required',
         ]);
         try{
-            $medicine = Medicine::find($id);
-            $medicine->name = $request->name;
-            $medicine->update();
+            $route = Route::find($id);
+            $route->name = $request->name;
+            $route->update();
 
-            return response()->json(['status'=>'success','message'=>'Medicine Updated Successfully !']);
+            return response()->json(['status'=>'success','message'=>'Route Updated Successfully !']);
         }
         catch(\Exception $e)
         {
@@ -136,29 +136,29 @@ class MedicineController extends Controller
     {
         $array = explode(',', $request->id);
         $permissions = Permission::all();
-        $medicine = Medicine::where('id', $id)->first();
-        if(!Role::where('name', 'medicine')){
-            //dd('No Medicine');
-            $role = Role::create(['name' => 'medicine']);
-            $medicine->assignRole($role);
+        $route = Route::where('id', $id)->first();
+        if(!Role::where('name', 'route')){
+            //dd('No Route');
+            $role = Role::create(['name' => 'route']);
+            $route->assignRole($role);
         }
-        elseif ($medicine->hasRole('medicine')) {
+        elseif ($route->hasRole('route')) {
             //dd('Has Role');
             foreach ($permissions as $key => $value) {
-                if($medicine->hasPermissionTo($value->id)) {
-                    $medicine->revokePermissionTo($value->id);
+                if($route->hasPermissionTo($value->id)) {
+                    $route->revokePermissionTo($value->id);
                 }
             }
-            //$medicine->hasPermissionTo(1);
+            //$route->hasPermissionTo(1);
         }
         else{
             //dd('Assign');
-            $role = Role::where(['name' => 'medicine'])->first();
-            $medicine->assignRole($role);
+            $role = Role::where(['name' => 'route'])->first();
+            $route->assignRole($role);
         }
         try{
             foreach ($array as $key => $value) {
-                $medicine->givePermissionTo(Permission::find($value)->id);
+                $route->givePermissionTo(Permission::find($value)->id);
             }
             return response()->json(['status'=>'success','message'=>'Permissions Granted Successfully !']);
         }
@@ -176,8 +176,8 @@ class MedicineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Medicine $medicine)
+    public function destroy(Route $route)
     {
-        $medicine->delete();
+        $route->delete();
     }
 }
