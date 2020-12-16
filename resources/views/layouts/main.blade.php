@@ -30,6 +30,10 @@
     <!-- Lineawesome CSS -->
     <link rel="stylesheet" href="{{ asset('css/line-awesome.min.css') }}">
     
+    <!-- File Manager CSS -->
+    <link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+    
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <!-- jQuery -->
@@ -60,7 +64,7 @@
             
             <!-- Header Title -->
             <div class="page-title-box">
-                <h3>Dreamguy's Technologies</h3>
+                <h3>{{ config('app.name', 'Laravel') }}</h3>
             </div>
             <!-- /Header Title -->
             
@@ -69,7 +73,7 @@
             <!-- Header Menu -->
             <ul class="nav user-menu">
             
-                <!-- Search -->
+                {{-- <!-- Search -->
                 <li class="nav-item">
                     <div class="top-nav-search">
                         <a href="javascript:void(0);" class="responsive-search">
@@ -81,10 +85,10 @@
                         </form>
                     </div>
                 </li>
-                <!-- /Search -->
+                <!-- /Search --> --}}
             
                 <!-- Flag -->
-                <li class="nav-item dropdown has-arrow flag-nav">
+                {{-- <li class="nav-item dropdown has-arrow flag-nav">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">
                         <img src="img/flags/us.png" alt="" height="20"> <span>English</span>
                     </a>
@@ -102,10 +106,10 @@
                             <img src="img/flags/de.png" alt="" height="16"> German
                         </a>
                     </div>
-                </li>
+                </li> --}}
                 <!-- /Flag -->
             
-                <!-- Notifications -->
+                {{-- <!-- Notifications -->
                 <li class="nav-item dropdown">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i> <span class="badge badge-pill">3</span>
@@ -188,11 +192,11 @@
                             <a href="activities">View all Notifications</a>
                         </div>
                     </div>
-                </li>
+                </li> --}}
                 <!-- /Notifications -->
                 
                 <!-- Message Notifications -->
-                <li class="nav-item dropdown">
+                {{-- <li class="nav-item dropdown">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <i class="fa fa-comment-o"></i> <span class="badge badge-pill">8</span>
                     </a>
@@ -295,13 +299,13 @@
                         </div>
                     </div>
                 </li>
-                <!-- /Message Notifications -->
+                <!-- /Message Notifications --> --}}
 
                 <li class="nav-item dropdown has-arrow main-drop">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <span class="user-img"><img src="img/profiles/avatar-21.jpg" alt="">
                         <span class="status online"></span></span>
-                        <span>Admin</span>
+                        <span>{{ Auth::user()->name }}</span>
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="profile">My Profile</a>
@@ -787,9 +791,6 @@
                         <li class="menu-title"> 
                             <span>Main</span>
                         </li>
-                        <li>
-                            <a href="{{ route('employee.dashboard') }}"><i class="la la-dashboard"></i> <span> Dashboard</span> </a>
-                        </li>
                         @if (in_array('Medicines',$names) || in_array('Dosage',$names) || in_array('Routes',$names))
                             <li class="menu-title"> 
                                 <span>Settings</span>
@@ -1176,7 +1177,8 @@
     <!-- Bootstrap Core JS -->
     <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    
+    <!-- File Manager JavaScript FIles -->
+    <script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
     <!-- Slimscroll JS -->
     <script src="{{ asset('js/jquery.slimscroll.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>    

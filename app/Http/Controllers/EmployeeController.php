@@ -17,7 +17,7 @@ use Session;
 use Hash;
 use App\Models\EmployeeSchedule;
 use App\Models\EmployeePersonalDetails;
-use App\Models\SYstem;
+use App\Models\System;
 
 class EmployeeController extends Controller
 {
@@ -46,15 +46,15 @@ class EmployeeController extends Controller
         return $employee;
     }
 
-    public function PermissionsList(Request $request){
+    public function PermissionsList(Request $request, $id){
         //$permissions = Permission::all();
         $ids = array();
         $system = System::where('id', Session::get('system_id'))->first();
-        $employee = Employee::where('id', $request->id)->first();
+        $employee = Employee::where('id', $id)->first();
         $user = User::where('employee_id', $employee->id)->first();
         $permissions = $system->getAllPermissions();
         foreach ($permissions as $key => $value) {
-            if($user->hasPermissionTo($value)) {
+            if($user->hasPermissionTo($value->id)) {
                 if($user != null) {
                     $ids[$key] = $value->id;
                 }
@@ -87,7 +87,8 @@ class EmployeeController extends Controller
     public function assignPermission(Request $request, $id)
     {
         $array = explode(',', $request->id);
-        $permissions = Permission::all();
+        $system = System::where('id', Session::get('system_id'))->first();
+        $permissions = $system->getAllPermissions();
         $employee = Employee::where('id', $id)->first();
         $user = User::where('employee_id', $employee->id)->first();
         foreach ($permissions as $key => $value) {
@@ -189,6 +190,7 @@ class EmployeeController extends Controller
             $user->name = $request->first_name . ' ' .$request->last_name;
             $user->password = Hash::make($request->password);
             $user->employee_id = $employee->id;
+            $user->employee_organization_id = Session::get('OrganizationId');
             if(!Role::where('name', $type)) {
                 $role = Role::create(['name' => $type]);
                 $user->assignRole($role);
@@ -245,11 +247,10 @@ class EmployeeController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'address' => 'required',
             'phone' => 'required',
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:employees'],
+            'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'post_code' => 'required',
             'gender' => 'required',
-            'image' => 'mimes:jpeg,jpg,png|required|max:10000' // max 10000kb
         ]);
         try{
             $employee = Employee::find($id);

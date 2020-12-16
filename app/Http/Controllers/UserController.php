@@ -46,7 +46,7 @@ class UserController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $user_id = $user->id;
-            if ($user->getRoleNames()->first() === 'admin') {
+            if ($user->getRoleNames()->first() === 'admin' || $user->getRoleNames()->first() === 'Service Staff' || $user->getRoleNames()->first() === 'Service User') {
                 return redirect()->route('index');
             } else {
                 Session::put('OrganizationId', $user->organization_id);

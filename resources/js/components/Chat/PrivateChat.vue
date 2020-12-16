@@ -43,15 +43,26 @@
                                 </a>
                             </li>
                         --->
-                        <li v-if="clients" class="menu-title">Clients</li>
-                        <li v-for="(value,index) in clients" v-bind:key="index">
-                            <a href="#" :color="(value.id==activeFriend)?'green':''" @click="activeFriend=value.id">
+                        <li v-if="users" class="menu-title">Employees</li>
+                        <li v-for="(value,index) in users" v-bind:key="index">
+                            <a href="#" :color="(value.id==activeFriend)?'green':''" @click="activeFriend=value.id" v-if="user.id != value.id">
                                 <span class="chat-avatar-sm user-img">
-                                    <img class="rounded-circle" alt="" src="img/profiles/avatar-02.jpg"><span class="status online"></span>
+                                    <img class="rounded-circle" alt="" src="img/profiles/avatar-02.jpg"><span :class="onlineFriends.find(onlineFriend=>onlineFriend.id===value.id) ? 'status online' : 'status offline'"></span>
                                 </span> 
-                                <span class="chat-user"> {{ value.first_name }} {{ value.last_name }} </span> 
+                                <span class="chat-user"> {{ value.name }} </span> 
                                 <!--
-                                    <span class="badge badge-pill bg-danger">1</span>
+                                    <span :style="onlineFriends.find(onlineFriend=>onlineFriend.id===value.id) ? 'background: #28B62C;' : 'background: grey;'" class="indicator online"></span>
+                                -->
+                            </a>
+                        </li>
+                        <li v-if="organization">
+                            <a href="#" :color="(organization.id==activeFriend)?'green':''" @click="activeFriend=organization.id" v-if="user.id != organization.id">
+                                <span class="chat-avatar-sm user-img">
+                                    <img class="rounded-circle" alt="" src="img/profiles/avatar-02.jpg"><span :class="onlineFriends.find(onlineFriend=>onlineFriend.id===organization.id) ? 'status online' : 'status offline'"></span>
+                                </span> 
+                                <span class="chat-user"> {{ organization.name }} </span> 
+                                <!--
+                                    <span :style="onlineFriends.find(onlineFriend=>onlineFriend.id===value.id) ? 'background: #28B62C;' : 'background: grey;'" class="indicator online"></span>
                                 -->
                             </a>
                         </li>
@@ -71,7 +82,7 @@
                 <div class="chat-main-wrapper">
                 
                     <!-- Chats View -->
-                    <div class="col-lg-9 message-view task-view" ref="messagesContainer">
+                    <div class="col-lg-9 message-view task-view">
                         <div class="chat-window">
                             <div class="fixed-header">
                                 <div class="navbar">
@@ -79,11 +90,13 @@
                                         <div class="float-left user-img">
                                             <a class="avatar" href="profile" title="Mike Litorus">
                                                 <img src="img/profiles/avatar-05.jpg" alt="" class="rounded-circle">
-                                                <span class="status online"></span>
+                                                <span :class="onlineFriends.find(onlineFriend=>onlineFriend.id===activeFriend)? 'status online' : 'status offline'"></span>
                                             </a>
                                         </div>
                                         <div class="user-info float-left">
-                                            <a href="profile" title="Mike Litorus"><span>{{ client.first_name }} {{ client.last_name }}</span></a>
+                                            <a href="profile" title="Mike Litorus"><span>{{ employee.name }}</span> 
+                                            <i v-if="typingFriend.name" class="typing-text">Typing...</i></a>
+                                            <span class="last-seen">{{ onlineFriends.find(onlineFriend=>onlineFriend.id===activeFriend) ? 'Active now': '' }}</span>
                                         </div>
                                     </div>
                                     <div class="search-box">
@@ -116,20 +129,22 @@
                             </div>
                             <div class="chat-contents">
                                 <div class="chat-content-wrap">
-                                    <div class="chat-wrap-inner">
+                                    <div class="chat-wrap-inner" id="privateMessageBox" ref="messagesContainer">
                                         <div class="chat-box">
                                             <div class="chats" v-for="(value,index) in allMessages" v-bind:key="index">
-                                                <div v-if="user.id === value.user_id" class="chat chat-right">
+                                                <div class="chat chat-right" v-if="user.id == value.user_id">
                                                     <div class="chat-body">
                                                         <div class="chat-bubble">
-                                                            <div class="chat-content">
-                                                                <p>{{ value.message }}</p>
+                                                            <div v-if="value.message" class="chat-content">
+                                                                <p text-color="white">
+                                                                    {{value.message}}
+                                                                </p>
                                                                 <span class="chat-time">{{ value.created_at | moment }}</span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div v-if="user.id != value.user_id" class="chat chat-left">
+                                                <div class="chat chat-left" v-if="user.id != value.user_id">
                                                     <div class="chat-avatar">
                                                         <a href="profile" class="avatar">
                                                             <img alt="" src="img/profiles/avatar-05.jpg">
@@ -137,9 +152,11 @@
                                                     </div>
                                                     <div class="chat-body">
                                                         <div class="chat-bubble">
-                                                            <div class="chat-content">
-                                                                <p>{{ value.message }}</p>
-                                                                <span class="chat-time">{{ value.created_at | moment }}</span>
+                                                            <div v-if="value.message" class="chat-content" style="background: #00c5fb">
+                                                                <p style="color: white;" text-color="white">
+                                                                    {{value.message}}
+                                                                </p>
+                                                                <span style="color: white;" class="chat-time">{{ value.created_at | moment }}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -154,7 +171,7 @@
                                     <div class="message-inner">
                                         <div class="message-area">
                                             <div class="input-group">
-                                                <textarea v-model="message" @keyup.enter="sendMessage" class="form-control" placeholder="Type message..."></textarea>
+                                                <textarea v-model="message" @keydown="onTyping" @keyup.enter="sendMessage" class="form-control" placeholder="Type message..."></textarea>
                                                 <span class="input-group-append">
                                                     <button @click="sendMessage" class="btn btn-custom" type="button"><i class="fa fa-send"></i></button>
                                                 </span>
@@ -285,27 +302,19 @@
                                                             <img src="img/profiles/avatar-02.jpg" alt="">
                                                             <span class="change-img">Change Image</span>
                                                         </div>
-                                                        <h3 class="user-name m-t-10 mb-0">{{ client.first_name }} {{ client.last_name }}</h3>
-                                                        <small class="text-muted">{{ client.company }}</small>
+                                                        <h3 class="user-name m-t-10 mb-0"></h3>
+                                                        <small class="text-muted"></small>
                                                         <a href="javascript:void(0);" class="btn btn-primary edit-btn"><i class="fa fa-pencil"></i></a>
                                                     </div>
                                                     <div class="chat-profile-info">
                                                         <ul class="user-det-list">
                                                             <li>
                                                                 <span>Username:</span>
-                                                                <span class="float-right text-muted">{{ client.first_name }} {{ client.last_name }}</span>
-                                                            </li>
-                                                            <li>
-                                                                <span>DOB:</span>
-                                                                <span class="float-right text-muted">{{ client.dob }}</span>
+                                                                <span class="float-right text-muted">{{ employee.name }} </span>
                                                             </li>
                                                             <li>
                                                                 <span>Email:</span>
-                                                                <span class="float-right text-muted">{{ client.email }}</span>
-                                                            </li>
-                                                            <li>
-                                                                <span>Phone:</span>
-                                                                <span class="float-right text-muted">{{ client.phone }}</span>
+                                                                <span class="float-right text-muted">{{ employee.email }}</span>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -336,19 +345,20 @@ import { EventBus } from "../../vue-asset";
 import mixin from "../../mixin";
 import moment from 'moment';
 export default {
-    props: ['clients', 'user'],
-    
+    props: ['user'],
     data () {
       return {
-        message:null,
-        client: [],
-        activeFriend:null,
-        typingFriend:{},
-        onlineFriends:[],
-        allMessages:[],
-        typingClock:null,
-        emoStatus:false,
-        users:[],
+        message: null,
+        files: [],
+        activeFriend: null,
+        typingFriend: {},
+        onlineFriends: [],
+        allMessages: [],
+        typingClock: null,
+        emoStatus: false,
+        users: [],
+        employee: [],
+        organization: [],
         token:document.head.querySelector('meta[name="csrf-token"]').content
       }
     },
@@ -360,10 +370,22 @@ export default {
       }
     },
     watch:{
-      
+      files:{
+        deep:true,
+        handler(){
+          let success=this.files[0].success;
+          if(success){
+            this.fetchMessages();
+          }
+        }
+      },
       activeFriend(val){
         this.fetchMessages();
+        this.fetchUser()
       },
+      '$refs.upload'(val){
+        console.log(val);
+      }
     },
     methods:{
       onTyping(){
@@ -379,32 +401,45 @@ export default {
         if(!this.activeFriend){
           return alert('Please select friend');
         }
-          axios.post(base_url +  'private-messages/'+this.activeFriend, {message: this.message}).then(response => {
+          axios.post(base_url + 'private-messages/'+this.activeFriend, {message: this.message}).then(response => {
                     this.message=null;
                     this.allMessages.push(response.data.message)
-                            scrollToEnd()
+                    setTimeout(this.scrollToEnd,100);
           });
       },
-      scrollToEnd: function () {
-        var content = this.$refs.messagesContainer;
-        content.scrollTop = content.scrollHeight
-        alert("scroll height is " + content.scrollHeight + " scroll Top is " +  content.scrollTop);
-    },
       fetchMessages() {
          if(!this.activeFriend){
           return alert('Please select friend');
         }
-            axios.get(base_url + 'private-messages/'+this.activeFriend).then(response => {
+            axios.get( base_url + 'private-messages/'+this.activeFriend).then(response => {
                 this.allMessages = response.data;
-                    scrollToEnd()
-            });
-            axios.get(base_url + 'active-friend/'+this.activeFriend).then(response => {
-                this.client = response.data;
-                     scrollToEnd()
+              setTimeout(this.scrollToEnd,100);
             });
         },
+      fetchUsers() {
+        axios.get( base_url + 'users').then(response => {
+            this.users = response.data;
+            console.log(this.users)
+            if(this.friends.length>0){
+                this.activeFriend = this.friends[0].id;
+            }
+        });
+      },
+      fetchOrganization() {
+        axios.get( base_url + 'employee-organization').then(response => {
+            this.organization = response.data[0];
+        });
+      },
+      fetchUser() {
+            axios.get( base_url + 'user/' + this.activeFriend).then(response => {
+                this.employee = response.data;
+            });
+      },
       scrollToEnd(){
         document.getElementById('privateMessageBox').scrollTo(0,99999);
+      },
+      toggleEmo(){
+        this.emoStatus= !this.emoStatus;
       },
       onInput(e){
         if(!e){
@@ -425,38 +460,50 @@ export default {
     mounted(){
     },
     created(){
-        Echo.private('privatechat.'+this.user.id)
-        .listen('PrivateMessageSent',(e)=>{
-            console.log('pmessage sent')
-            this.activeFriend=e.message.user_id;
-            this.allMessages.push(e.message)
-                scrollToEnd()
+        this.fetchUsers();
+        this.fetchOrganization();
+        Echo.join(`chat`)
+        .here((users) => {
+            this.onlineFriends = users
         })
-        .listenForWhisper('typing', (e) => {
-            if(e.user.id==this.activeFriend){
-                this.typingFriend=e.user;
-                
-            if(this.typingClock) clearTimeout();
-                this.typingClock=setTimeout(()=>{
-                                    this.typingFriend={};
-                                },9000);
+        .joining((user) => {
+            this.onlineFriends.push(user)
+        })
+        .leaving((user) => {
+            this.onlineFriends.splice(this.onlineFriends.indexOf(user), 1)
+        });
+        Echo.private('privatechat.'+this.user.id)
+        .listenForWhisper('typing',(e)=>{
+            if(this.activeFriend == e.user.id) {
+                this.typingFriend = e.user
+                setTimeout(this.scrollToEnd,100);
+                if(this.typingClock) clearTimeout()
+                this.typingClock = setTimeout(() => {
+                    this.typingFriend = {}
+                }, 3000);
             }
-            
-    });
+        })
+        .listen('PrivateMessageSent',(e)=>{
+            this.activeFriend = e.message.user_id;
+            this.allMessages.push(e.message)
+            setTimeout(this.scrollToEnd,100);
+        })
     },
-    
     filters: {
         moment: function (date) {
-            return moment(date).format('YYYY-MM-DD');
+            return moment(date).format('MMMM Do YYYY, h:mm:ss a');
         }
     }
+
     
   }
 </script>
-
 <style scoped>
-.online-users,.messages{
-    overflow-y:scroll;
-    height:100vh;
-}
+    .indicator.online {
+        width: 0.5em;
+        height: 0.5em;
+        border-radius: 50%;
+        -webkit-animation: pulse-animation 2s infinite linear;
+    }
+
 </style>
