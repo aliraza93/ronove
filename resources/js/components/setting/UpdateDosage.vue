@@ -1,0 +1,155 @@
+<template>
+  <div class="wrap">
+    <div class="modal fade" id="update-dosage" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-name" id="defaultModalLabel">Update Dosage</h4>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-danger" v-if="errors">
+              <ul>
+                <li v-for="error in errors" :key="error">{{ error[0] }}</li>
+              </ul>
+            </div>
+            <form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                          <input type="text" placeholder="Name of the System here..." class="form-control" v-model="dosage.name">
+                        </div>
+                    </div>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <br>
+            <button @click="updateDosage()" type="button" class="btn btn-success waves-effect">Update</button>
+            <button  @click="resetForm()" type="button" class="btn btn-default waves-effect" data-dismiss="modal">CLOSE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { EventBus } from "../../vue-asset";
+import mixin from "../../mixin";
+
+export default {
+  name : 'update-dosage',
+  mixins: [mixin],
+  data() {
+    return {
+      dosage: {
+        id: '',
+        name: "",
+      },
+      errors: null,
+      notificationSystem: {
+          options: {
+              success: {
+                  position: "topRight",
+                  timeout: 3000,
+                  class: 'success_notification'
+              },
+              error: {
+                  position: "topRight",
+                  timeout: 4000,
+                  class: 'error_notification'
+              },
+              completed: {
+                  position: 'center',
+                  timeout: 1000,
+                  class: 'complete_notification'
+              },
+              info: {
+                  overlay: true,
+                  zindex: 999,
+                  position: 'center',
+                  timeout: 3000,
+                  class: 'info_notification',
+              }
+          }
+      },
+    };
+  },
+
+
+  created(){
+
+      var _this = this;
+
+     EventBus.$on('dosage-edit',function(id){
+
+       _this.dosage.id = id;
+
+       _this.getEditData(id);
+
+       $('#update-dosage').modal('show');
+
+
+
+     });
+
+      $('#update-dosage').on('hidden.bs.modal', function(){
+            _this.resetForm();
+        });
+
+  },
+
+  methods: {
+
+    getEditData(id){
+
+     axios.get(base_url+'dosage/'+id+'/edit')
+
+     .then(response => {
+
+
+           this.dosage = {
+            id : response.data.id,
+            name: response.data.name,
+          };
+
+     })
+
+    },
+    updateDosage() {
+        axios.post(base_url + "dosage/update/"+this.dosage.id, this.dosage)
+
+        .then(response => {
+          $("#update-dosage").modal("hide");
+          EventBus.$emit("dosage-added");
+          this.showMessage(response.data)
+          this.resetForm();
+        })
+        .catch(err => {
+          if (err.response) {
+            this.errors = err.response.data.errors;
+            this.showMessage(err.response.data)
+            //this.$toast.error("Something Went Wrong", 'Error', { timeout: 3000 } );
+          }
+        });
+    },
+    showMessage(data) {
+      if (data.status  == "success") {
+          this.$toast.success(data.message, 'Success Alert', this.notificationSystem.options.success );
+      } else {
+          this.$toast.error(data.message, "Error Alert", this.notificationSystem.options.error);
+      }
+    },
+    resetForm(){
+
+      this.dosage = {
+        id: '',
+        name: "",
+      };
+      this.errors = null;
+
+    },
+
+  },
+};
+</script>

@@ -49,7 +49,7 @@ Route::group(['middleware' => ['role:admin']], function () {
 });
 
 Route::group(['middleware' => ['role:Service Staff']], function () {
-    
+
     //System
     Route::resource('booking', 'BookServiceStaffController');
     Route::get('booking/delete/{id}','BookServiceStaffController@destroy');
@@ -72,11 +72,35 @@ Route::group(['middleware' => ['role:organization|Service Staff|Service User']],
     Route::get('employee-list','EmployeeController@EmployeeList');
     Route::get('employee-show/{id}','EmployeeController@showProfile');
     Route::get('dashboard', 'EmployeeController@showDashboard')->name('employee.dashboard');
+   
+    // Medicines
+    Route::resource('medicines', 'MedicineController');
+    Route::get('medicines/delete/{id}','MedicineController@destroy');
+    Route::post('medicines/update/{id}','MedicineController@update');
+    Route::get('medicines-list','MedicineController@SystemList');
+    Route::get('permissions/{id}','MedicineController@PermissionsList');
+    Route::post('permissions/update/{medicines}/{id}','MedicineController@updatePermissions');
+
+    // Dosage
+    Route::resource('dosage', 'DosageController');
+    Route::get('dosage/delete/{id}','DosageController@destroy');
+    Route::post('dosage/update/{id}','DosageController@update');
+    Route::get('dosage-list','DosageController@DosageList');
+    Route::get('permissions/{id}','DosageController@PermissionsList');
+    Route::post('permissions/update/{dosage}/{id}','DosageController@updatePermissions');
+
+    // Routes
+    Route::resource('routes', 'RouteController');
+    Route::get('routes/delete/{id}','RouteController@destroy');
+    Route::post('routes/update/{id}','RouteController@update');
+    Route::get('routes-list','RouteController@RouteList');
+    Route::get('permissions/{id}','RouteController@PermissionsList');
+    Route::post('permissions/update/{routes}/{id}','RouteController@updatePermissions');
 
    //Next of kin
     Route::post('next-kin/{id}','EmployeeController@nextKin');
     Route::post('next-kin-update/{id}','EmployeeController@updateNextKin');
-    
+
     //EMployee Health
     Route::post('employee-health/{id}','EmployeeController@storeEmployeeHealth');
     Route::post('employee-health-update/{id}','EmployeeController@updateEmployeeHealth');
@@ -84,15 +108,15 @@ Route::group(['middleware' => ['role:organization|Service Staff|Service User']],
     //Employee Education
     Route::post('employee-education-details/{id}','EmployeeController@storeEmployeeEducationDetails' );
     Route::post('employee-education-update/{id}','EmployeeController@UpdateEmployeeEducationDetails' );
-    
+
     //Employee Present
     Route::post('employee-present-details/{id}','EmployeeController@storeEmployeePresentDetails' );
     Route::post('employee-present-update/{id}','EmployeeController@UpdateEmployeePresentDetails' );
-    
+
     //Employee Training
     Route::post('employee-training-details/{id}','EmployeeController@storeEmployeeTrainingDetails' );
     Route::post('employee-training-update/{id}','EmployeeController@updateEmployeeTrainingDetails' );
-    
+
     //Employee Personal Details
     Route::post('details/{id}','EmployeeController@personalDetails');
     Route::post('details-update/{id}','EmployeeController@updatePersonalDetails');
@@ -133,7 +157,12 @@ Route::group(['middleware' => ['role:organization|Service Staff|Service User']],
     Route::post('service-user/update/{id}','ServiceUserController@update');
     Route::get('service-user-list','ServiceUserController@ServiceUserList');
     Route::get('service-user-show/{id}','ServiceUserController@showProfile');
-    
+   
+    // serviceUserCarePlan
+    Route::post('care-plan/{id}','ServiceUserController@serviceCarePlan');
+    //updateUserPlan
+    Route::post('care-plan-update/{id}','ServiceUserController@updateserviceCarePlan');
+
     //Book Service Staff
     Route::get('service-staff-list','ServiceUserController@ServiceStaffList');
     Route::post('book-service-staff/{employee_id}/{id}/{service_user_id}', 'BookServiceStaffController@store');

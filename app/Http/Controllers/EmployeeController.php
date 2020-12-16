@@ -264,20 +264,11 @@ class EmployeeController extends Controller
             $employee->gender = $request->gender;
             $employee->organization_id = Session::get('OrganizationId');
             $employee->update();
-            $type = $request->type;
-            $user = new User();
+            $user = User::where('employee_id', $id)->first();
+            //dd($user);
             $user->email = $request->email;
-            $user->name = $request->name;
+            $user->name = $request->first_name . ' ' . $request->last_name;
             $user->password = Hash::make($request->password);
-            $user->employee_id = $employee->id;
-            if(!Role::where('name', $type)) {
-                $role = Role::create(['name' => $type]);
-                $user->assignRole($role);
-            }
-            else{
-                $role = Role::where('name', $type)->first();
-                $user->assignRole($role->id);
-            }
             $user->update();
             return response()->json(['status'=>'success','message'=>'Employee Updated Successfully !']);
         }

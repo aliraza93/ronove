@@ -154,11 +154,11 @@ class ClientController extends Controller
             'address' => 'required',
             'company' => 'required',
             'phone' => 'required',
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:clients'],
-            'company_register_number' => 'required',
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'company_register' => 'required',
             'post_code' => 'required',
             'unique_tax_reference' => 'required',
-            'charity_number' => 'required'
+            'charity' => 'required'
         ]);
         try{
             $client = Client::find($id);
@@ -168,11 +168,10 @@ class ClientController extends Controller
             $client->company = $request->company;
             $client->phone = $request->phone;
             $client->email = $request->email;
-            $client->company_register_number = $request->company_register_number;
+            $client->company_register = $request->company_register;
             $client->unique_tax_reference = $request->unique_tax_reference;
             $client->post_code = $request->post_code;
-            $client->charity_number = $request->charity_number;
-            $client->organization_id = Session::get('OrganizationId');
+            $client->charity = $request->charity;
             $client->update();
             return response()->json(['status'=>'success','message'=>'Client Updated Successfully !']);
         }
@@ -231,12 +230,6 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        $user = User::where('client_id', $client->id)->first();
-        if($user != null) {
-            $user->delete();
-        }
-
-        //$client->removeRole('organization');
-        //$client->delete();
+        $client->delete();
     }
 }
