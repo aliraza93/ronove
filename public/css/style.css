@@ -1276,7 +1276,7 @@ table.dataTable thead > tr > td.sorting {
 	background-color: #55ce63;
 }
 .status.offline {
-	background-color: #f62d51;
+	background-color: #A0A0A0;
 }
 .status.away {
 	background-color: #faa937;
@@ -8154,4 +8154,13 @@ ul.comment-list li ul.children {
 		font-size: 14px;
 		min-width: inherit;
 	}
+}
+.user-avatar:hover {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.4);
 }

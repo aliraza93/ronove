@@ -10,6 +10,16 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-sm-12">
+                    @if (session()->has('alert'))
+                        <div class="alert alert-dismissable alert-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>
+                                {{ Session::get('alert') }}
+                            </strong>
+                        </div>
+                    @endif
                     <h3 class="page-title">Profile</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index">Dashboard</a></li>
@@ -26,9 +36,17 @@
                     <div class="col-md-12">
                         <div class="profile-view">
                             <div class="profile-img-wrap">
-                                <div class="profile-img">
-                                    <a href="#"><img alt="" src="img/profiles/avatar-02.jpg"></a>
-                                </div>
+                                <form id="update-service_user-image" action="{{ route('service_user.avatar', $service_user->id) }}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <div onclick="document.getElementById('image').click()">
+                                        <div class="profile-img user-avatar">
+                                            <a href="#">
+                                                <img src="{{ !empty($service_user->image()) ? url($service_user->image()) : asset('img/profiles/avatar-02.jpg') }}" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <input onchange="document.getElementById('update-service_user-image').submit()" style="display: none;"  id="image" type="file" name="image">
+                                </form>
                             </div>
                             <div class="profile-basic">
                                 <div class="row">

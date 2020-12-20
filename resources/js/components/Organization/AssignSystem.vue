@@ -1,11 +1,14 @@
 <template>
   <div class="wrap">
-    <div class="modal fade" id="assign-system" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
+    <div class="modal custom-modal fade" id="assign-system" role="dialog">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-name" id="defaultModalLabel">Assign System</h4>
-          </div>
+            <div class="modal-header">
+                <h5 class="modal-title">Assign Systems</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
           <div class="modal-body">
             <div class="alert alert-danger" v-if="errors">
               <ul>
@@ -27,12 +30,10 @@
                           </label>
                     </div>
                 </div>
+                <div class="submit-section">
+                    <button @click="assignSystem" type="button" class="btn btn-primary submit-btn">Submit</button>
+                </div>
             </form>
-          </div>
-          <div class="modal-footer">
-            <br>
-            <button @click="assignSystem" type="button" class="btn btn-success waves-effect">Save</button>
-            <button  @click="resetForm()" type="button" class="btn btn-default waves-effect" data-dismiss="modal">CLOSE</button>
           </div>
         </div>
       </div>

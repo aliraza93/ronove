@@ -43,14 +43,16 @@
           <div v-for="(value,index) in employee.data" v-bind:key="index" class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
               <div class="profile-widget">
                   <div class="profile-img">
-                      <a :href="'employee-show/' + value.id" class="avatar"><img src="img/profiles/avatar-02.jpg" alt=""></a>
+                      <a :href="'employee-show/' + value.id" class="avatar">
+                        <img style="height: inherit;" :src="value.avatar ? value.avatar : 'img/profiles/avatar-02.jpg' " alt="">
+                      </a>
                   </div>
                   <div class="dropdown profile-action">
                       <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                       <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#" @click="editEmployee(value.id)"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                          <a class="dropdown-item" href="#" @click="assignPermissions(value.id)" data-toggle="modal" data-target="#assign-permissions"><i class="fa fa-pencil m-r-5"></i> Assign Permissions</a>
+                          <a class="dropdown-item" href="#" @click="editEmployee(value.id)"><i class="la la-pencil m-r-5"></i> Edit</a>
+                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_employee"><i class="la la-trash-o m-r-5"></i> Delete</a>
+                          <a class="dropdown-item" href="#" @click="assignPermissions(value.id)" data-toggle="modal" data-target="#assign-permissions"><i class="la la-pencil m-r-5"></i> Assign Permissions</a>
                             
                       </div>
                       <!-- Delete Employee Modal -->
@@ -204,7 +206,9 @@ export default {
     deleteEmployee (id) {
       axios.delete(base_url + "employee/" + id)
         .then(({data}) => {
-            location.reload();
+            EventBus.$emit("employee-added");
+            $('#delete_employee').modal('hide');
+            // location.reload();
             this.$toast.success('Employee Deleted Successfully !', 'Success',this.notificationSystem.options.success);
         });
     },

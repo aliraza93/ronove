@@ -34,9 +34,17 @@
                     <div class="col-md-12">
                         <div class="profile-view">
                             <div class="profile-img-wrap">
-                                <div class="profile-img">
-                                    <a href="#"><img alt="" src="img/profiles/avatar-02.jpg"></a>
-                                </div>
+                                <form id="update-employee-image" action="{{ route('employee.avatar', $employee->id) }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                    <div onclick="document.getElementById('image').click()">
+                                        <div class="profile-img user-avatar">
+                                            <a href="#">
+                                                <img src="{{ !empty($employee->image()) ? url($employee->image()) : asset('img/profiles/avatar-02.jpg') }}" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <input onchange="document.getElementById('update-employee-image').submit()" style="display: none;"  id="image" type="file" name="image">
+                                </form>
                             </div>
                             <div class="profile-basic">
                                 <div class="row">
@@ -77,7 +85,7 @@
                                                 <div class="text">
                                                     <div class="avatar-box">
                                                         <div class="avatar avatar-xs">
-                                                            <img src="img/profiles/avatar-16.jpg" alt="">
+                                                            <img src="{{asset('img/profiles/avatar-16.jpg')}}" alt="">
                                                         </div>
                                                     </div>
                                                     <a href="profile">

@@ -15,13 +15,13 @@ class CreateEmployeeHealthsTable extends Migration
     {
         Schema::create('employee_healths', function (Blueprint $table) {
             $table->id();
-            $table->integer('employee_id')->unasigned;
             $table->string('disability');
             $table->string('disability_details');
             $table->string('arrangements');
             $table->string('arrangements_details');
             $table->string('days');
             $table->string('state_number');
+            $table->foreignId('employee_id')->nullable()->constrained()->onDelete('cascade');;
             $table->timestamps();
         });
     }

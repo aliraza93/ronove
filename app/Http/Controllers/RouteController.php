@@ -21,7 +21,7 @@ class RouteController extends Controller
 
     public function RouteList(Request $request){
         $name = $request->name;
-        $route = Route::where('organizations_id', Session::get('OrganizationId'))->orderBy('created_at','desc');
+        $route = Route::where('organization_id', Session::get('OrganizationId'))->orderBy('created_at','desc');
         if($name != ''){
             $route->where('name','LIKE','%'.$name.'%');
         }
@@ -70,7 +70,7 @@ class RouteController extends Controller
         try{
             $route = new Route;
             $route->name = $request->name;
-            $route->organizations_id = Session::get('OrganizationId');
+            $route->organization_id = Session::get('OrganizationId');
             $route->save();
 
             return response()->json(['status'=>'success','message'=>'Route Added Successfully !']);

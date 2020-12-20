@@ -42,7 +42,8 @@ class MessageController extends Controller
         $user_id = null;
         if($user->employee_id != null) {
             $user_id = $user->employee_id;
-            $data = User::where('employee_id', $user_id)->first();
+            // $data = User::where('employee_id', $user_id)->first();
+            $data = Employee::where('id', $user_id)->first();
         }
         elseif ($user->organization_id != null) {
             $user_id = $user->organization_id;

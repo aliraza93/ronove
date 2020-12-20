@@ -224,6 +224,19 @@ class ServiceUserController extends Controller
         }
     }
 
+    public function updateAvatar(Request $request, ServiceUser $service_user){
+        $request->validate([
+            'image' => 'image',
+        ]);
+        if ($request->hasFile('image')) {
+            $service_user->clearMediaCollection('ServiceUserAvatars');
+
+            $service_user->addMediaFromRequest('image')
+                    ->toMediaCollection('ServiceUserAvatars');
+        }
+        return redirect()->back() ->with('alert', 'Profile Image Uploaded Successfully!');
+    }
+
     public function assignSystem(Request $request, $id)
     {
         $array = explode(',', $request->id);
@@ -271,13 +284,7 @@ class ServiceUserController extends Controller
      */
     public function destroy(ServiceUser $service_user)
     {
-        $user = User::where('service_user_id', $service_user->id)->first();
-        if($user != null) {
-            $user->delete();
-        }
-
-        //$service_user->removeRole('organization');
-        //$service_user->delete();
+        $service_user->delete();
     }
     public function serviceCarePlan(Request $request, $id){
         $request->validate([

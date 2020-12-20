@@ -10,6 +10,7 @@ class System extends Model
 {
     use HasFactory, HasRoles;
     protected $guard_name = 'web';
+    
     public function organization() {
         $this->belongsTo(System::class);
     }

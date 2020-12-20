@@ -5,9 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Organization;
 use App\Models\System;
 use App\Models\User;
-use Hash;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use App\Models\EmployeeNextKin;
+use App\Models\EmployeeHealth;
+use App\Models\EmployeeBankDetails;
+use App\Models\EmployeeEducationDetails;
+use App\Models\EmployeePresentDetails;
+use App\Models\EmployeeTrainingDetails;
+use Spatie\Permission\Models\Permission;
+use App\Models\EmployeeSchedule;
+use App\Models\EmployeePersonalDetails;
+use Hash;
 
 class OrganizationController extends Controller
 {
@@ -165,7 +175,6 @@ class OrganizationController extends Controller
             User::updateOrInsert(['email'=>$request->email],[
                 'name'=>$request->name,
                 'password'=>Hash::make($request->password),
-                'organization_id'=> $organization->id
             ]);
             return response()->json(['status'=>'success','message'=>'Organization Updated Successfully !']);
         }
@@ -224,11 +233,55 @@ class OrganizationController extends Controller
      */
     public function destroy(Organization $organization)
     {
-        $user = User::where('organization_id', $organization->id)->first();
-        if($user != null) {
-            $user->delete();
-        }
-        $organization->removeRole('organization');
+        // $employees = Employee::where('organization_id', $organization->id);
+        // $user = User::where('organization_id', $organization->id)->first();
+        // if(!empty($employees)){
+        //     foreach ($employees->get() as $key => $employee) {
+        //         $users = User::where('employee_id', $employee->id);
+        //         $users->delete();
+        //         $employee_bank_details = EmployeeBankDetails::where('employee_id', $employee->id);
+        //         if(!empty($employee_bank_details)) {
+        //             $employee_bank_details->delete();
+        //         }
+        //         $employee_personal_details = EmployeePersonalDetails::where('employee_id', $employee->id);
+        //         if(!empty($employee_personal_details)) {
+        //             $employee_personal_details->delete();
+        //         }
+        //         $employee_education_details = EmployeeEducationDetails::where('employee_id', $employee->id);
+        //         if(!empty($employee_education_details)) {
+        //             $employee_education_details->delete();
+        //         }
+        //         $employee_health = EmployeeHealth::where('employee_id', $employee->id);
+        //         if(!empty($employee_health)) {
+        //             $employee_health->delete();
+        //         }
+        //         $employee_next_kin = EmployeeNextKin::where('employee_id', $employee->id);
+        //         if(!empty($employee_next_kin)) {
+        //             $employee_next_kin->delete();
+        //         }
+        //         $employee_present_details = EmployeePresentDetails::where('employee_id', $employee->id);
+        //         if(!empty($employee_present_details)) {
+        //             $employee_present_details->delete();
+        //         }
+        //         $employee_training_details = EmployeeTrainingDetails::where('employee_id', $employee->id);
+        //         if(!empty($employee_training_details)) {
+        //             $employee_training_details->delete();
+        //         }
+        //     }
+        //     $employees->delete();
+        //     $user->delete();
+        //     $organization->roles()->detach();
+        //     $organization->permissions()->detach();
+        //     // $organization->employees()->detach();
+        //     $organization->delete();
+        // }
+        // else{
+        //     $user->delete();
+        //     $organization->roles()->detach();
+        //     $organization->permissions()->detach();
+        //     // $organization->employees()->detach();
+        //     $organization->delete();
+        // }
         $organization->delete();
     }
 }

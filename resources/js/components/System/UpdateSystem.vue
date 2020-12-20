@@ -1,42 +1,43 @@
 <template>
   <div class="wrap">
-    <div class="modal fade" id="update-system" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-name" id="defaultModalLabel">Update System</h4>
-          </div>
-          <div class="modal-body">
-            <div class="alert alert-danger" v-if="errors">
-              <ul>
-                <li v-for="error in errors" :key="error">{{ error[0] }}</li>
-              </ul>
+    <div class="modal custom-modal fade" id="update-system" role="dialog">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit System</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <form>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                          <input type="text" placeholder="Name of the System here..." class="form-control" v-model="system.name">
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                          <select v-model="system.status" class="form-control">
-                              <option value="" selected disabled>Please Select Status</option>
-                              <option value="Active">Active</option>
-                              <option value="Inactive">Inactive</option>
-                          </select>
-                        </div>
-                    </div>              
-                </div>
-            </form>
+            <div class="modal-body">
+              <div class="alert alert-danger" v-if="errors">
+                <ul>
+                  <li v-for="error in errors" :key="error">{{ error[0] }}</li>
+                </ul>
+              </div>
+              <form>
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="form-group">
+                            <input type="text" placeholder="Name of the System here..." class="form-control" v-model="system.name">
+                          </div>
+                      </div>
+                      <div class="col-md-12">
+                          <div class="form-group">
+                            <select v-model="system.status" class="form-control">
+                                <option value="" selected disabled>Please Select Status</option>
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                          </div>
+                      </div>              
+                  </div>
+                  <div class="submit-section">
+                      <button @click="updateSystem" type="button" class="btn btn-primary submit-btn">Save</button>
+                  </div>
+              </form>
+            </div>
           </div>
-          <div class="modal-footer">
-            <br>
-            <button @click="updateSystem" type="button" class="btn btn-success waves-effect">Update</button>
-            <button  @click="resetForm()" type="button" class="btn btn-default waves-effect" data-dismiss="modal">CLOSE</button>
-          </div>
-        </div>
       </div>
     </div>
   </div>

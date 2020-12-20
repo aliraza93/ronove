@@ -2034,6 +2034,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2129,6 +2130,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_asset__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../vue-asset */ "./resources/js/vue-asset.js");
 /* harmony import */ var _mixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixin */ "./resources/js/mixin.js");
 /* harmony import */ var _mixin__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mixin__WEBPACK_IMPORTED_MODULE_1__);
+//
 //
 //
 //
@@ -2281,6 +2283,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixin__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mixin__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _UpdateRoute_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UpdateRoute.vue */ "./resources/js/components/setting/UpdateRoute.vue");
 /* harmony import */ var _pagination_pagination_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../pagination/pagination.vue */ "./resources/js/components/pagination/pagination.vue");
+//
 //
 //
 //
@@ -53928,13 +53931,16 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "modal fade",
-        attrs: { id: "add-route", tabindex: "-1", role: "dialog" }
+        staticClass: "modal custom-modal fade",
+        attrs: { id: "add-route", role: "dialog" }
       },
       [
         _c(
           "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          {
+            staticClass: "modal-dialog modal-dialog-centered modal-lg",
+            attrs: { role: "document" }
+          },
           [
             _c("div", { staticClass: "modal-content" }, [
               _vm._m(0),
@@ -53972,7 +53978,7 @@ var render = function() {
                           staticClass: "form-control",
                           attrs: {
                             type: "text",
-                            placeholder: "Name of the System here..."
+                            placeholder: "Name of the Route here..."
                           },
                           domProps: { value: _vm.route.name },
                           on: {
@@ -53986,35 +53992,20 @@ var render = function() {
                         })
                       ])
                     ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "submit-section" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary submit-btn",
+                        attrs: { type: "button" },
+                        on: { click: _vm.addRoute }
+                      },
+                      [_vm._v("Submit")]
+                    )
                   ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c("br"),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-success waves-effect",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.addRoute()
-                      }
-                    }
-                  },
-                  [_vm._v("SAVE")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-default waves-effect",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("CLOSE")]
-                )
               ])
             ])
           ]
@@ -54029,10 +54020,19 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Add Route")]),
+      _vm._v(" "),
       _c(
-        "h4",
-        { staticClass: "modal-title", attrs: { id: "defaultModalLabel" } },
-        [_vm._v("Add Route")]
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
   }
@@ -54062,13 +54062,16 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "modal fade",
-        attrs: { id: "update-route", tabindex: "-1", role: "dialog" }
+        staticClass: "modal custom-modal fade",
+        attrs: { id: "update-route", role: "dialog" }
       },
       [
         _c(
           "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          {
+            staticClass: "modal-dialog modal-dialog-centered modal-lg",
+            attrs: { role: "document" }
+          },
           [
             _c("div", { staticClass: "modal-content" }, [
               _vm._m(0),
@@ -54104,7 +54107,7 @@ var render = function() {
                           staticClass: "form-control",
                           attrs: {
                             type: "text",
-                            placeholder: "Name of the System here..."
+                            placeholder: "Name of the Route here..."
                           },
                           domProps: { value: _vm.route.name },
                           on: {
@@ -54118,40 +54121,20 @@ var render = function() {
                         })
                       ])
                     ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "submit-section" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary submit-btn",
+                        attrs: { type: "button" },
+                        on: { click: _vm.updateRoute }
+                      },
+                      [_vm._v("Save")]
+                    )
                   ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c("br"),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-success waves-effect",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.updateRoute()
-                      }
-                    }
-                  },
-                  [_vm._v("Update")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-default waves-effect",
-                    attrs: { type: "button", "data-dismiss": "modal" },
-                    on: {
-                      click: function($event) {
-                        return _vm.resetForm()
-                      }
-                    }
-                  },
-                  [_vm._v("CLOSE")]
-                )
               ])
             ])
           ]
@@ -54166,10 +54149,19 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Edit Route")]),
+      _vm._v(" "),
       _c(
-        "h4",
-        { staticClass: "modal-name", attrs: { id: "defaultModalLabel" } },
-        [_vm._v("Update Route")]
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
   }
@@ -54232,150 +54224,157 @@ var render = function() {
             ])
           ])
         : _c("div", { staticClass: "table-responsive" }, [
-            _c("table", { staticClass: "table table-condensed table-hover" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _vm.show
-                ? _c(
-                    "tbody",
-                    _vm._l(_vm.route.data, function(value, index) {
-                      return _c("tr", { key: index }, [
-                        _c("td", [_vm._v(_vm._s(index + 1))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(value.name))]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "div",
-                            { staticClass: "dropdown dropdown-action" },
-                            [
-                              _vm._m(1, true),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                {
-                                  staticClass:
-                                    "dropdown-menu dropdown-menu-right",
-                                  staticStyle: {
-                                    position: "absolute",
-                                    "will-change": "transform",
-                                    top: "0px",
-                                    left: "0px",
-                                    transform: "translate3d(65px, -2px, 0px)"
+            _c(
+              "table",
+              { staticClass: "table table-striped custom-table datatable" },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _vm.show
+                  ? _c(
+                      "tbody",
+                      _vm._l(_vm.route.data, function(value, index) {
+                        return _c("tr", { key: index }, [
+                          _c("td", [_vm._v(_vm._s(index + 1))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(value.name))]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-center" }, [
+                            _c(
+                              "div",
+                              { staticClass: "dropdown dropdown-action" },
+                              [
+                                _vm._m(1, true),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "dropdown-menu dropdown-menu-right",
+                                    staticStyle: {
+                                      position: "absolute",
+                                      "will-change": "transform",
+                                      top: "0px",
+                                      left: "0px",
+                                      transform: "translate3d(65px, -2px, 0px)"
+                                    },
+                                    attrs: { "x-placement": "top-end" }
                                   },
-                                  attrs: { "x-placement": "top-end" }
-                                },
-                                [
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "dropdown-item",
-                                      attrs: { href: "#" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.editRoute(value.id)
+                                  [
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "dropdown-item",
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.editRoute(value.id)
+                                          }
                                         }
-                                      }
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass: "fa fa-pencil m-r-5"
-                                      }),
-                                      _vm._v(" Edit")
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _vm._m(2, true)
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                {
-                                  staticClass: "modal custom-modal fade",
-                                  attrs: { id: "delete_dosage", role: "dialog" }
-                                },
-                                [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass:
-                                        "modal-dialog modal-dialog-centered"
-                                    },
-                                    [
-                                      _c(
-                                        "div",
-                                        { staticClass: "modal-content" },
-                                        [
-                                          _c(
-                                            "div",
-                                            { staticClass: "modal-body" },
-                                            [
-                                              _vm._m(3, true),
-                                              _vm._v(" "),
-                                              _c(
-                                                "div",
-                                                {
-                                                  staticClass:
-                                                    "modal-btn delete-action"
-                                                },
-                                                [
-                                                  _c(
-                                                    "div",
-                                                    { staticClass: "row" },
-                                                    [
-                                                      _c(
-                                                        "div",
-                                                        {
-                                                          staticClass: "col-6"
-                                                        },
-                                                        [
-                                                          _c(
-                                                            "a",
-                                                            {
-                                                              staticClass:
-                                                                "btn btn-primary continue-btn",
-                                                              attrs: {
-                                                                href:
-                                                                  "javascript:void(0);"
-                                                              },
-                                                              on: {
-                                                                click: function(
-                                                                  $event
-                                                                ) {
-                                                                  return _vm.deleteRoute(
-                                                                    value.id
-                                                                  )
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "la la-pencil m-r-5"
+                                        }),
+                                        _vm._v(" Edit")
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _vm._m(2, true)
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "modal custom-modal fade",
+                                    attrs: {
+                                      id: "delete_route",
+                                      role: "dialog"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "modal-dialog modal-dialog-centered"
+                                      },
+                                      [
+                                        _c(
+                                          "div",
+                                          { staticClass: "modal-content" },
+                                          [
+                                            _c(
+                                              "div",
+                                              { staticClass: "modal-body" },
+                                              [
+                                                _vm._m(3, true),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "div",
+                                                  {
+                                                    staticClass:
+                                                      "modal-btn delete-action"
+                                                  },
+                                                  [
+                                                    _c(
+                                                      "div",
+                                                      { staticClass: "row" },
+                                                      [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass: "col-6"
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "a",
+                                                              {
+                                                                staticClass:
+                                                                  "btn btn-primary continue-btn",
+                                                                attrs: {
+                                                                  href:
+                                                                    "javascript:void(0);"
+                                                                },
+                                                                on: {
+                                                                  click: function(
+                                                                    $event
+                                                                  ) {
+                                                                    return _vm.deleteRoute(
+                                                                      value.id
+                                                                    )
+                                                                  }
                                                                 }
-                                                              }
-                                                            },
-                                                            [_vm._v("Delete")]
-                                                          )
-                                                        ]
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _vm._m(4, true)
-                                                    ]
-                                                  )
-                                                ]
-                                              )
-                                            ]
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                ]
-                              )
-                            ]
-                          )
+                                                              },
+                                                              [_vm._v("Delete")]
+                                                            )
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _vm._m(4, true)
+                                                      ]
+                                                    )
+                                                  ]
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ])
                         ])
-                      ])
-                    }),
-                    0
-                  )
-                : _vm._e()
-            ]),
+                      }),
+                      0
+                    )
+                  : _vm._e()
+              ]
+            ),
             _vm._v(" "),
             !_vm.show
               ? _c(
@@ -54384,7 +54383,7 @@ var render = function() {
                     staticClass: "text-center",
                     staticStyle: { "margin-top": "15px" }
                   },
-                  [_c("h4", [_vm._v("No Systems Avaialble")])]
+                  [_c("h4", [_vm._v("No Routes Avaialble")])]
                 )
               : _vm._e()
           ]),
@@ -54405,7 +54404,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Name")])
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
       ])
     ])
   },
@@ -54437,10 +54438,10 @@ var staticRenderFns = [
         attrs: {
           href: "#",
           "data-toggle": "modal",
-          "data-target": "#delete_dosage"
+          "data-target": "#delete_route"
         }
       },
-      [_c("i", { staticClass: "fa fa-trash-o m-r-5" }), _vm._v(" Delete")]
+      [_c("i", { staticClass: "la la-trash-o m-r-5" }), _vm._v(" Delete")]
     )
   },
   function() {
@@ -54448,7 +54449,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-header" }, [
-      _c("h3", [_vm._v("Delete Employee")]),
+      _c("h3", [_vm._v("Delete Route")]),
       _vm._v(" "),
       _c("p", [_vm._v("Are you sure want to delete?")])
     ])

@@ -14,31 +14,32 @@
         </div>
 
       <div class="table-responsive" v-else>
-        <table class="table table-condensed table-hover">
+        <table class="table table-striped custom-table datatable">
           <thead>
             <tr>
               <th>#</th>
               <th>Name</th>
+              <th class="text-center">Action</th>
             </tr>
           </thead>
           <tbody v-if="show">
             <tr v-for="(value,index) in medicine.data" v-bind:key="index">
               <td>{{ index+1 }}</td>
               <td>{{ value.name }}</td>
-              <td>
+              <td class="text-center">
                 <div class="dropdown dropdown-action">
                     <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                     <div class="dropdown-menu dropdown-menu-right" x-placement="top-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(65px, -2px, 0px);">
-                        <a class="dropdown-item" href="#" @click="editMedicine(value.id)"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_medicine"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                        <a class="dropdown-item" href="#" @click="editMedicine(value.id)"><i class="la la-pencil m-r-5"></i> Edit</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_medicine"><i class="la la-trash-o m-r-5"></i> Delete</a>
                     </div>
-                      <!-- Delete Employee Modal -->
+                      <!-- Delete Medicine Modal -->
                         <div class="modal custom-modal fade" id="delete_medicine" role="dialog">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-body">
                                         <div class="form-header">
-                                            <h3>Delete Employee</h3>
+                                            <h3>Delete Medicine</h3>
                                             <p>Are you sure want to delete?</p>
                                         </div>
                                         <div class="modal-btn delete-action">
@@ -55,14 +56,14 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- /Delete Employee Modal -->
+                        <!-- /Delete Medicine Modal -->
                 </div>
             </td>
             </tr>
           </tbody>
         </table>
         <div class="text-center" style="margin-top: 15px;" v-if="!show">
-            <h4>No Systems Avaialble</h4>
+            <h4>No Medicines Avaialble</h4>
         </div>
       </div>
 

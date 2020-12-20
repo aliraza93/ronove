@@ -89,19 +89,19 @@ class UserController extends Controller
 
     public function AccessOrganizationAndSystems(Request $request)
     {
-        //dd($request->organization_id, $request->system_id);
         $organization_id = $request->organization_id;
-        //dd(Session::get('OrganizationId'));
         $system_id = $request->system_id;
         Session::put('system_id', $system_id);
         $system = System::where('id', $system_id)->first();
         if(Session::get('OrganizationId') == $organization_id){
             if($system->hasRole('system')) {
-                $permissions = $system->getAllPermissions();
-                return view('frontend.index', compact('organization_id', 'system_id', 'permissions'));
-            }
-            else{
-                return view('frontend.error.systemError');
+                    $permissions = $system->getAllPermissions();
+                if(count($permissions) > 0){
+                    return view('frontend.index', compact('organization_id', 'system_id', 'permissions'));
+                }
+                else{
+                    return view('frontend.error.systemError');
+                }
             }
         }
         /*

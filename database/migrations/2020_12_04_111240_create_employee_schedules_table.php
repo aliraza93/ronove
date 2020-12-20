@@ -15,11 +15,11 @@ class CreateEmployeeSchedulesTable extends Migration
     {
         Schema::create('employee_schedules', function (Blueprint $table) {
             $table->id();
-            $table->integer('employee_id')->unasigned;
             $table->string('start_date');
             $table->string('end_date');
             $table->string('start_time');
             $table->string('end_time');
+            $table->foreignId('employee_id')->nullable()->constrained()->onDelete('cascade');;
             $table->timestamps();
         });
     }

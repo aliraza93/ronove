@@ -1,32 +1,33 @@
 <template>
     <div class="wrap">
-    <div class="modal fade" id="add-dosage" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
+    <div class="modal custom-modal fade" id="add-dosage" role="dialog">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title" id="defaultModalLabel">Add Dosage</h4>
+              <h5 class="modal-title">Add Dosage</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
           </div>
           <div class="modal-body">
-            <div class="alert alert-danger" v-if="errors">
-              <ul>
-                <li v-for="error in errors" :key="error">{{ error[0] }}</li>
-              </ul>
-            </div>
-            <form>
-                <div class="row">
-                   <div class="col-md-12">
-                        <div class="form-group">
-                          <label>Name of Dosage:</label>
-                          <input type="text" placeholder="Name of the System here..." class="form-control" v-model="dosage.name">
-                        </div>
-                    </div>
-                </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <br>
-            <button @click="addDosage()" type="button" class="btn btn-success waves-effect">SAVE</button>
-            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">CLOSE</button>
+              <div class="alert alert-danger" v-if="errors">
+                <ul>
+                  <li v-for="error in errors" :key="error">{{ error[0] }}</li>
+                </ul>
+              </div>
+              <form>
+                  <div class="row">
+                    <div class="col-md-12">
+                          <div class="form-group">
+                            <label>Name of Dosage:</label>
+                            <input type="text" placeholder="Name of the Dosage here..." class="form-control" v-model="dosage.name">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="submit-section">
+                      <button @click="addDosage" type="button" class="btn btn-primary submit-btn">Submit</button>
+                  </div>
+              </form>
           </div>
         </div>
       </div>

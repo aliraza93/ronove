@@ -1960,6 +1960,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2009,9 +2010,9 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.showMessage(response.data);
 
-        _this.resetForm();
+        _this.resetForm(); //location.reload()
 
-        location.reload();
+
         _this.errors = null;
       })["catch"](function (err) {
         if (err.response) {
@@ -2054,6 +2055,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_asset__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../vue-asset */ "./resources/js/vue-asset.js");
 /* harmony import */ var _mixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixin */ "./resources/js/mixin.js");
 /* harmony import */ var _mixin__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mixin__WEBPACK_IMPORTED_MODULE_1__);
+//
 //
 //
 //
@@ -2286,6 +2288,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2464,6 +2467,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2548,6 +2574,7 @@ __webpack_require__.r(__webpack_exports__);
       axios["delete"](base_url + "system/" + id).then(function (_ref) {
         var data = _ref.data;
         _vue_asset__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("system-added");
+        $("#delete_system").modal("hide");
 
         _this3.$toast.success('System Deleted Successfully !', 'Success', _this3.notificationSystem.options.success);
       });
@@ -54011,13 +54038,16 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "modal fade",
-        attrs: { id: "add-system", tabindex: "-1", role: "dialog" }
+        staticClass: "modal custom-modal fade",
+        attrs: { id: "add-system", role: "dialog" }
       },
       [
         _c(
           "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          {
+            staticClass: "modal-dialog modal-dialog-centered modal-lg",
+            attrs: { role: "document" }
+          },
           [
             _c("div", { staticClass: "modal-content" }, [
               _vm._m(0),
@@ -54133,31 +54163,20 @@ var render = function() {
                         ])
                       ])
                     ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "submit-section" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary submit-btn",
+                        attrs: { type: "button" },
+                        on: { click: _vm.addSystem }
+                      },
+                      [_vm._v("Submit")]
+                    )
                   ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c("br"),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-success waves-effect",
-                    attrs: { type: "button" },
-                    on: { click: _vm.addSystem }
-                  },
-                  [_vm._v("SAVE")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-default waves-effect",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("CLOSE")]
-                )
               ])
             ])
           ]
@@ -54172,10 +54191,19 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Add System")]),
+      _vm._v(" "),
       _c(
-        "h4",
-        { staticClass: "modal-title", attrs: { id: "defaultModalLabel" } },
-        [_vm._v("Add System")]
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
   }
@@ -54205,13 +54233,16 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "modal fade",
-        attrs: { id: "assign-permissions", tabindex: "-1", role: "dialog" }
+        staticClass: "modal custom-modal fade",
+        attrs: { id: "assign-permissions", role: "dialog" }
       },
       [
         _c(
           "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          {
+            staticClass: "modal-dialog modal-dialog-centered modal-lg",
+            attrs: { role: "document" }
+          },
           [
             _c("div", { staticClass: "modal-content" }, [
               _vm._m(0),
@@ -54245,7 +54276,7 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("th", [_vm._v("Permission Names")]),
                                 _vm._v(" "),
-                                _c("th", [
+                                _c("th", { staticClass: "text-center" }, [
                                   _vm._v(
                                     "\n                                      Select All\n                                      "
                                   ),
@@ -54302,7 +54333,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(value.name))]),
                                   _vm._v(" "),
-                                  _c("td", [
+                                  _c("td", { staticClass: "text-center" }, [
                                     _c("input", {
                                       directives: [
                                         {
@@ -54359,36 +54390,20 @@ var render = function() {
                         )
                       ])
                     ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "submit-section" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary submit-btn",
+                        attrs: { type: "button" },
+                        on: { click: _vm.assignPermissions }
+                      },
+                      [_vm._v("Submit")]
+                    )
                   ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c("br"),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-success waves-effect",
-                    attrs: { type: "button" },
-                    on: { click: _vm.assignPermissions }
-                  },
-                  [_vm._v("Save")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-default waves-effect",
-                    attrs: { type: "button", "data-dismiss": "modal" },
-                    on: {
-                      click: function($event) {
-                        return _vm.resetForm()
-                      }
-                    }
-                  },
-                  [_vm._v("CLOSE")]
-                )
               ])
             ])
           ]
@@ -54403,10 +54418,19 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Assign Permissions")]),
+      _vm._v(" "),
       _c(
-        "h4",
-        { staticClass: "modal-name", attrs: { id: "defaultModalLabel" } },
-        [_vm._v("Assign Permissions")]
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
   }
@@ -54436,13 +54460,16 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "modal fade",
-        attrs: { id: "update-system", tabindex: "-1", role: "dialog" }
+        staticClass: "modal custom-modal fade",
+        attrs: { id: "update-system", role: "dialog" }
       },
       [
         _c(
           "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          {
+            staticClass: "modal-dialog modal-dialog-centered modal-lg",
+            attrs: { role: "document" }
+          },
           [
             _c("div", { staticClass: "modal-content" }, [
               _vm._m(0),
@@ -54547,36 +54574,20 @@ var render = function() {
                         )
                       ])
                     ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "submit-section" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary submit-btn",
+                        attrs: { type: "button" },
+                        on: { click: _vm.updateSystem }
+                      },
+                      [_vm._v("Save")]
+                    )
                   ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c("br"),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-success waves-effect",
-                    attrs: { type: "button" },
-                    on: { click: _vm.updateSystem }
-                  },
-                  [_vm._v("Update")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-default waves-effect",
-                    attrs: { type: "button", "data-dismiss": "modal" },
-                    on: {
-                      click: function($event) {
-                        return _vm.resetForm()
-                      }
-                    }
-                  },
-                  [_vm._v("CLOSE")]
-                )
               ])
             ])
           ]
@@ -54591,10 +54602,19 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Edit System")]),
+      _vm._v(" "),
       _c(
-        "h4",
-        { staticClass: "modal-name", attrs: { id: "defaultModalLabel" } },
-        [_vm._v("Update System")]
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
   }
@@ -54657,109 +54677,161 @@ var render = function() {
             ])
           ])
         : _c("div", { staticClass: "table-responsive" }, [
-            _c("table", { staticClass: "table table-condensed table-hover" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _vm.show
-                ? _c(
-                    "tbody",
-                    _vm._l(_vm.system.data, function(value, index) {
-                      return _c("tr", { key: index }, [
-                        _c("td", [_vm._v(_vm._s(index + 1))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(value.name))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(value.status))]),
-                        _vm._v(" "),
-                        _c("td", [
+            _c(
+              "table",
+              { staticClass: "table table-striped custom-table datatable" },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _vm.show
+                  ? _c(
+                      "tbody",
+                      _vm._l(_vm.system.data, function(value, index) {
+                        return _c("tr", { key: index }, [
+                          _c("td", [_vm._v(_vm._s(index + 1))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(value.name))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(value.status))]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-center" }, [
+                            _c(
+                              "div",
+                              { staticClass: "dropdown dropdown-action" },
+                              [
+                                _vm._m(1, true),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "dropdown-menu dropdown-menu-right",
+                                    staticStyle: {
+                                      position: "absolute",
+                                      "will-change": "transform",
+                                      top: "0px",
+                                      left: "0px",
+                                      transform: "translate3d(65px, -2px, 0px)"
+                                    },
+                                    attrs: { "x-placement": "top-end" }
+                                  },
+                                  [
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "dropdown-item",
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.editSystem(value.id)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "la la-pencil m-r-5"
+                                        }),
+                                        _vm._v(" Edit")
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _vm._m(2, true),
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "dropdown-item",
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.assignPermissions(
+                                              value.id
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "la la-check-circle m-r-5"
+                                        }),
+                                        _vm._v(" Permissions")
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
                           _c(
                             "div",
-                            { staticClass: "dropdown dropdown-action" },
+                            {
+                              staticClass: "modal custom-modal fade",
+                              attrs: { id: "delete_system", role: "dialog" }
+                            },
                             [
-                              _vm._m(1, true),
-                              _vm._v(" "),
                               _c(
                                 "div",
                                 {
                                   staticClass:
-                                    "dropdown-menu dropdown-menu-right",
-                                  staticStyle: {
-                                    position: "absolute",
-                                    "will-change": "transform",
-                                    top: "0px",
-                                    left: "0px",
-                                    transform: "translate3d(65px, -2px, 0px)"
-                                  },
-                                  attrs: { "x-placement": "top-end" }
+                                    "modal-dialog modal-dialog-centered"
                                 },
                                 [
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "dropdown-item",
-                                      attrs: { href: "#" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.editSystem(value.id)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass: "fa fa-pencil m-r-5"
-                                      }),
-                                      _vm._v(" Edit")
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "dropdown-item",
-                                      attrs: { href: "#" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.deleteSystem(value.id)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass: "fa fa-trash-o m-r-5"
-                                      }),
-                                      _vm._v(" Delete")
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "dropdown-item",
-                                      attrs: { href: "#" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.assignPermissions(value.id)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass: "la la-check-circle m-r-5"
-                                      }),
-                                      _vm._v(" Permissions")
-                                    ]
-                                  )
+                                  _c("div", { staticClass: "modal-content" }, [
+                                    _c("div", { staticClass: "modal-body" }, [
+                                      _vm._m(3, true),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass: "modal-btn delete-action"
+                                        },
+                                        [
+                                          _c("div", { staticClass: "row" }, [
+                                            _c(
+                                              "div",
+                                              { staticClass: "col-6" },
+                                              [
+                                                _c(
+                                                  "a",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-primary continue-btn",
+                                                    attrs: {
+                                                      href:
+                                                        "javascript:void(0);"
+                                                    },
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.deleteSystem(
+                                                          value.id
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [_vm._v("Delete")]
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _vm._m(4, true)
+                                          ])
+                                        ]
+                                      )
+                                    ])
+                                  ])
                                 ]
                               )
                             ]
                           )
                         ])
-                      ])
-                    }),
-                    0
-                  )
-                : _vm._e()
-            ]),
+                      }),
+                      0
+                    )
+                  : _vm._e()
+              ]
+            ),
             _vm._v(" "),
             !_vm.show
               ? _c(
@@ -54798,7 +54870,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("status")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Action")])
+        _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
       ])
     ])
   },
@@ -54818,6 +54890,48 @@ var staticRenderFns = [
       },
       [_c("i", { staticClass: "material-icons" }, [_vm._v("more_vert")])]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "dropdown-item",
+        attrs: {
+          href: "#",
+          "data-toggle": "modal",
+          "data-target": "#delete_system"
+        }
+      },
+      [_c("i", { staticClass: "la la-trash-o m-r-5" }), _vm._v(" Delete")]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-header" }, [
+      _c("h3", [_vm._v("Delete System")]),
+      _vm._v(" "),
+      _c("p", [_vm._v("Are you sure want to delete?")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-6" }, [
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-primary cancel-btn",
+          attrs: { href: "javascript:void(0);", "data-dismiss": "modal" }
+        },
+        [_vm._v("Cancel")]
+      )
+    ])
   }
 ]
 render._withStripped = true

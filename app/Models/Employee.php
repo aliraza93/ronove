@@ -8,6 +8,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
+
 class Employee extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
@@ -17,9 +18,11 @@ class Employee extends Model implements HasMedia
      * @return null
      * 
      */
+    protected $appends = ['image', 'avatar'];
+
     public function registerMediaConversions(?Media $media = null) : void
     {
-        $this->addMediaConversion('thumb')
+        $this->addMediaConversion('avatar')
               ->width(100)
               ->height(100);
     }
@@ -34,8 +37,37 @@ class Employee extends Model implements HasMedia
     public function image()
     {
         if ($this->media->first()) {
-            return $this->media->first()->getFullUrl();
+            return $this->getMedia('EmployeeAvatars')->first()->getFullUrl();
         }
         return null;
+    }
+
+    public function getImageAttribute()
+    {
+        if ($this->media->first()) {
+            return $this->getMedia('EmployeeAvatars')->first()->getFullUrl();
+        }
+        return null;
+    }
+
+    public function avatar()
+    {
+        if ($this->media->first()) {
+            return $this->getMedia('EmployeeAvatars')->first()->getFullUrl('avatar');
+        }
+        return null;
+    }
+
+    public function getAvatarAttribute()
+    {
+        if ($this->media->first()) {
+            return $this->getMedia('EmployeeAvatars')->first()->getFullUrl('avatar');
+        }
+        return null;
+    }
+
+    public function organization()
+    {
+        $this->belongsTo(Organization::class);
     }
 }

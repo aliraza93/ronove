@@ -1,11 +1,14 @@
 <template>
   <div class="wrap">
-    <div class="modal fade" id="assign-permissions" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
+    <div class="modal custom-modal fade" id="assign-permissions" role="dialog">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-name" id="defaultModalLabel">Assign Permissions</h4>
-          </div>
+            <div class="modal-header">
+                <h5 class="modal-title">Assign Permissions</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
           <div class="modal-body">
             <div class="alert alert-danger" v-if="errors">
               <ul>
@@ -21,7 +24,7 @@
                                     <tr>
                                     <th>#</th>
                                     <th>Permission Names</th>
-                                    <th>
+                                    <th class="text-center">
                                         Select All
                                         <input type="checkbox" @click="selectAll" v-model="allSelected">
                                     </th>
@@ -31,19 +34,17 @@
                                     <tr v-for="(value,index) in permissions" v-bind:key="index">
                                         <td>{{ index+1 }}</td>
                                         <td>{{ value.name }}</td>
-                                        <td><input type="checkbox" v-model="permission_ids" @click="select" :value="value.id"></td>
+                                        <td class="text-center"><input type="checkbox" v-model="permission_ids" @click="select" :value="value.id"></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>              
                 </div>
+                <div class="submit-section">
+                    <button @click="assignPermissions" type="button" class="btn btn-primary submit-btn">Submit</button>
+                </div>
             </form>
-          </div>
-          <div class="modal-footer">
-            <br>
-            <button @click="assignPermissions" type="button" class="btn btn-success waves-effect">Save</button>
-            <button  @click="resetForm()" type="button" class="btn btn-default waves-effect" data-dismiss="modal">CLOSE</button>
           </div>
         </div>
       </div>

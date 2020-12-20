@@ -142,13 +142,19 @@ class SystemController extends Controller
         $array = explode(',', $request->id);
         $permissions = Permission::all();
         $system = System::where('id', $id)->first();
-        if(!Role::where('name', 'system')){
+        // dd(Role::where('name', 'system')->first());
+        if(!Role::where('name', 'system')->first()){
             //dd('No System');
             $role = Role::create(['name' => 'system']);
             $system->assignRole($role);
+            foreach ($permissions as $key => $value) {
+                if($system->hasPermissionTo($value->id)) {
+                    $system->revokePermissionTo($value->id);    
+                }
+            }
         }
         elseif ($system->hasRole('system')) {
-            //dd('Has Role');
+            // dd('Has Role');
             foreach ($permissions as $key => $value) {
                 if($system->hasPermissionTo($value->id)) {
                     $system->revokePermissionTo($value->id);    
@@ -157,9 +163,14 @@ class SystemController extends Controller
             //$system->hasPermissionTo(1);
         }
         else{
-            //dd('Assign');
+            // dd('Assign');
             $role = Role::where(['name' => 'system'])->first();
             $system->assignRole($role);
+            foreach ($permissions as $key => $value) {
+                if($system->hasPermissionTo($value->id)) {
+                    $system->revokePermissionTo($value->id);    
+                }
+            }
         }
         try{
             foreach ($array as $key => $value) {

@@ -1996,6 +1996,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2097,6 +2098,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _mixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../mixin */ "./resources/js/mixin.js");
 /* harmony import */ var _mixin__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_mixin__WEBPACK_IMPORTED_MODULE_2__);
+//
 //
 //
 //
@@ -2351,6 +2353,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2424,9 +2427,7 @@ __webpack_require__.r(__webpack_exports__);
           address: response.data.address,
           phone: response.data.phone,
           email: response.data.email,
-          password: response.data.password,
-          code: response.data.code,
-          password_confirmation: response.data.password
+          code: response.data.code
         };
       });
     },
@@ -2490,6 +2491,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _UpdateOrganization_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UpdateOrganization.vue */ "./resources/js/components/Organization/UpdateOrganization.vue");
 /* harmony import */ var _AssignSystem_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AssignSystem.vue */ "./resources/js/components/Organization/AssignSystem.vue");
 /* harmony import */ var _pagination_pagination_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../pagination/pagination.vue */ "./resources/js/components/pagination/pagination.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2641,9 +2666,10 @@ __webpack_require__.r(__webpack_exports__);
 
       axios["delete"](base_url + "organization/" + id).then(function (_ref) {
         var data = _ref.data;
-        location.reload();
+        _vue_asset__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("organization-added");
+        $("#delete_organization").modal("hide");
 
-        _this3.$toast.success('System Deleted Successfully !', 'Success', _this3.notificationSystem.options.success);
+        _this3.$toast.success('Organization Deleted Successfully !', 'Success', _this3.notificationSystem.options.success);
       });
     }
   },
@@ -55013,13 +55039,16 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "modal fade",
-        attrs: { id: "add-organization", tabindex: "-1", role: "dialog" }
+        staticClass: "modal custom-modal fade",
+        attrs: { id: "add-organization", role: "dialog" }
       },
       [
         _c(
           "div",
-          { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
+          {
+            staticClass: "modal-dialog modal-dialog-centered modal-lg",
+            attrs: { role: "document" }
+          },
           [
             _c("div", { staticClass: "modal-content" }, [
               _vm._m(0),
@@ -55333,31 +55362,20 @@ var render = function() {
                         ])
                       ])
                     ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "submit-section" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary submit-btn",
+                        attrs: { type: "button" },
+                        on: { click: _vm.addOrganization }
+                      },
+                      [_vm._v("Submit")]
+                    )
                   ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c("br"),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-success waves-effect",
-                    attrs: { type: "button" },
-                    on: { click: _vm.addOrganization }
-                  },
-                  [_vm._v("SAVE")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-default waves-effect",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("CLOSE")]
-                )
               ])
             ])
           ]
@@ -55372,10 +55390,19 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Add Organization")]),
+      _vm._v(" "),
       _c(
-        "h4",
-        { staticClass: "modal-title", attrs: { id: "defaultModalLabel" } },
-        [_vm._v("Add Organization")]
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
   }
@@ -55405,13 +55432,16 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "modal fade",
-        attrs: { id: "assign-system", tabindex: "-1", role: "dialog" }
+        staticClass: "modal custom-modal fade",
+        attrs: { id: "assign-system", role: "dialog" }
       },
       [
         _c(
           "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          {
+            staticClass: "modal-dialog modal-dialog-centered modal-lg",
+            attrs: { role: "document" }
+          },
           [
             _c("div", { staticClass: "modal-content" }, [
               _vm._m(0),
@@ -55433,108 +55463,98 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "form",
-                  _vm._l(_vm.systems, function(value, index) {
-                    return _c(
-                      "div",
-                      { key: index, staticClass: "row", attrs: { id: "row" } },
-                      [
-                        _c("div", { staticClass: "col-md-10" }, [
-                          _c("a", [
-                            _c("h4", [
-                              _c("i", {
-                                staticClass: "fa fa-align-justify  m-r-5"
-                              }),
-                              _vm._v(_vm._s(value.name))
+                  [
+                    _vm._l(_vm.systems, function(value, index) {
+                      return _c(
+                        "div",
+                        {
+                          key: index,
+                          staticClass: "row",
+                          attrs: { id: "row" }
+                        },
+                        [
+                          _c("div", { staticClass: "col-md-10" }, [
+                            _c("a", [
+                              _c("h4", [
+                                _c("i", {
+                                  staticClass: "fa fa-align-justify  m-r-5"
+                                }),
+                                _vm._v(_vm._s(value.name))
+                              ])
                             ])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          attrs: {
-                            type: "text",
-                            hidden: "",
-                            value: "32",
-                            name: "system0"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-2" }, [
-                          _c("label", { staticClass: "switch" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.system_ids,
-                                  expression: "system_ids"
-                                }
-                              ],
-                              attrs: { type: "checkbox", checked: "" },
-                              domProps: {
-                                value: value.id,
-                                checked: Array.isArray(_vm.system_ids)
-                                  ? _vm._i(_vm.system_ids, value.id) > -1
-                                  : _vm.system_ids
-                              },
-                              on: {
-                                change: function($event) {
-                                  var $$a = _vm.system_ids,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? true : false
-                                  if (Array.isArray($$a)) {
-                                    var $$v = value.id,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        (_vm.system_ids = $$a.concat([$$v]))
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            attrs: {
+                              type: "text",
+                              hidden: "",
+                              value: "32",
+                              name: "system0"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-2" }, [
+                            _c("label", { staticClass: "switch" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.system_ids,
+                                    expression: "system_ids"
+                                  }
+                                ],
+                                attrs: { type: "checkbox", checked: "" },
+                                domProps: {
+                                  value: value.id,
+                                  checked: Array.isArray(_vm.system_ids)
+                                    ? _vm._i(_vm.system_ids, value.id) > -1
+                                    : _vm.system_ids
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.system_ids,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = value.id,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          (_vm.system_ids = $$a.concat([$$v]))
+                                      } else {
+                                        $$i > -1 &&
+                                          (_vm.system_ids = $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1)))
+                                      }
                                     } else {
-                                      $$i > -1 &&
-                                        (_vm.system_ids = $$a
-                                          .slice(0, $$i)
-                                          .concat($$a.slice($$i + 1)))
+                                      _vm.system_ids = $$c
                                     }
-                                  } else {
-                                    _vm.system_ids = $$c
                                   }
                                 }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("span", { staticClass: "slider round" })
+                              }),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "slider round" })
+                            ])
                           ])
-                        ])
-                      ]
-                    )
-                  }),
-                  0
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c("br"),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-success waves-effect",
-                    attrs: { type: "button" },
-                    on: { click: _vm.assignSystem }
-                  },
-                  [_vm._v("Save")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-default waves-effect",
-                    attrs: { type: "button", "data-dismiss": "modal" },
-                    on: {
-                      click: function($event) {
-                        return _vm.resetForm()
-                      }
-                    }
-                  },
-                  [_vm._v("CLOSE")]
+                        ]
+                      )
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "submit-section" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary submit-btn",
+                          attrs: { type: "button" },
+                          on: { click: _vm.assignSystem }
+                        },
+                        [_vm._v("Submit")]
+                      )
+                    ])
+                  ],
+                  2
                 )
               ])
             ])
@@ -55550,10 +55570,19 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Assign Systems")]),
+      _vm._v(" "),
       _c(
-        "h4",
-        { staticClass: "modal-name", attrs: { id: "defaultModalLabel" } },
-        [_vm._v("Assign System")]
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
   }
@@ -55583,13 +55612,16 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "modal fade",
-        attrs: { id: "update-organization", tabindex: "-1", role: "dialog" }
+        staticClass: "modal custom-modal fade",
+        attrs: { id: "update-organization", role: "dialog" }
       },
       [
         _c(
           "div",
-          { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
+          {
+            staticClass: "modal-dialog modal-dialog-centered modal-lg",
+            attrs: { role: "document" }
+          },
           [
             _c("div", { staticClass: "modal-content" }, [
               _vm._m(0),
@@ -55903,36 +55935,20 @@ var render = function() {
                         ])
                       ])
                     ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "submit-section" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary submit-btn",
+                        attrs: { type: "button" },
+                        on: { click: _vm.updateOrganization }
+                      },
+                      [_vm._v("Save")]
+                    )
                   ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c("br"),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-success waves-effect",
-                    attrs: { type: "button" },
-                    on: { click: _vm.updateOrganization }
-                  },
-                  [_vm._v("Update")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-default waves-effect",
-                    attrs: { type: "button", "data-dismiss": "modal" },
-                    on: {
-                      click: function($event) {
-                        return _vm.resetForm()
-                      }
-                    }
-                  },
-                  [_vm._v("CLOSE")]
-                )
               ])
             ])
           ]
@@ -55947,10 +55963,19 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Edit Organization")]),
+      _vm._v(" "),
       _c(
-        "h4",
-        { staticClass: "modal-name", attrs: { id: "defaultModalLabel" } },
-        [_vm._v("Update Organization")]
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
   }
@@ -56013,119 +56038,172 @@ var render = function() {
             ])
           ])
         : _c("div", { staticClass: "table-responsive" }, [
-            _c("table", { staticClass: "table table-condensed table-hover" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _vm.show
-                ? _c(
-                    "tbody",
-                    _vm._l(_vm.organization.data, function(value, index) {
-                      return _c("tr", { key: index }, [
-                        _c("td", [_vm._v(_vm._s(index + 1))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(value.name))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(value.address))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(value.phone))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(value.email))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(value.code))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(value.status))]),
-                        _vm._v(" "),
-                        _c("td", [
+            _c(
+              "table",
+              { staticClass: "table table-striped custom-table datatable" },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _vm.show
+                  ? _c(
+                      "tbody",
+                      _vm._l(_vm.organization.data, function(value, index) {
+                        return _c("tr", { key: index }, [
+                          _c("td", [_vm._v(_vm._s(index + 1))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(value.name))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(value.address))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(value.phone))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(value.email))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(value.code))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(value.status))]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-center" }, [
+                            _c(
+                              "div",
+                              { staticClass: "dropdown dropdown-action" },
+                              [
+                                _vm._m(1, true),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "dropdown-menu dropdown-menu-right",
+                                    staticStyle: {
+                                      position: "absolute",
+                                      "will-change": "transform",
+                                      top: "0px",
+                                      left: "0px",
+                                      transform: "translate3d(65px, -2px, 0px)"
+                                    },
+                                    attrs: { "x-placement": "top-end" }
+                                  },
+                                  [
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "dropdown-item",
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.editOrganization(
+                                              value.id
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "la la-pencil m-r-5"
+                                        }),
+                                        _vm._v(" Edit")
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _vm._m(2, true),
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "dropdown-item",
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.assignSystem(value.id)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "la la-check-circle m-r-5"
+                                        }),
+                                        _vm._v(" Assign System To Organization")
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
                           _c(
                             "div",
-                            { staticClass: "dropdown dropdown-action" },
+                            {
+                              staticClass: "modal custom-modal fade",
+                              attrs: {
+                                id: "delete_organization",
+                                role: "dialog"
+                              }
+                            },
                             [
-                              _vm._m(1, true),
-                              _vm._v(" "),
                               _c(
                                 "div",
                                 {
                                   staticClass:
-                                    "dropdown-menu dropdown-menu-right",
-                                  staticStyle: {
-                                    position: "absolute",
-                                    "will-change": "transform",
-                                    top: "0px",
-                                    left: "0px",
-                                    transform: "translate3d(65px, -2px, 0px)"
-                                  },
-                                  attrs: { "x-placement": "top-end" }
+                                    "modal-dialog modal-dialog-centered"
                                 },
                                 [
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "dropdown-item",
-                                      attrs: { href: "#" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.editOrganization(value.id)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass: "fa fa-pencil m-r-5"
-                                      }),
-                                      _vm._v(" Edit")
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "dropdown-item",
-                                      attrs: { href: "#" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.deleteOrganization(
-                                            value.id
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass: "fa fa-trash-o m-r-5"
-                                      }),
-                                      _vm._v(" Delete")
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "dropdown-item",
-                                      attrs: { href: "#" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.assignSystem(value.id)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass: "la la-check-circle m-r-5"
-                                      }),
-                                      _vm._v(" Assign System To Organization")
-                                    ]
-                                  )
+                                  _c("div", { staticClass: "modal-content" }, [
+                                    _c("div", { staticClass: "modal-body" }, [
+                                      _vm._m(3, true),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass: "modal-btn delete-action"
+                                        },
+                                        [
+                                          _c("div", { staticClass: "row" }, [
+                                            _c(
+                                              "div",
+                                              { staticClass: "col-6" },
+                                              [
+                                                _c(
+                                                  "a",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-primary continue-btn",
+                                                    attrs: {
+                                                      href:
+                                                        "javascript:void(0);"
+                                                    },
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.deleteOrganization(
+                                                          value.id
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [_vm._v("Delete")]
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _vm._m(4, true)
+                                          ])
+                                        ]
+                                      )
+                                    ])
+                                  ])
                                 ]
                               )
                             ]
                           )
                         ])
-                      ])
-                    }),
-                    0
-                  )
-                : _vm._e()
-            ]),
+                      }),
+                      0
+                    )
+                  : _vm._e()
+              ]
+            ),
             _vm._v(" "),
             !_vm.show
               ? _c(
@@ -56172,7 +56250,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("status")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Action")])
+        _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
       ])
     ])
   },
@@ -56192,6 +56270,48 @@ var staticRenderFns = [
       },
       [_c("i", { staticClass: "material-icons" }, [_vm._v("more_vert")])]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "dropdown-item",
+        attrs: {
+          href: "#",
+          "data-toggle": "modal",
+          "data-target": "#delete_organization"
+        }
+      },
+      [_c("i", { staticClass: "la la-trash-o m-r-5" }), _vm._v(" Delete")]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-header" }, [
+      _c("h3", [_vm._v("Delete Organization")]),
+      _vm._v(" "),
+      _c("p", [_vm._v("Are you sure want to delete?")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-6" }, [
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-primary cancel-btn",
+          attrs: { href: "javascript:void(0);", "data-dismiss": "modal" }
+        },
+        [_vm._v("Cancel")]
+      )
+    ])
   }
 ]
 render._withStripped = true

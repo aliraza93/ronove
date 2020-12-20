@@ -8,191 +8,51 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
+        
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/favicon.png')}}">
     
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <!-- Google font -->
-	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
+    
+    <!-- Lineawesome CSS -->
+    <link rel="stylesheet" href="{{asset('css/line-awesome.min.css')}}">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="assets/js/html5shiv.min.js"></script>
+        <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
 </head>
-<style>
-    * {
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-    }
-
-    body {
-    padding: 0;
-    margin: 0;
-    }
-
-    #notfound {
-    position: relative;
-    height: 100vh;
-    background: #f6f6f6;
-    }
-
-    #notfound .notfound {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-    }
-
-    .notfound {
-    max-width: 767px;
-    width: 100%;
-    line-height: 1.4;
-    padding: 110px 40px;
-    text-align: center;
-    background: #fff;
-    -webkit-box-shadow: 0 15px 15px -10px rgba(0, 0, 0, 0.1);
-            box-shadow: 0 15px 15px -10px rgba(0, 0, 0, 0.1);
-    }
-
-    .notfound .notfound-404 {
-    position: relative;
-    height: 180px;
-    }
-
-    .notfound .notfound-404 h1 {
-    font-family: 'Roboto', sans-serif;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-    font-size: 165px;
-    font-weight: 700;
-    margin: 0px;
-    color: #262626;
-    text-transform: uppercase;
-    }
-
-    .notfound .notfound-404 h1>span {
-    color: #00b7ff;
-    }
-
-    .notfound h2 {
-    font-family: 'Roboto', sans-serif;
-    font-size: 22px;
-    font-weight: 400;
-    text-transform: uppercase;
-    color: #151515;
-    margin-top: 0px;
-    margin-bottom: 25px;
-    }
-
-    .notfound .notfound-search {
-    position: relative;
-    max-width: 320px;
-    width: 100%;
-    margin: auto;
-    }
-
-    .notfound .notfound-search>input {
-    font-family: 'Roboto', sans-serif;
-    width: 100%;
-    height: 50px;
-    padding: 3px 65px 3px 30px;
-    color: #151515;
-    font-size: 16px;
-    background: transparent;
-    border: 2px solid #c5c5c5;
-    border-radius: 40px;
-    -webkit-transition: 0.2s all;
-    transition: 0.2s all;
-    }
-
-    .notfound .notfound-search>input:focus {
-    border-color: #00b7ff;
-    }
-
-    .notfound .notfound-search>button {
-    position: absolute;
-    right: 15px;
-    top: 5px;
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    border: none;
-    background: transparent;
-    padding: 0;
-    cursor: pointer;
-    }
-
-    .notfound .notfound-search>button>span {
-    width: 15px;
-    height: 15px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%) rotate(-45deg);
-        -ms-transform: translate(-50%, -50%) rotate(-45deg);
-            transform: translate(-50%, -50%) rotate(-45deg);
-    margin-left: -3px;
-    }
-
-    .notfound .notfound-search>button>span:after {
-    position: absolute;
-    content: '';
-    width: 10px;
-    height: 10px;
-    left: 0px;
-    top: 0px;
-    border-radius: 50%;
-    border: 4px solid #c5c5c5;
-    -webkit-transition: 0.2s all;
-    transition: 0.2s all;
-    }
-
-    .notfound-search>button>span:before {
-    position: absolute;
-    content: '';
-    width: 4px;
-    height: 10px;
-    left: 7px;
-    top: 17px;
-    border-radius: 2px;
-    background: #c5c5c5;
-    -webkit-transition: 0.2s all;
-    transition: 0.2s all;
-    }
-
-    .notfound .notfound-search>button:hover>span:after {
-    border-color: #00b7ff;
-    }
-
-    .notfound .notfound-search>button:hover>span:before {
-    background-color: #00b7ff;
-    }
-
-    @media only screen and (max-width: 767px) {
-    .notfound h2 {
-        font-size: 18px;
-    }
-    }
-
-    @media only screen and (max-width: 480px) {
-    .notfound .notfound-404 h1 {
-        font-size: 141px;
-    }
-    }
-
-</style>
-<body>
-    <div id="notfound">
-		<div class="notfound">
-			<div class="notfound-404">
-				<h1>4<span>0</span>3</h1>
-			</div>
-			<h2>the selected system does not any permissions</h2>
+<body class="error-page">
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+        
+        <div class="error-box">
+            <h1>404</h1>
+            <h3><i class="fa fa-warning"></i> Oops! Your System Does Not Have Any Permissions Yet. Please Contact Admin For Further Details!</h3>
+            <p>The page you requested was not found.</p>
 			<a href="{{ route('MyOrganization') }}" class="btn btn-primary">Please Click me to go back</a>
-		</div>
-	</div>
-
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
-
+        </div>
+    
+    </div>
+    <!-- /Main Wrapper -->
+    
+    <!-- jQuery -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    
+    <!-- Bootstrap Core JS -->
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="js/app.js"></script>
+    
+</body>
 </html>

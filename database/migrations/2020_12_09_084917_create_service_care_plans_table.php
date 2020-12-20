@@ -31,7 +31,7 @@ class CreateServiceCarePlansTable extends Migration
             $table->string('em_esi_rate');
             $table->string('additional_esi_rate');
             $table->string('total_esi_rate');
-            $table->integer('service_user_id')->unsigned();
+            $table->foreignId('service_user_id')->nullable()->constrained('service_users')->onDelete('cascade');;
             $table->timestamps();
         });
     }

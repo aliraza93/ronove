@@ -27,7 +27,7 @@ class CreateEmployeeNextKinTable extends Migration
             $table->string('mobile');
             $table->string('email');
             $table->string('relationship')->nullable();
-	        $table->integer('employee_id')->unsigned();
+            $table->foreignId('employee_id')->nullable()->constrained()->onDelete('cascade');;
             $table->timestamps();
         });
     }

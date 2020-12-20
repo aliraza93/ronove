@@ -3401,16 +3401,16 @@
         },
         {
             "name": "spatie/laravel-medialibrary",
-            "version": "9.2.0",
+            "version": "9.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-medialibrary.git",
-                "reference": "21c40b4d06bd8d16c0454f553c6de4d1e35aba3e"
+                "reference": "f4e08f21fe217fff5ba0600b9c8998a5e0d5ad60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/21c40b4d06bd8d16c0454f553c6de4d1e35aba3e",
-                "reference": "21c40b4d06bd8d16c0454f553c6de4d1e35aba3e",
+                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/f4e08f21fe217fff5ba0600b9c8998a5e0d5ad60",
+                "reference": "f4e08f21fe217fff5ba0600b9c8998a5e0d5ad60",
                 "shasum": ""
             },
             "require": {
@@ -3489,7 +3489,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-medialibrary/issues",
-                "source": "https://github.com/spatie/laravel-medialibrary/tree/9.2.0"
+                "source": "https://github.com/spatie/laravel-medialibrary/tree/9.4.1"
             },
             "funding": [
                 {
@@ -3501,7 +3501,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-11-26T21:57:23+00:00"
+            "time": "2020-12-16T14:07:51+00:00"
         },
         {
             "name": "spatie/laravel-permission",

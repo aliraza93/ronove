@@ -32,29 +32,30 @@
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
 </head>
 <body>
-<div class="container" style="margin:5%">
-    <div class="row">
-        @foreach($systems as $system)
-            @if($system->organization_id === Illuminate\Support\Facades\Session::get('OrganizationId'))
-                <div class="col col-3">
-                    <div class="card" style="box-shadow:  10px 0.9rem 0.4rem #e5e5e5;">
-                        <a href="{{route('admin.systems.Organization',['organization_id'=>$system->organization_id,'system_id'=>$system->id])}}"> 
+    <div class="container" style="margin:5%">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="lead text-center">
+                    These are your assigned systems.
+                  </p>
+            </div>
+        </div>
+        <div class="row">
+            @foreach($systems as $system)
+                @if($system->organization_id === Illuminate\Support\Facades\Session::get('OrganizationId'))
+                    <div class="col-sm-6">
+                        <div class="card">
                             <div class="card-body">
-                                <h1 class="text-black-50 text-center">{{$system->name}}</h1>
-                                <br>
-                                <br>
-                                <p class="card-text text-center">Reference # {{$system->id}} SYS</p>
+                                <a href="{{route('admin.systems.Organization',['organization_id'=>$system->organization_id,'system_id'=>$system->id])}}">
+                                    <h5 class="card-title">{{$system->name}}</h5>
+                                    <p class="card-text">Reference # {{$system->id}} SYS</p>
+                                </a> 
                             </div>
-                        </a>
+                        </div>
                     </div>
-                </div>
-
-            @endif
-        @endforeach
+                @endif
+            @endforeach
+        </div>
     </div>
-</div>
-
-
-</div>
 </body>
 </html>

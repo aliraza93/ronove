@@ -15,7 +15,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/favicon.png') }}">
         
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
@@ -30,8 +30,6 @@
     <!-- Lineawesome CSS -->
     <link rel="stylesheet" href="{{ asset('css/line-awesome.min.css') }}">
     
-    <!-- File Manager CSS -->
-    <link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
     
     <!-- Main CSS -->
@@ -49,7 +47,7 @@
             <!-- Logo -->
             <div class="header-left">
                 <a href="{{ url('/') }}" class="logo">
-                    <img src="img/logo.png" width="40" height="40" alt="">
+                    <img src="{{ asset('img/logo.png') }}" width="40" height="40" alt="">
                 </a>
             </div>
             <!-- /Logo -->
@@ -300,10 +298,14 @@
                     </div>
                 </li>
                 <!-- /Message Notifications --> --}}
-
+                @php
+                    if(Auth::user()->getRoleNames()->first() === 'Service User' || Auth::user()->getRoleNames()->first() === 'Service Staff') {
+                        $employee = \App\Models\Employee::where('id', Auth::user()->employee_id)->first();    
+                    }
+                @endphp
                 <li class="nav-item dropdown has-arrow main-drop">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <span class="user-img"><img src="img/profiles/avatar-21.jpg" alt="">
+                        <span class="user-img"><img src="{{ Auth::user()->getRoleNames()->first() === 'Service User' || Auth::user()->getRoleNames()->first() === 'Service Staff' ?  ($employee->avatar() ? $employee->avatar() : asset('img/profiles/avatar-21.jpg')) : asset('img/profiles/avatar-21.jpg') }}" alt="">
                         <span class="status online"></span></span>
                         <span>{{ Auth::user()->name }}</span>
                     </a>
@@ -396,7 +398,7 @@
                                 <span>Main</span>
                             </li>
                             <li>
-                                <a href="{{ route('employee.dashboard') }}"><i class="la la-dashboard"></i> <span> Dashboard</span> </a>
+                                <a href="{{ Auth::user()->getRoleNames()->first() === 'organization' ? route('employee.dashboard') : url('/') }}"><i class="la la-dashboard"></i> <span> Dashboard</span> </a>
                             </li>
                             @if (in_array('Medicines',$names) || in_array('Dosage',$names) || in_array('Routes',$names))
                                 <li class="menu-title"> 
@@ -1177,8 +1179,6 @@
     <!-- Bootstrap Core JS -->
     <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <!-- File Manager JavaScript FIles -->
-    <script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
     <!-- Slimscroll JS -->
     <script src="{{ asset('js/jquery.slimscroll.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>    

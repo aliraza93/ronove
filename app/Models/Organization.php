@@ -13,4 +13,8 @@ class Organization extends Model
     public function systems() {
         $this->hasMany(System::class);
     }
+
+    public function employees() {
+        $this->hasMany(Employee::class);
+    }
 }

@@ -69,6 +69,7 @@ Route::group(['middleware' => ['role:organization|Service Staff|Service User']],
     Route::resource('employee', 'EmployeeController');
     Route::get('employee/delete/{id}','EmployeeController@destroy');
     Route::post('employee/update/{id}','EmployeeController@update');
+    Route::post('employee/avatar/{employee}','EmployeeController@updateAvatar')->name('employee.avatar');
     Route::get('employee-list','EmployeeController@EmployeeList');
     Route::get('employee-show/{id}','EmployeeController@showProfile');
     Route::get('dashboard', 'EmployeeController@showDashboard')->name('employee.dashboard');
@@ -78,24 +79,18 @@ Route::group(['middleware' => ['role:organization|Service Staff|Service User']],
     Route::get('medicines/delete/{id}','MedicineController@destroy');
     Route::post('medicines/update/{id}','MedicineController@update');
     Route::get('medicines-list','MedicineController@SystemList');
-    Route::get('permissions/{id}','MedicineController@PermissionsList');
-    Route::post('permissions/update/{medicines}/{id}','MedicineController@updatePermissions');
 
     // Dosage
     Route::resource('dosage', 'DosageController');
     Route::get('dosage/delete/{id}','DosageController@destroy');
     Route::post('dosage/update/{id}','DosageController@update');
     Route::get('dosage-list','DosageController@DosageList');
-    Route::get('permissions/{id}','DosageController@PermissionsList');
-    Route::post('permissions/update/{dosage}/{id}','DosageController@updatePermissions');
 
     // Routes
     Route::resource('routes', 'RouteController');
     Route::get('routes/delete/{id}','RouteController@destroy');
     Route::post('routes/update/{id}','RouteController@update');
     Route::get('routes-list','RouteController@RouteList');
-    Route::get('permissions/{id}','RouteController@PermissionsList');
-    Route::post('permissions/update/{routes}/{id}','RouteController@updatePermissions');
 
    //Next of kin
     Route::post('next-kin/{id}','EmployeeController@nextKin');
@@ -155,6 +150,7 @@ Route::group(['middleware' => ['role:organization|Service Staff|Service User']],
     Route::resource('service-user', 'ServiceUserController');
     Route::get('service-user/delete/{id}','ServiceUserController@destroy');
     Route::post('service-user/update/{id}','ServiceUserController@update');
+    Route::post('service_user/avatar/{service_user}','ServiceUserController@updateAvatar')->name('service_user.avatar');
     Route::get('service-user-list','ServiceUserController@ServiceUserList');
     Route::get('service-user-show/{id}','ServiceUserController@showProfile');
    

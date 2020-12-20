@@ -1,84 +1,85 @@
 <template>
   <div class="wrap">
-    <div class="modal fade" id="update-organization" tabindex="-1" role="dialog">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-name" id="defaultModalLabel">Update Organization</h4>
-          </div>
-          <div class="modal-body">
-            <div class="alert alert-danger" v-if="errors">
-              <ul>
-                <li v-for="error in errors" :key="error">{{ error[0] }}</li>
-              </ul>
+    <div class="modal custom-modal fade" id="update-organization" role="dialog">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Organization</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <form>
-                <div class="row">
-                   <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Name of Organization:</label>
-                          <input type="text" placeholder="Name" class="form-control" v-model="organization.name">
-                        </div>
-                    </div>
+            <div class="modal-body">
+              <div class="alert alert-danger" v-if="errors">
+                <ul>
+                  <li v-for="error in errors" :key="error">{{ error[0] }}</li>
+                </ul>
+              </div>
+              <form>
+                  <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Address</label>
-                          <input type="text" placeholder="Address" class="form-control" v-model="organization.address">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Phone:</label>
-                          <input type="text" placeholder="Phone" class="form-control" v-model="organization.phone">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Email</label>
-                          <input type="email" placeholder="Email" class="form-control" v-model="organization.email">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Password:</label>
-                          <input type="password" placeholder="Password" class="form-control" v-model="organization.password">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Confirm Password:</label>
-                          <input type="password" placeholder="Password" class="form-control" v-model="organization.password_confirmation">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Organization Code</label>
-                          <input type="text" placeholder="Organization Code" class="form-control" v-model="organization.code">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Status</label>
-
-                          <div class="input-group">
-                              <select v-model="organization.status" class="form-control">
-                                  <option value="" selected disabled>Select Status</option>
-                                  <option value="Active">Active</option>
-                                  <option value="Inactive">Inactive</option>
-                              </select>
+                          <div class="form-group">
+                            <label>Name of Organization:</label>
+                            <input type="text" placeholder="Name" class="form-control" v-model="organization.name">
                           </div>
-                          <!-- /.input group -->
-                        </div>
-                    </div>
-                </div>
-            </form>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" placeholder="Address" class="form-control" v-model="organization.address">
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Phone:</label>
+                            <input type="text" placeholder="Phone" class="form-control" v-model="organization.phone">
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="Email" class="form-control" v-model="organization.email">
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Password:</label>
+                            <input type="password" placeholder="Password" class="form-control" v-model="organization.password">
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Confirm Password:</label>
+                            <input type="password" placeholder="Password" class="form-control" v-model="organization.password_confirmation">
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Organization Code</label>
+                            <input type="text" placeholder="Organization Code" class="form-control" v-model="organization.code">
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Status</label>
+
+                            <div class="input-group">
+                                <select v-model="organization.status" class="form-control">
+                                    <option value="" selected disabled>Select Status</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                </select>
+                            </div>
+                            <!-- /.input group -->
+                          </div>
+                      </div>
+                  </div>
+                  <div class="submit-section">
+                      <button @click="updateOrganization" type="button" class="btn btn-primary submit-btn">Save</button>
+                  </div>
+              </form>
+            </div>
           </div>
-          <div class="modal-footer">
-            <br>
-            <button @click="updateOrganization" type="button" class="btn btn-success waves-effect">Update</button>
-            <button  @click="resetForm()" type="button" class="btn btn-default waves-effect" data-dismiss="modal">CLOSE</button>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -173,9 +174,7 @@ export default {
             address: response.data.address,
             phone: response.data.phone,
             email: response.data.email,
-            password: response.data.password,
             code: response.data.code,
-            password_confirmation: response.data.password
           };
 
      })

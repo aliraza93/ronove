@@ -5,9 +5,6 @@
             <div class="sidebar-inner slimscroll">
                 <div class="sidebar-menu">
                     <ul>
-                        <li> 
-                            <a href="/"><i class="la la-home"></i> <span>Back to Home</span></a>
-                        </li>
                         <!---
                             <li class="menu-title"><span>Chat Groups</span> <a href="#" data-toggle="modal" data-target="#add_group"><i class="fa fa-plus"></i></a></li>
                             <li> 
@@ -88,14 +85,24 @@
                                 <div class="navbar">
                                     <div class="user-details mr-auto">
                                         <div class="float-left user-img">
-                                            <a class="avatar" href="profile" title="Mike Litorus">
-                                                <img src="img/profiles/avatar-05.jpg" alt="" class="rounded-circle">
+                                            <a v-if="employee.name" class="avatar" href="#" :title="employee.name">
+                                                <img style="height: inherit;" :src="employee.avatar ? employee.avatar : 'img/profiles/avatar-05.jpg'" alt="" class="rounded-circle">
+                                                <span :class="onlineFriends.find(onlineFriend=>onlineFriend.id===activeFriend)? 'status online' : 'status offline'"></span>
+                                            </a>
+                                            <a v-else class="avatar" href="#" :title="employee.first_name + ' ' + employee.last_name">
+                                                <img style="height: inherit;" :src="employee.avatar ? employee.avatar : 'img/profiles/avatar-05.jpg'" alt="" class="rounded-circle">
                                                 <span :class="onlineFriends.find(onlineFriend=>onlineFriend.id===activeFriend)? 'status online' : 'status offline'"></span>
                                             </a>
                                         </div>
                                         <div class="user-info float-left">
-                                            <a href="profile" title="Mike Litorus"><span>{{ employee.name }}</span> 
-                                            <i v-if="typingFriend.name" class="typing-text">Typing...</i></a>
+                                            <a v-if="employee.name" href="#" :title="employee.name">
+                                                <span>{{ employee.name }}</span>
+                                                <i v-if="typingFriend.name" class="typing-text">Typing...</i>
+                                            </a>
+                                            <a v-else href="#" :title="employee.name">
+                                                <span>{{ employee.first_name }} {{ employee.last_name }}</span>
+                                                <i v-if="typingFriend.name" class="typing-text">Typing...</i>
+                                            </a> 
                                             <span class="last-seen">{{ onlineFriends.find(onlineFriend=>onlineFriend.id===activeFriend) ? 'Active now': '' }}</span>
                                         </div>
                                     </div>
@@ -135,11 +142,11 @@
                                                 <div class="chat chat-right" v-if="user.id == value.user_id">
                                                     <div class="chat-body">
                                                         <div class="chat-bubble">
-                                                            <div v-if="value.message" class="chat-content">
-                                                                <p text-color="white">
+                                                            <div v-if="value.message" class="chat-content" style="background: #007bff">
+                                                                <p style="color: white;" text-color="white">
                                                                     {{value.message}}
                                                                 </p>
-                                                                <span class="chat-time">{{ value.created_at | moment }}</span>
+                                                                <span style="color: white;" class="chat-time">{{ value.created_at | moment }}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -147,7 +154,7 @@
                                                 <div class="chat chat-left" v-if="user.id != value.user_id">
                                                     <div class="chat-avatar">
                                                         <a href="profile" class="avatar">
-                                                            <img alt="" src="img/profiles/avatar-05.jpg">
+                                                            <img alt="" style="height: inherit;" :src="employee.avatar ? employee.avatar : 'img/profiles/avatar-05.jpg'">
                                                         </a>
                                                     </div>
                                                     <div class="chat-body">
@@ -299,7 +306,7 @@
                                                 <div class="table-content">
                                                     <div class="chat-profile-img">
                                                         <div class="edit-profile-img">
-                                                            <img src="img/profiles/avatar-02.jpg" alt="">
+                                                            <img style="height: inherit;" :src="employee.image ? employee.image : 'img/profiles/avatar-02.jpg'" alt="">
                                                             <span class="change-img">Change Image</span>
                                                         </div>
                                                         <h3 class="user-name m-t-10 mb-0"></h3>
@@ -308,9 +315,13 @@
                                                     </div>
                                                     <div class="chat-profile-info">
                                                         <ul class="user-det-list">
-                                                            <li>
+                                                            <li v-if="employee.name">
                                                                 <span>Username:</span>
                                                                 <span class="float-right text-muted">{{ employee.name }} </span>
+                                                            </li>
+                                                            <li v-else>
+                                                                <span>Username:</span>
+                                                                <span class="float-right text-muted">{{ employee.first_name }} {{ employee.last_name }} </span>
                                                             </li>
                                                             <li>
                                                                 <span>Email:</span>

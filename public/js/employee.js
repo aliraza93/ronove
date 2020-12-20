@@ -2204,6 +2204,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -2617,6 +2618,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2861,6 +2865,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -2950,7 +2956,8 @@ __webpack_require__.r(__webpack_exports__);
 
       axios["delete"](base_url + "employee/" + id).then(function (_ref) {
         var data = _ref.data;
-        location.reload();
+        _vue_asset__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("employee-added");
+        $('#delete_employee').modal('hide'); // location.reload();
 
         _this3.$toast.success('Employee Deleted Successfully !', 'Success', _this3.notificationSystem.options.success);
       });
@@ -55865,13 +55872,16 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "modal fade",
-        attrs: { id: "assign-permissions", tabindex: "-1", role: "dialog" }
+        staticClass: "modal custom-modal fade",
+        attrs: { id: "assign-permissions", role: "dialog" }
       },
       [
         _c(
           "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          {
+            staticClass: "modal-dialog modal-dialog-centered modal-lg",
+            attrs: { role: "document" }
+          },
           [
             _c("div", { staticClass: "modal-content" }, [
               _vm._m(0),
@@ -55905,7 +55915,7 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("th", [_vm._v("Permission Names")]),
                                 _vm._v(" "),
-                                _c("th", [
+                                _c("th", { staticClass: "text-center" }, [
                                   _vm._v(
                                     "\n                                      Select All\n                                      "
                                   ),
@@ -55962,7 +55972,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(value.name))]),
                                   _vm._v(" "),
-                                  _c("td", [
+                                  _c("td", { staticClass: "text-center" }, [
                                     _c("input", {
                                       directives: [
                                         {
@@ -56019,36 +56029,20 @@ var render = function() {
                         )
                       ])
                     ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "submit-section" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary submit-btn",
+                        attrs: { type: "button" },
+                        on: { click: _vm.assignPermissions }
+                      },
+                      [_vm._v("Submit")]
+                    )
                   ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c("br"),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-success waves-effect",
-                    attrs: { type: "button" },
-                    on: { click: _vm.assignPermissions }
-                  },
-                  [_vm._v("Save")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-default waves-effect",
-                    attrs: { type: "button", "data-dismiss": "modal" },
-                    on: {
-                      click: function($event) {
-                        return _vm.resetForm()
-                      }
-                    }
-                  },
-                  [_vm._v("CLOSE")]
-                )
               ])
             ])
           ]
@@ -56063,10 +56057,19 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Assign Permissions")]),
+      _vm._v(" "),
       _c(
-        "h4",
-        { staticClass: "modal-name", attrs: { id: "defaultModalLabel" } },
-        [_vm._v("Assign Permissions")]
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
   }
@@ -56274,13 +56277,16 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "modal fade",
-        attrs: { id: "update-employee", tabindex: "-1", role: "dialog" }
+        staticClass: "modal custom-modal fade",
+        attrs: { id: "update-employee", role: "dialog" }
       },
       [
         _c(
           "div",
-          { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
+          {
+            staticClass: "modal-dialog modal-dialog-centered modal-lg",
+            attrs: { role: "document" }
+          },
           [
             _c("div", { staticClass: "modal-content" }, [
               _vm._m(0),
@@ -56644,10 +56650,19 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Update Employee")]),
+      _vm._v(" "),
       _c(
-        "h4",
-        { staticClass: "modal-name", attrs: { id: "defaultModalLabel" } },
-        [_vm._v("Update Employee")]
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
   },
@@ -56844,8 +56859,11 @@ var render = function() {
                           },
                           [
                             _c("img", {
+                              staticStyle: { height: "inherit" },
                               attrs: {
-                                src: "img/profiles/avatar-02.jpg",
+                                src: value.avatar
+                                  ? value.avatar
+                                  : "img/profiles/avatar-02.jpg",
                                 alt: ""
                               }
                             })
@@ -56872,7 +56890,7 @@ var render = function() {
                                 }
                               },
                               [
-                                _c("i", { staticClass: "fa fa-pencil m-r-5" }),
+                                _c("i", { staticClass: "la la-pencil m-r-5" }),
                                 _vm._v(" Edit")
                               ]
                             ),
@@ -56895,7 +56913,7 @@ var render = function() {
                                 }
                               },
                               [
-                                _c("i", { staticClass: "fa fa-pencil m-r-5" }),
+                                _c("i", { staticClass: "la la-pencil m-r-5" }),
                                 _vm._v(" Assign Permissions")
                               ]
                             )
@@ -57042,7 +57060,7 @@ var staticRenderFns = [
           "data-target": "#delete_employee"
         }
       },
-      [_c("i", { staticClass: "fa fa-trash-o m-r-5" }), _vm._v(" Delete")]
+      [_c("i", { staticClass: "la la-trash-o m-r-5" }), _vm._v(" Delete")]
     )
   },
   function() {

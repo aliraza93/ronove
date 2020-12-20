@@ -16,7 +16,7 @@ class CreateRoutesTable extends Migration
         Schema::create('routes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('organizations_id')->unsigned();
+            $table->foreignId('organization_id')->nullable()->constrained()->onDelete('cascade');;
             $table->timestamps();
         });
     }

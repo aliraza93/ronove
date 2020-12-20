@@ -1,10 +1,13 @@
 <template>
     <div class="wrap">
-    <div class="modal fade" id="add-route" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
+    <div class="modal custom-modal fade" id="add-route" role="dialog">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title" id="defaultModalLabel">Add Route</h4>
+              <h5 class="modal-title">Add Route</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
           </div>
           <div class="modal-body">
             <div class="alert alert-danger" v-if="errors">
@@ -17,16 +20,14 @@
                    <div class="col-md-12">
                         <div class="form-group">
                           <label>Name of Route:</label>
-                          <input type="text" placeholder="Name of the System here..." class="form-control" v-model="route.name">
+                          <input type="text" placeholder="Name of the Route here..." class="form-control" v-model="route.name">
                         </div>
                     </div>
                 </div>
+                <div class="submit-section">
+                    <button @click="addRoute" type="button" class="btn btn-primary submit-btn">Submit</button>
+                </div>
             </form>
-          </div>
-          <div class="modal-footer">
-            <br>
-            <button @click="addRoute()" type="button" class="btn btn-success waves-effect">SAVE</button>
-            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">CLOSE</button>
           </div>
         </div>
       </div>

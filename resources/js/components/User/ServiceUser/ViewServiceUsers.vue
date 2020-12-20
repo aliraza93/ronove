@@ -52,21 +52,23 @@
           <div v-for="(value,index) in service_user.data" v-bind:key="index" class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
               <div class="profile-widget">
                   <div class="profile-img">
-                      <a :href="'service-user-show/' + value.id" class="avatar"><img src="img/profiles/avatar-02.jpg" alt=""></a>
+                      <a :href="'service-user-show/' + value.id" class="avatar">
+                        <img style="height: inherit;" :src="value.avatar ? value.avatar : 'img/profiles/avatar-02.jpg' " alt="">
+                      </a>
                   </div>
                   <div class="dropdown profile-action">
                       <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                       <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#" @click="editServiceUser(value.id)"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_service_user"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                          <a class="dropdown-item" href="#" @click="editServiceUser(value.id)"><i class="la la-pencil m-r-5"></i> Edit</a>
+                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_service_user"><i class="la la-trash-o m-r-5"></i> Delete</a>
                       </div>
-                      <!-- Delete Employee Modal -->
+                      <!-- Delete Service User Modal -->
                         <div class="modal custom-modal fade" id="delete_service_user" role="dialog">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-body">
                                         <div class="form-header">
-                                            <h3>Delete Employee</h3>
+                                            <h3>Delete Service User</h3>
                                             <p>Are you sure want to delete?</p>
                                         </div>
                                         <div class="modal-btn delete-action">
@@ -83,7 +85,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- /Delete Employee Modal -->
+                        <!-- /Delete Service User Modal -->
                   </div>
                   <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="#">{{ value.first_name }} {{ value.last_name }}</a></h4>
                   <!--
@@ -100,7 +102,6 @@
 
       <div class="row">
         <update-service-user></update-service-user>
-        <assign-system></assign-system>
       </div>
   </div>
 </template>
@@ -110,14 +111,12 @@ import { EventBus } from "../../../vue-asset";
 import mixin from "../../../mixin";
 
 import UpdateServiceUser from "./UpdateServiceUser.vue";
-import AssignSystem from "./AssignSystem.vue";
 import Pagination  from '../../pagination/pagination.vue';
 
 export default {
   mixins: [mixin],
 
   components: {
-    "assign-system": AssignSystem,
     "pagination": Pagination,
     'update-service-user': UpdateServiceUser
   },

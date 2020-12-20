@@ -1,10 +1,13 @@
 <template>
   <div class="wrap">
-    <div class="modal fade" id="update-dosage" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-name" id="defaultModalLabel">Update Dosage</h4>
+    <div class="modal custom-modal fade" id="update-dosage" role="dialog">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Edit Dosage</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
           </div>
           <div class="modal-body">
             <div class="alert alert-danger" v-if="errors">
@@ -16,16 +19,14 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                          <input type="text" placeholder="Name of the System here..." class="form-control" v-model="dosage.name">
+                          <input type="text" placeholder="Name of the Dosage here..." class="form-control" v-model="dosage.name">
                         </div>
                     </div>
                 </div>
+                <div class="submit-section">
+                    <button @click="updateDosage" type="button" class="btn btn-primary submit-btn">Save</button>
+                </div>
             </form>
-          </div>
-          <div class="modal-footer">
-            <br>
-            <button @click="updateDosage()" type="button" class="btn btn-success waves-effect">Update</button>
-            <button  @click="resetForm()" type="button" class="btn btn-default waves-effect" data-dismiss="modal">CLOSE</button>
           </div>
         </div>
       </div>

@@ -18,7 +18,7 @@ class CreateEmployeeBankDetailsTable extends Migration
             $table->string('account_name');
             $table->string('sort_code');
             $table->string('account_number');
-            $table->integer('employee_id')->unsigned();
+            $table->foreignId('employee_id')->nullable()->constrained()->onDelete('cascade');;
             $table->timestamps();
         });
     }

@@ -56316,10 +56316,26 @@ var render = function() {
                   },
                   [
                     _c("div", { staticClass: "profile-widget" }, [
-                      _vm._m(0, true),
+                      _c("div", { staticClass: "profile-img" }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "avatar",
+                            attrs: { href: "client-show/" + value.id }
+                          },
+                          [
+                            _c("img", {
+                              attrs: {
+                                src: "img/profiles/avatar-02.jpg",
+                                alt: ""
+                              }
+                            })
+                          ]
+                        )
+                      ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "dropdown profile-action" }, [
-                        _vm._m(1, true),
+                        _vm._m(0, true),
                         _vm._v(" "),
                         _c(
                           "div",
@@ -56337,12 +56353,12 @@ var render = function() {
                                 }
                               },
                               [
-                                _c("i", { staticClass: "fa fa-pencil m-r-5" }),
+                                _c("i", { staticClass: "la la-pencil m-r-5" }),
                                 _vm._v(" Edit")
                               ]
                             ),
                             _vm._v(" "),
-                            _vm._m(2, true)
+                            _vm._m(1, true)
                           ]
                         ),
                         _vm._v(" "),
@@ -56362,7 +56378,7 @@ var render = function() {
                               [
                                 _c("div", { staticClass: "modal-content" }, [
                                   _c("div", { staticClass: "modal-body" }, [
-                                    _vm._m(3, true),
+                                    _vm._m(2, true),
                                     _vm._v(" "),
                                     _c(
                                       "div",
@@ -56392,7 +56408,7 @@ var render = function() {
                                             )
                                           ]),
                                           _vm._v(" "),
-                                          _vm._m(4, true)
+                                          _vm._m(3, true)
                                         ])
                                       ]
                                     )
@@ -56453,16 +56469,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "profile-img" }, [
-      _c("a", { staticClass: "avatar", attrs: { href: "profile" } }, [
-        _c("img", { attrs: { src: "img/profiles/avatar-02.jpg", alt: "" } })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
       "a",
       {
@@ -56490,7 +56496,7 @@ var staticRenderFns = [
           "data-target": "#delete_client"
         }
       },
-      [_c("i", { staticClass: "fa fa-trash-o m-r-5" }), _vm._v(" Delete")]
+      [_c("i", { staticClass: "la la-trash-o m-r-5" }), _vm._v(" Delete")]
     )
   },
   function() {
@@ -56498,7 +56504,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-header" }, [
-      _c("h3", [_vm._v("Delete Employee")]),
+      _c("h3", [_vm._v("Delete Client")]),
       _vm._v(" "),
       _c("p", [_vm._v("Are you sure want to delete?")])
     ])

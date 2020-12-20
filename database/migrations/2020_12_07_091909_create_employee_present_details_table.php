@@ -21,7 +21,7 @@ class CreateEmployeePresentDetailsTable extends Migration
             $table->string('period_from');
             $table->string('period_to');
             $table->string('job_current');
-            $table->integer('employee_id')->unsigned();
+            $table->foreignId('employee_id')->nullable()->constrained()->onDelete('cascade');;
             $table->timestamps();
         });
     }

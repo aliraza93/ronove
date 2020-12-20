@@ -47,7 +47,6 @@ class EmployeeController extends Controller
     }
 
     public function PermissionsList(Request $request, $id){
-        //$permissions = Permission::all();
         $ids = array();
         $system = System::where('id', Session::get('system_id'))->first();
         $employee = Employee::where('id', $id)->first();
@@ -62,24 +61,6 @@ class EmployeeController extends Controller
         }
         return response()->json([
             'permissions' => $permissions,
-            'ids' => $ids
-        ]);
-    }
-
-    public function SystemsList(Request $request){
-        $systems = System::all();
-        $ids = array();
-        $employee = Employee::where('id', $request->id)->first();
-        foreach (Employee::all() as $key => $value) {
-            $system = System::where('organization_id', $request->id)->get();
-            foreach ($system as $key => $value) {
-                if($system != null) {
-                    $ids[$key] = $value->id;
-                }        
-            }
-        }
-        return response()->json([
-            'systems' => $systems,
             'ids' => $ids
         ]);
     }
@@ -176,13 +157,6 @@ class EmployeeController extends Controller
             $employee->post_code = $request->post_code;
             $employee->gender = $request->gender;
             $employee->organization_id = Session::get('OrganizationId');
-            /*if ($request->has('image')) {
-                $employee->clearMediaCollection('employees');
-
-                $employee->addMedia($request->image)
-                        ->toMediaCollection('employees');
-            }
-            */
             $employee->save();
             $type = $request->type;
             $user = new User();
@@ -191,7 +165,7 @@ class EmployeeController extends Controller
             $user->password = Hash::make($request->password);
             $user->employee_id = $employee->id;
             $user->employee_organization_id = Session::get('OrganizationId');
-            if(!Role::where('name', $type)) {
+            if(!Role::where('name', $type)->first()) {
                 $role = Role::create(['name' => $type]);
                 $user->assignRole($role);
             }
@@ -205,9 +179,22 @@ class EmployeeController extends Controller
         catch(\Exception $e)
         {
 
-            return response()->json(['status'=>'error','message'=>$e->getMessage()]);
+            return response()->json(['status'=>'error','message'=>'Something went wrong!']);
 
         }
+    }
+
+    public function updateAvatar(Request $request, Employee $employee){
+        $request->validate([
+            'image' => 'image',
+        ]);
+        if ($request->hasFile('image')) {
+            $employee->clearMediaCollection('EmployeeAvatars');
+
+            $employee->addMediaFromRequest('image')
+                    ->toMediaCollection('EmployeeAvatars');
+        }
+        return redirect()->back() ->with('alert', 'Profile Image Uploaded Successfully!');
     }
 
 
@@ -265,7 +252,6 @@ class EmployeeController extends Controller
             $employee->organization_id = Session::get('OrganizationId');
             $employee->update();
             $user = User::where('employee_id', $id)->first();
-            //dd($user);
             $user->email = $request->email;
             $user->name = $request->first_name . ' ' . $request->last_name;
             $user->password = Hash::make($request->password);
@@ -327,13 +313,12 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        $user = User::where('employee_id', $employee->id)->first();
-        if($user != null) {
-            $user->delete();
-        }
-
-        //$employee->removeRole('organization');
-        //$employee->delete();
+        // $user = User::where('employee_id', $employee->id)->first();
+        // if($user != null) {
+        //     $user->delete();
+        // }
+        // $employee->roles()->detach();
+        $employee->delete();
     }
     public function storeEmployeeBankDetails(Request $request, $id)
     {   
