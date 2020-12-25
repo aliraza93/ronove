@@ -2507,6 +2507,7 @@ __webpack_require__.r(__webpack_exports__);
       system: [],
       name: '',
       status: '',
+      selectedUser: '',
       notificationSystem: {
         options: {
           success: {
@@ -2550,7 +2551,7 @@ __webpack_require__.r(__webpack_exports__);
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.isLoading = true;
       axios.get(base_url + "system-list?page=" + page + "&name=" + this.name).then(function (response) {
-        // console.log(response.data);
+        // console.log(response.data.data);
         _this2.system = response.data;
         _this2.isLoading = false;
       })["catch"](function (error) {
@@ -2568,6 +2569,9 @@ __webpack_require__.r(__webpack_exports__);
       var vm = this;
       vm.getData(pageNo);
     },
+    sendInfo: function sendInfo(value) {
+      this.selectedUser = value;
+    },
     deleteSystem: function deleteSystem(id) {
       var _this3 = this;
 
@@ -2576,7 +2580,7 @@ __webpack_require__.r(__webpack_exports__);
         _vue_asset__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("system-added");
         $("#delete_system").modal("hide");
 
-        _this3.$toast.success('System Deleted Successfully !', 'Success', _this3.notificationSystem.options.success);
+        _this3.$toast.success('System Deleted Successfully!', 'Success', _this3.notificationSystem.options.success);
       });
     }
   },
@@ -54735,7 +54739,28 @@ var render = function() {
                                       ]
                                     ),
                                     _vm._v(" "),
-                                    _vm._m(2, true),
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "dropdown-item",
+                                        attrs: {
+                                          href: "#",
+                                          "data-toggle": "modal",
+                                          "data-target": "#delete_system"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.sendInfo(value)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "la la-trash-o m-r-5"
+                                        }),
+                                        _vm._v(" Delete")
+                                      ]
+                                    ),
                                     _vm._v(" "),
                                     _c(
                                       "a",
@@ -54761,70 +54786,87 @@ var render = function() {
                                   ]
                                 )
                               ]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass: "modal custom-modal fade",
-                              attrs: { id: "delete_system", role: "dialog" }
-                            },
-                            [
-                              _c(
-                                "div",
-                                {
-                                  staticClass:
-                                    "modal-dialog modal-dialog-centered"
-                                },
-                                [
-                                  _c("div", { staticClass: "modal-content" }, [
-                                    _c("div", { staticClass: "modal-body" }, [
-                                      _vm._m(3, true),
-                                      _vm._v(" "),
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass: "modal-btn delete-action"
-                                        },
-                                        [
-                                          _c("div", { staticClass: "row" }, [
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "modal custom-modal fade",
+                                attrs: { id: "delete_system", role: "dialog" }
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "modal-dialog modal-dialog-centered"
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      { staticClass: "modal-content" },
+                                      [
+                                        _c(
+                                          "div",
+                                          { staticClass: "modal-body" },
+                                          [
+                                            _vm._m(2, true),
+                                            _vm._v(" "),
                                             _c(
                                               "div",
-                                              { staticClass: "col-6" },
+                                              {
+                                                staticClass:
+                                                  "modal-btn delete-action"
+                                              },
                                               [
                                                 _c(
-                                                  "a",
-                                                  {
-                                                    staticClass:
-                                                      "btn btn-primary continue-btn",
-                                                    attrs: {
-                                                      href:
-                                                        "javascript:void(0);"
-                                                    },
-                                                    on: {
-                                                      click: function($event) {
-                                                        return _vm.deleteSystem(
-                                                          value.id
+                                                  "div",
+                                                  { staticClass: "row" },
+                                                  [
+                                                    _c(
+                                                      "div",
+                                                      { staticClass: "col-6" },
+                                                      [
+                                                        _c(
+                                                          "a",
+                                                          {
+                                                            staticClass:
+                                                              "btn btn-primary continue-btn",
+                                                            attrs: {
+                                                              href:
+                                                                "javascript:void(0);"
+                                                            },
+                                                            on: {
+                                                              click: function(
+                                                                $event
+                                                              ) {
+                                                                return _vm.deleteSystem(
+                                                                  _vm
+                                                                    .selectedUser
+                                                                    .id
+                                                                )
+                                                              }
+                                                            }
+                                                          },
+                                                          [_vm._v("Delete")]
                                                         )
-                                                      }
-                                                    }
-                                                  },
-                                                  [_vm._v("Delete")]
+                                                      ]
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _vm._m(3, true)
+                                                  ]
                                                 )
                                               ]
-                                            ),
-                                            _vm._v(" "),
-                                            _vm._m(4, true)
-                                          ])
-                                        ]
-                                      )
-                                    ])
-                                  ])
-                                ]
-                              )
-                            ]
-                          )
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ])
                         ])
                       }),
                       0
@@ -54889,23 +54931,6 @@ var staticRenderFns = [
         }
       },
       [_c("i", { staticClass: "material-icons" }, [_vm._v("more_vert")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "dropdown-item",
-        attrs: {
-          href: "#",
-          "data-toggle": "modal",
-          "data-target": "#delete_system"
-        }
-      },
-      [_c("i", { staticClass: "la la-trash-o m-r-5" }), _vm._v(" Delete")]
     )
   },
   function() {

@@ -32,35 +32,35 @@
                       <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                       <div class="dropdown-menu dropdown-menu-right" x-placement="top-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(65px, -2px, 0px);">
                           <a class="dropdown-item" href="#" @click="editSystem(value.id)"><i class="la la-pencil m-r-5"></i> Edit</a>
-                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_system"><i class="la la-trash-o m-r-5"></i> Delete</a>
+                          <a class="dropdown-item" href="#" @click="sendInfo(value)" data-toggle="modal" data-target="#delete_system"><i class="la la-trash-o m-r-5"></i> Delete</a>
                           <a class="dropdown-item" href="#" @click="assignPermissions(value.id)"><i class="la la-check-circle m-r-5"></i> Permissions</a>
                       </div>
                   </div>
-              </td>
-              <!-- Delete System Modal -->
-              <div class="modal custom-modal fade" id="delete_system" role="dialog">
-                  <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                          <div class="modal-body">
-                              <div class="form-header">
-                                  <h3>Delete System</h3>
-                                  <p>Are you sure want to delete?</p>
-                              </div>
-                              <div class="modal-btn delete-action">
-                                  <div class="row">
-                                      <div class="col-6">
-                                          <a @click="deleteSystem(value.id)" href="javascript:void(0);" class="btn btn-primary continue-btn">Delete</a>
-                                      </div>
-                                      <div class="col-6">
-                                          <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
+                  <!-- Delete System Modal -->
+                  <div class="modal custom-modal fade" id="delete_system" role="dialog">
+                      <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                              <div class="modal-body">
+                                  <div class="form-header">
+                                      <h3>Delete System</h3>
+                                      <p>Are you sure want to delete?</p>
+                                  </div>
+                                  <div class="modal-btn delete-action">
+                                      <div class="row">
+                                          <div class="col-6">
+                                              <a @click="deleteSystem(selectedUser.id)" href="javascript:void(0);" class="btn btn-primary continue-btn">Delete</a>
+                                          </div>
+                                          <div class="col-6">
+                                              <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
+                                          </div>
                                       </div>
                                   </div>
                               </div>
                           </div>
                       </div>
                   </div>
-              </div>
-              <!-- /Delete System Modal -->
+                  <!-- /Delete System Modal -->
+              </td>
               </tr>
             </tbody>
         </table>
@@ -100,6 +100,7 @@ export default {
       system: [],
       name: '',
       status: '',
+      selectedUser: '',
       notificationSystem: {
           options: {
               success: {
@@ -149,7 +150,7 @@ export default {
             this.name
         )
         .then(response => {
-          // console.log(response.data);
+          // console.log(response.data.data);
 
           this.system = response.data;
           this.isLoading = false;
@@ -171,12 +172,15 @@ export default {
       var vm = this;
       vm.getData(pageNo);
     },
+    sendInfo(value) {
+        this.selectedUser = value;
+    },
     deleteSystem (id) {
       axios.delete(base_url + "system/" + id)
         .then(({data}) => {
             EventBus.$emit("system-added");
             $("#delete_system").modal("hide");
-            this.$toast.success('System Deleted Successfully !', 'Success',this.notificationSystem.options.success);
+            this.$toast.success('System Deleted Successfully!', 'Success',this.notificationSystem.options.success);
         });       
     }
   },

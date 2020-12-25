@@ -24,7 +24,7 @@ class CreateEmployeePersonalDetailsTable extends Migration
             $table->string('are_you_applying');
             $table->string('driving_license');
             $table->string('license_category');
-            $table->foreignId('employee_id')->nullable()->constrained()->onDelete('cascade');;
+            $table->foreignId('employee_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

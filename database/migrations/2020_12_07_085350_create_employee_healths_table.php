@@ -21,7 +21,7 @@ class CreateEmployeeHealthsTable extends Migration
             $table->string('arrangements_details');
             $table->string('days');
             $table->string('state_number');
-            $table->foreignId('employee_id')->nullable()->constrained()->onDelete('cascade');;
+            $table->foreignId('employee_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

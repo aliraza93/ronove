@@ -50,12 +50,13 @@ class UserController extends Controller
                 return redirect()->route('index');
             } else {
                 Session::put('OrganizationId', $user->organization_id);
-                $systems = System::where('organization_id', $user->organization_id);
-                if(!$systems->exists()) {
-                    return view('frontend.error.noSystem');
+                $organization = Organization::find($user->organization_id);
+                $systems = $organization->systems;
+                if($systems->count() > 0) {
+                    return view('frontend.myOrganization', compact('systems', 'organization'));
                 }
                 else{
-                    return redirect()->route('MyOrganization');
+                    return view('frontend.error.noSystem');    
                 }
                 
             }
@@ -95,32 +96,15 @@ class UserController extends Controller
         $system = System::where('id', $system_id)->first();
         if(Session::get('OrganizationId') == $organization_id){
             if($system->hasRole('system')) {
-                    $permissions = $system->getAllPermissions();
+                $permissions = $system->getAllPermissions();
                 if(count($permissions) > 0){
                     return view('frontend.index', compact('organization_id', 'system_id', 'permissions'));
                 }
-                else{
-                    return view('frontend.error.systemError');
-                }
+            }
+            else{
+                return view('frontend.error.systemError');
             }
         }
-        /*
-            if(DB::table('system_organization_assignment')->where('OrganizationId',$OrganizationId)->where('systemId',$SystemID)->exists()){
-                $getPermissions= DB::table('saas')->where('systemId',$SystemID)->exists()?
-                                DB::table('saas')->where('systemId',$SystemID)->get():"false";
-                $getOrgName=DB::table('organizations')->where('intOrganizationId',$OrganizationId)->get('txtOrganizationName');
-                if($getPermissions!=='false'){
-                    foreach ($getOrgName as $i) {
-                        $_SESSION['organizationLogined'] =array(
-                            'OrganizationName'=>$i->txtOrganizationName,
-                            'SystemID'       =>$SystemID            );
-                        return  redirect()->route('index');
-                    }}
-                else{
-                    return redirect()->route('admin.Authentication.Error');
-                }
-            }
-        */
     }
 
     /**

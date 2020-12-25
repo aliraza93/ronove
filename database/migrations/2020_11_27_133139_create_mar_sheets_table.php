@@ -24,7 +24,7 @@ class CreateMarSheetsTable extends Migration
             $table->string('days');
             $table->string('instructions');
             $table->string('added_by');
-            $table->foreignId('service_user_id')->nullable()->constrained('service_users')->onDelete('cascade');;
+            $table->foreignId('service_user_id')->nullable()->constrained('service_users')->onDelete('cascade');
             $table->timestamps();
         });
     }

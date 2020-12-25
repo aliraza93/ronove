@@ -42,18 +42,16 @@
         </div>
         <div class="row">
             @foreach($systems as $system)
-                @if($system->organization_id === Illuminate\Support\Facades\Session::get('OrganizationId'))
-                    <div class="col-sm-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <a href="{{route('admin.systems.Organization',['organization_id'=>$system->organization_id,'system_id'=>$system->id])}}">
-                                    <h5 class="card-title">{{$system->name}}</h5>
-                                    <p class="card-text">Reference # {{$system->id}} SYS</p>
-                                </a> 
-                            </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <a href="{{route('admin.systems.Organization',['organization_id'=>$organization->id,'system_id'=>$system->id])}}">
+                                <h5 class="card-title">{{$system->name}}</h5>
+                                <p class="card-text">Reference # {{$system->id}} SYS</p>
+                            </a> 
                         </div>
                     </div>
-                @endif
+                </div>
             @endforeach
         </div>
     </div>

@@ -10,8 +10,9 @@ class System extends Model
 {
     use HasFactory, HasRoles;
     protected $guard_name = 'web';
+    public $fillable = ['organization_id'];
     
-    public function organization() {
-        $this->belongsTo(System::class);
+    public function organizations() {
+        return $this->belongsToMany(Organization::class, 'organization_system');
     }
 }

@@ -23,7 +23,7 @@ class CreateServiceUsersTable extends Migration
             $table->string('post_code');
             $table->string('phone');
             $table->string('dob');
-            $table->foreignId('organization_id')->nullable()->constrained()->onDelete('cascade');;            
+            $table->foreignId('organization_id')->nullable()->constrained()->onDelete('cascade');            
             $table->timestamps();
         });
     }

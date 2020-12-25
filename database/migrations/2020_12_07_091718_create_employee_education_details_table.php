@@ -21,7 +21,7 @@ class CreateEmployeeEducationDetailsTable extends Migration
             $table->string('end_date');
             $table->string('degree');
             $table->string('grade');
-            $table->foreignId('employee_id')->nullable()->constrained()->onDelete('cascade');;
+            $table->foreignId('employee_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

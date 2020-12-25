@@ -24,4 +24,5 @@ mix.js('resources/js/booking.js', 'public/js')
 mix.js('resources/js/setting.js', 'public/js')
 mix.js('resources/js/dosage.js', 'public/js')
 mix.js('resources/js/route.js', 'public/js')
+mix.js('resources/js/file-manager.js', 'public/js')
 .sass('resources/sass/app.scss', 'public/css');

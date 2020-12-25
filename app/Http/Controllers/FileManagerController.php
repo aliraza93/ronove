@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\FileManager;
 use Illuminate\Http\Request;
+use App\Models\Project;
+use Session;
 
 class FileManagerController extends Controller
 {
@@ -14,7 +16,10 @@ class FileManagerController extends Controller
      */
     public function index()
     {
-        return view('organization.apps.file-manager');
+        $projects = Project::whereHas('users', function($query) {
+            $query->where('id', auth()->id());
+        })->get();
+        return view('organization.apps.file-manager', compact('projects'));
     }
 
     /**

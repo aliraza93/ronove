@@ -32,7 +32,7 @@ Route::group(['middleware' => ['role:admin']], function () {
 
     //System
     Route::resource('system', 'SystemController');
-    Route::get('system/delete/{id}','SystemController@destroy');
+    Route::delete('system/delete/{system}','SystemController@destroy');
     Route::post('system/update/{id}','SystemController@update');
     Route::get('system-list','SystemController@SystemList');
     Route::get('permissions/{id}','SystemController@PermissionsList');
@@ -62,7 +62,7 @@ Route::group(['middleware' => ['role:Service Staff']], function () {
 
 
 Route::group(['middleware' => ['role:organization|Service Staff|Service User']], function () {
-    Route::get('my-organization', 'OrganizationController@create')->name('MyOrganization');
+    //Route::get('my-organization', 'OrganizationController@create')->name('MyOrganization');
     Route::get('Organization', 'UserController@AccessOrganizationAndSystems')->name('admin.systems.Organization');
 
     //Employee
@@ -133,6 +133,30 @@ Route::group(['middleware' => ['role:organization|Service Staff|Service User']],
     Route::get('client/delete/{id}','ClientController@destroy');
     Route::post('client/update/{id}','ClientController@update');
     Route::get('client-list','ClientController@ClientList');
+
+    //File Manager Module
+    
+    //Project
+    Route::resource('project', 'ProjectController');
+    Route::get('project/delete/{id}','ProjectController@destroy');
+    Route::post('project/update/{id}','ProjectController@update');
+    Route::get('project-list','ProjectController@ProjectsList');
+
+    //FIles
+    Route::get('files-show/{id}','ProjectController@show');
+    Route::post('files-upload', 'FolderController@storeMedia')->name('folders.storeMedia');
+    Route::get('download-file/{media}', 'FolderController@downloadFile');
+    Route::delete('delete-file/{media}', 'FolderController@deleteFile');
+    Route::post('rename-file/{media}/{name}', 'FolderController@renameFile');
+
+    //Folders
+    Route::post('folders/{parent_id}', 'FolderController@store');
+    Route::get('folder-content-show/{id}','FolderController@show');
+    Route::get('folder/delete/{id}','FolderController@destroy');
+    Route::post('folder/update/{id}','FolderController@update');
+    Route::get('files-list','FolderController@FilesList');
+    Route::delete('delete-folder/{folder}', 'FolderController@deleteFolder');
+    Route::post('rename-folder/{folder}/{name}', 'FolderController@renameFolder');
 
     //MAR Sheet
     Route::resource('mar-sheet', 'MarSheetController');

@@ -23,7 +23,7 @@ class CreateEmployeesTable extends Migration
             $table->string('phone');
             $table->string('password');
             $table->string('gender');
-            $table->foreignId('organization_id')->nullable()->constrained()->onDelete('cascade');;
+            $table->foreignId('organization_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

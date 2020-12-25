@@ -27,7 +27,7 @@ class MessageController extends Controller
             ->get();
         }
         elseif (Auth::user()->getRoleNames()->first() === 'Service Staff' || Auth::user()->getRoleNames()->first() === 'Service User') {
-            $employee_organization_ids = Employee::pluck('organization_id');
+            $employee_organization_ids = Employee::where('organization_id', Auth::user()->employee_organization_id)->pluck('organization_id');
             $users = DB::table('employees')
                 ->whereIn('employee_organization_id', $employee_organization_ids)
                 ->join('users', 'employees.id', '=', 'users.employee_id')

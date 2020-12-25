@@ -2205,8 +2205,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios.get(base_url + 'assign/' + id).then(function (response) {
-        _this2.systems = response.data.systems; //this.system_idsresponse.data.ids
-        //console.log(response.data.ids)
+        _this2.systems = response.data.systems;
 
         for (var ids in response.data.ids) {
           _this2.system_ids.push(response.data.ids[ids]);
@@ -2219,17 +2218,21 @@ __webpack_require__.r(__webpack_exports__);
       if (this.system_ids != '') {
         //axios.post(base_url + "assign/update/"+this.organization_id+'/'+this.system_ids, this.systems)
         axios.post(base_url + "assign/update/" + this.organization_id + '/' + this.system_ids).then(function (response) {
-          console.log(_this3.organization_id);
           $("#assign-system").modal("hide");
           _vue_asset__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("system-added");
+          _this3.systems = {};
+          _this3.organization_id = '';
+          _this3.system_ids = [];
+          _this3.selected = [];
+          _this3.allSelected = false;
+          _this3.errors = null; // location.reload()
 
           _this3.showMessage(response.data);
         })["catch"](function (err) {
           if (err.response) {
             _this3.errors = err.response.data.errors;
 
-            _this3.showMessage(err.response.data); //this.$toast.error("Something Went Wrong", 'Error', { timeout: 3000 } );
-
+            _this3.showMessage(err.response.data);
           }
         });
       } else {
@@ -2600,6 +2603,7 @@ __webpack_require__.r(__webpack_exports__);
       email: '',
       code: '',
       status: '',
+      selectedUser: '',
       notificationSystem: {
         options: {
           success: {
@@ -2660,6 +2664,9 @@ __webpack_require__.r(__webpack_exports__);
     pageClicked: function pageClicked(pageNo) {
       var vm = this;
       vm.getData(pageNo);
+    },
+    sendInfo: function sendInfo(value) {
+      this.selectedUser = value;
     },
     deleteOrganization: function deleteOrganization(id) {
       var _this3 = this;
@@ -56106,7 +56113,28 @@ var render = function() {
                                       ]
                                     ),
                                     _vm._v(" "),
-                                    _vm._m(2, true),
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "dropdown-item",
+                                        attrs: {
+                                          href: "#",
+                                          "data-toggle": "modal",
+                                          "data-target": "#delete_organization"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.sendInfo(value)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "la la-trash-o m-r-5"
+                                        }),
+                                        _vm._v(" Delete")
+                                      ]
+                                    ),
                                     _vm._v(" "),
                                     _c(
                                       "a",
@@ -56152,7 +56180,7 @@ var render = function() {
                                 [
                                   _c("div", { staticClass: "modal-content" }, [
                                     _c("div", { staticClass: "modal-body" }, [
-                                      _vm._m(3, true),
+                                      _vm._m(2, true),
                                       _vm._v(" "),
                                       _c(
                                         "div",
@@ -56177,7 +56205,7 @@ var render = function() {
                                                     on: {
                                                       click: function($event) {
                                                         return _vm.deleteOrganization(
-                                                          value.id
+                                                          _vm.selectedUser.id
                                                         )
                                                       }
                                                     }
@@ -56187,7 +56215,7 @@ var render = function() {
                                               ]
                                             ),
                                             _vm._v(" "),
-                                            _vm._m(4, true)
+                                            _vm._m(3, true)
                                           ])
                                         ]
                                       )
@@ -56269,23 +56297,6 @@ var staticRenderFns = [
         }
       },
       [_c("i", { staticClass: "material-icons" }, [_vm._v("more_vert")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "dropdown-item",
-        attrs: {
-          href: "#",
-          "data-toggle": "modal",
-          "data-target": "#delete_organization"
-        }
-      },
-      [_c("i", { staticClass: "la la-trash-o m-r-5" }), _vm._v(" Delete")]
     )
   },
   function() {

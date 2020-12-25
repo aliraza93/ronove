@@ -9,6 +9,9 @@ class Message extends Model
 {
     use HasFactory;
     protected $guarded=[];
+    protected $dates = ['sentMessageOn'];
+    protected $appends = ['SentMessageOnHumanReadable'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -17,4 +20,10 @@ class Message extends Model
     {
         return $this->belongsTo(Client::class);
     }
+
+    public function getSentMessageOnHumanReadableAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
+
 }

@@ -146,7 +146,7 @@
                                                                 <p style="color: white;" text-color="white">
                                                                     {{value.message}}
                                                                 </p>
-                                                                <span style="color: white;" class="chat-time">{{ value.created_at | moment }}</span>
+                                                                <span style="color: white;" class="chat-time">{{ value.SentMessageOnHumanReadable }}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -163,7 +163,7 @@
                                                                 <p style="color: white;" text-color="white">
                                                                     {{value.message}}
                                                                 </p>
-                                                                <span style="color: white;" class="chat-time">{{ value.created_at | moment }}</span>
+                                                                <span style="color: white;" class="chat-time">{{ value.SentMessageOnHumanReadable }}</span>
                                                             </div>
                                                         </div>
                                                     </div>

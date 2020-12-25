@@ -60,7 +60,7 @@
                       <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                       <div class="dropdown-menu dropdown-menu-right">
                           <a class="dropdown-item" href="#" @click="editServiceUser(value.id)"><i class="la la-pencil m-r-5"></i> Edit</a>
-                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_service_user"><i class="la la-trash-o m-r-5"></i> Delete</a>
+                          <a class="dropdown-item" href="#" @click="sendInfo(value)" data-toggle="modal" data-target="#delete_service_user"><i class="la la-trash-o m-r-5"></i> Delete</a>
                       </div>
                       <!-- Delete Service User Modal -->
                         <div class="modal custom-modal fade" id="delete_service_user" role="dialog">
@@ -74,7 +74,7 @@
                                         <div class="modal-btn delete-action">
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <a href="javascript:void(0);" @click="deleteServiceUser(value.id)" class="btn btn-primary continue-btn">Delete</a>
+                                                    <a href="javascript:void(0);" @click="deleteServiceUser(selectedUser.id)" class="btn btn-primary continue-btn">Delete</a>
                                                 </div>
                                                 <div class="col-6">
                                                     <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
@@ -131,6 +131,7 @@ export default {
       email: '',
       code: '',
       status: '',
+      selectedUser: '',
       notificationSystem: {
           options: {
               success: {
@@ -203,6 +204,9 @@ export default {
     pageClicked(pageNo) {
       var vm = this;
       vm.getData(pageNo);
+    },
+    sendInfo(value) {
+        this.selectedUser = value;
     },
     deleteServiceUser (id) {
       axios.delete(base_url + "service-user/" + id)

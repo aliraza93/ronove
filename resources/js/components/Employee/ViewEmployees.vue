@@ -51,7 +51,7 @@
                       <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                       <div class="dropdown-menu dropdown-menu-right">
                           <a class="dropdown-item" href="#" @click="editEmployee(value.id)"><i class="la la-pencil m-r-5"></i> Edit</a>
-                          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_employee"><i class="la la-trash-o m-r-5"></i> Delete</a>
+                          <a class="dropdown-item" href="#" @click="sendInfo(value)" data-toggle="modal" data-target="#delete_employee"><i class="la la-trash-o m-r-5"></i> Delete</a>
                           <a class="dropdown-item" href="#" @click="assignPermissions(value.id)" data-toggle="modal" data-target="#assign-permissions"><i class="la la-pencil m-r-5"></i> Assign Permissions</a>
                             
                       </div>
@@ -67,7 +67,7 @@
                                         <div class="modal-btn delete-action">
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <a href="javascript:void(0);" @click="deleteEmployee(value.id)" class="btn btn-primary continue-btn">Delete</a>
+                                                    <a href="javascript:void(0);" @click="deleteEmployee(selectedUser.id)" class="btn btn-primary continue-btn">Delete</a>
                                                 </div>
                                                 <div class="col-6">
                                                     <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
@@ -129,6 +129,7 @@ export default {
       email: '',
       code: '',
       status: '',
+      selectedUser: '',
       notificationSystem: {
           options: {
               success: {
@@ -202,6 +203,9 @@ export default {
     pageClicked(pageNo) {
       var vm = this;
       vm.getData(pageNo);
+    },
+    sendInfo(value) {
+        this.selectedUser = value;
     },
     deleteEmployee (id) {
       axios.delete(base_url + "employee/" + id)

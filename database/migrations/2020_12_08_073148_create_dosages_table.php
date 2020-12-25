@@ -16,7 +16,7 @@ class CreateDosagesTable extends Migration
         Schema::create('dosages', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('organization_id')->nullable()->constrained()->onDelete('cascade');;
+            $table->foreignId('organization_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

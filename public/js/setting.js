@@ -2374,6 +2374,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       medicine: [],
       name: '',
+      selectedUser: '',
       notificationSystem: {
         options: {
           success: {
@@ -2434,6 +2435,9 @@ __webpack_require__.r(__webpack_exports__);
     pageClicked: function pageClicked(pageNo) {
       var vm = this;
       vm.getData(pageNo);
+    },
+    sendInfo: function sendInfo(value) {
+      this.selectedUser = value;
     },
     deleteMedicine: function deleteMedicine(id) {
       var _this3 = this;
@@ -54293,7 +54297,28 @@ var render = function() {
                                       ]
                                     ),
                                     _vm._v(" "),
-                                    _vm._m(2, true)
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "dropdown-item",
+                                        attrs: {
+                                          href: "#",
+                                          "data-toggle": "modal",
+                                          "data-target": "#delete_medicine"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.sendInfo(value)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "la la-trash-o m-r-5"
+                                        }),
+                                        _vm._v(" Delete")
+                                      ]
+                                    )
                                   ]
                                 ),
                                 _vm._v(" "),
@@ -54322,7 +54347,7 @@ var render = function() {
                                               "div",
                                               { staticClass: "modal-body" },
                                               [
-                                                _vm._m(3, true),
+                                                _vm._m(2, true),
                                                 _vm._v(" "),
                                                 _c(
                                                   "div",
@@ -54355,7 +54380,9 @@ var render = function() {
                                                                     $event
                                                                   ) {
                                                                     return _vm.deleteMedicine(
-                                                                      value.id
+                                                                      _vm
+                                                                        .selectedUser
+                                                                        .id
                                                                     )
                                                                   }
                                                                 }
@@ -54365,7 +54392,7 @@ var render = function() {
                                                           ]
                                                         ),
                                                         _vm._v(" "),
-                                                        _vm._m(4, true)
+                                                        _vm._m(3, true)
                                                       ]
                                                     )
                                                   ]
@@ -54438,23 +54465,6 @@ var staticRenderFns = [
         }
       },
       [_c("i", { staticClass: "material-icons" }, [_vm._v("more_vert")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "dropdown-item",
-        attrs: {
-          href: "#",
-          "data-toggle": "modal",
-          "data-target": "#delete_medicine"
-        }
-      },
-      [_c("i", { staticClass: "la la-trash-o m-r-5" }), _vm._v(" Delete")]
     )
   },
   function() {

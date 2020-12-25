@@ -19,7 +19,7 @@ class CreateEmployeeSchedulesTable extends Migration
             $table->string('end_date');
             $table->string('start_time');
             $table->string('end_time');
-            $table->foreignId('employee_id')->nullable()->constrained()->onDelete('cascade');;
+            $table->foreignId('employee_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

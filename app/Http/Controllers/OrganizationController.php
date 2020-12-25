@@ -18,6 +18,7 @@ use Spatie\Permission\Models\Permission;
 use App\Models\EmployeeSchedule;
 use App\Models\EmployeePersonalDetails;
 use Hash;
+use DB;
 
 class OrganizationController extends Controller
 {
@@ -46,13 +47,8 @@ class OrganizationController extends Controller
         $systems = System::all();
         $ids = array();
         $organization = Organization::where('id', $request->id)->first();
-        foreach (Organization::all() as $key => $value) {
-            $system = System::where('organization_id', $request->id)->get();
-            foreach ($system as $key => $value) {
-                if($system != null) {
-                    $ids[$key] = $value->id;
-                }        
-            }
+        foreach ($organization->systems as $key => $value) {
+            $ids[$key] = $value->id;
         }
         return response()->json([
             'systems' => $systems,
@@ -190,20 +186,12 @@ class OrganizationController extends Controller
     {
         $array = explode(',', $request->id);
         $organization = Organization::find($id);
-        $systemss = System::all();
-        foreach ($systemss as $key => $value) {
-            $value->organization_id = null;
-            $value->save();
+        $systems = System::whereIn('id', $array)->get();
+        if(count($organization->systems) > 0) {
+            DB::table('organization_system')->whereIn('system_id', $array)->where('organization_id', $id)->delete();
         }
         try{
-            foreach ($array as $key => $value) {
-                $system = System::where('id', $value)->first();
-                $system->organization_id = $id;
-                //dd($system->organization_id);
-                //dd($organization->systems());
-                //$organization->systems->save($system);
-                $system->save();
-            }
+            $organization->systems()->sync($array);
             return response()->json(['status'=>'success','message'=>'System Assigned Successfully !']);
         }
         catch(\Exception $e)
@@ -212,17 +200,6 @@ class OrganizationController extends Controller
             return response()->json(['status'=>'error','message'=>$e->getMessage()]);
 
         }
-        /*$array = explode(',', $request->id);
-        $permissions = Permission::all();
-        $system = System::find($id)->first();
-        if(!$system->hasRole('system')){
-            $role = Role::create(['name' => 'system']);
-            $system->assignRole($role);
-        }
-        foreach ($permissions as $key => $value) {
-            $system->revokePermissionTo($value->id);
-        }
-        */
     }
 
     /**

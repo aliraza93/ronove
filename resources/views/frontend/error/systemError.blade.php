@@ -38,7 +38,16 @@
             <h1>404</h1>
             <h3><i class="fa fa-warning"></i> Oops! Your System Does Not Have Any Permissions Yet. Please Contact Admin For Further Details!</h3>
             <p>The page you requested was not found.</p>
-			<a href="{{ route('MyOrganization') }}" class="btn btn-primary">Please Click me to go back</a>
+			{{-- <a href="{{ route('MyOrganization') }}" class="btn btn-primary">Please Click me to go back</a> --}}
+            <a class="btn btn-primary" href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                Click here to logout of application
+            </a>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
         </div>
     
     </div>

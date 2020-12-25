@@ -9,12 +9,12 @@ use Spatie\Permission\Traits\HasRoles;
 class Organization extends Model
 {
     use HasFactory, HasRoles;
-
+    public $fillable = ['organization_id'];
     public function systems() {
-        $this->hasMany(System::class);
+        return $this->belongsToMany(System::class, 'organization_system');
     }
 
     public function employees() {
-        $this->hasMany(Employee::class);
+        return $this->hasMany(Employee::class);
     }
 }

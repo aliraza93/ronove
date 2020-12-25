@@ -73,7 +73,6 @@ class SystemController extends Controller
             $system = new System;
             $system->name = $request->name;
             $system->status = $request->status;
-            $system->organization_id = null;
             $system->save();
 
             return response()->json(['status'=>'success','message'=>'System Added Successfully !']);
@@ -142,9 +141,7 @@ class SystemController extends Controller
         $array = explode(',', $request->id);
         $permissions = Permission::all();
         $system = System::where('id', $id)->first();
-        // dd(Role::where('name', 'system')->first());
         if(!Role::where('name', 'system')->first()){
-            //dd('No System');
             $role = Role::create(['name' => 'system']);
             $system->assignRole($role);
             foreach ($permissions as $key => $value) {
@@ -154,16 +151,13 @@ class SystemController extends Controller
             }
         }
         elseif ($system->hasRole('system')) {
-            // dd('Has Role');
             foreach ($permissions as $key => $value) {
                 if($system->hasPermissionTo($value->id)) {
                     $system->revokePermissionTo($value->id);    
                 }
             }
-            //$system->hasPermissionTo(1);
         }
         else{
-            // dd('Assign');
             $role = Role::where(['name' => 'system'])->first();
             $system->assignRole($role);
             foreach ($permissions as $key => $value) {
@@ -194,9 +188,7 @@ class SystemController extends Controller
      */
     public function destroy(System $system)
     {
-        if($system->hasRole('system')) {
-            $system->removeRole('system');
-        }
+        $system->roles()->detach();
         $system->delete();
     }
 }

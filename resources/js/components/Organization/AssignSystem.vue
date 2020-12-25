@@ -120,8 +120,6 @@ export default {
 
      .then(response => {
          this.systems = response.data.systems
-         //this.system_idsresponse.data.ids
-         //console.log(response.data.ids)
          for (var ids in response.data.ids) {
             this.system_ids.push(response.data.ids[ids]);
         }
@@ -133,16 +131,21 @@ export default {
             //axios.post(base_url + "assign/update/"+this.organization_id+'/'+this.system_ids, this.systems)
             axios.post(base_url + "assign/update/"+this.organization_id+'/'+this.system_ids)
             .then(response => {
-                console.log(this.organization_id)
                 $("#assign-system").modal("hide");
                 EventBus.$emit("system-added");
+                this.systems= {};
+                this.organization_id = '';
+                this.system_ids = [];
+                this.selected = [];
+                this.allSelected = false;
+                this.errors = null;
+                // location.reload()
                 this.showMessage(response.data)
             })
             .catch(err => {
             if (err.response) {
                 this.errors = err.response.data.errors;
                 this.showMessage(err.response.data)
-                //this.$toast.error("Something Went Wrong", 'Error', { timeout: 3000 } );
             }
             });
         }

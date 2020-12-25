@@ -15,11 +15,9 @@ class CreateSystemsTable extends Migration
     {
         Schema::create('systems', function (Blueprint $table) {
             $table->id();
-            // $table->unsignedBigInteger('organization_id');
             $table->string('name');
             $table->string('status');
             $table->timestamps();
-            $table->foreignId('organization_id')->nullable()->constrained()->onDelete('set null');
         });
     }
 

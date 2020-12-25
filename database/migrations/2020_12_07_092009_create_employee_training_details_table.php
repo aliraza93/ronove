@@ -20,7 +20,7 @@ class CreateEmployeeTrainingDetailsTable extends Migration
             $table->string('training_course');
             $table->string('periods_from');
             $table->string('periods_to');
-            $table->foreignId('employee_id')->nullable()->constrained()->onDelete('cascade');;
+            $table->foreignId('employee_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
