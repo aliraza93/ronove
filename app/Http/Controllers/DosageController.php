@@ -21,7 +21,7 @@ class DosageController extends Controller
 
     public function DosageList(Request $request){
         $name = $request->name;
-        $dosage = Dosage::where('organization_id', Session::get('OrganizationId'))->orderBy('created_at','desc');
+        $dosage = Dosage::where('organization_id', Session::get('OrganizationId'))->where('system_id', Session::get('system_id'))->orderBy('created_at','desc');
         if($name != ''){
             $dosage->where('name','LIKE','%'.$name.'%');
         }
@@ -71,6 +71,7 @@ class DosageController extends Controller
             $dosage = new Dosage;
             $dosage->name = $request->name;
             $dosage->organization_id = Session::get('OrganizationId');
+            $dosage->system_id = Session::get('system_id');
             $dosage->save();
 
             return response()->json(['status'=>'success','message'=>'Dosage Added Successfully !']);

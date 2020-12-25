@@ -19,14 +19,14 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::where('organization_id', Session::get('OrganizationId'));
+        $clients = Client::where('organization_id', Session::get('OrganizationId'))->where('system_id', Session::get('system_id'));
         return view('organization.client', compact('clients'));
     }
 
     public function ClientList(Request $request){
         $id = $request->id;
         $name = $request->name;
-        $client = Client::where('organization_id', Session::get('OrganizationId'))->orderBy('created_at','desc');
+        $client = Client::where('organization_id', Session::get('OrganizationId'))->where('system_id', Session::get('system_id'))->orderBy('created_at','desc');
         if($name != ''){
             $client->where('first_name','LIKE','%'.$name.'%');
         }
@@ -99,13 +99,7 @@ class ClientController extends Controller
             $client->post_code = $request->post_code;
             $client->charity = $request->charity;
             $client->organization_id = Session::get('OrganizationId');
-            /*if ($request->has('image')) {
-                $client->clearMediaCollection('clients');
-    
-                $client->addMedia($request->image)
-                        ->toMediaCollection('clients');
-            }
-            */
+            $client->system_id = Session::get('system_id');
             $client->save();
             return response()->json(['status'=>'success','message'=>'Client Added Successfully !']);
         }
@@ -182,46 +176,7 @@ class ClientController extends Controller
 
         }
     }
-
-    public function assignSystem(Request $request, $id)
-    {
-        $array = explode(',', $request->id);
-        $client = Client::find($id);
-        $systemss = System::all();
-        foreach ($systemss as $key => $value) {
-            $value->organization_id = null;
-            $value->save();
-        }
-        try{
-            foreach ($array as $key => $value) {
-                $system = System::where('id', $value)->first();
-                $system->organization_id = $id;
-                //dd($system->organization_id);
-                //dd($client->systems());
-                //$client->systems->save($system);
-                $system->save();
-            }
-            return response()->json(['status'=>'success','message'=>'System Assigned Successfully !']);
-        }
-        catch(\Exception $e)
-        {
-         
-            return response()->json(['status'=>'error','message'=>$e->getMessage()]);
-
-        }
-        /*$array = explode(',', $request->id);
-        $permissions = Permission::all();
-        $system = System::find($id)->first();
-        if(!$system->hasRole('system')){
-            $role = Role::create(['name' => 'system']);
-            $system->assignRole($role);
-        }
-        foreach ($permissions as $key => $value) {
-            $system->revokePermissionTo($value->id);
-        }
-        */
-    }
-
+    
     /**
      * Remove the specified resource from storage.
      *

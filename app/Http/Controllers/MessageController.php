@@ -21,15 +21,19 @@ class MessageController extends Controller
     {
         $users = [];
         if(Auth::user()->getRoleNames()->first() === 'organization') {
+            $employee_system_ids = Employee::where('system_id', Auth::user()->employee_system_id)->pluck('system_id');
             $users = DB::table('employees')
             ->where('employee_organization_id', '=', Session::get('OrganizationId'))
+            ->where('employee_system_id', '=', Session::get('system_id'))
             ->join('users', 'employees.id', '=', 'users.employee_id')
             ->get();
         }
         elseif (Auth::user()->getRoleNames()->first() === 'Service Staff' || Auth::user()->getRoleNames()->first() === 'Service User') {
             $employee_organization_ids = Employee::where('organization_id', Auth::user()->employee_organization_id)->pluck('organization_id');
+            $employee_system_ids = Employee::where('system_id', Auth::user()->employee_system_id)->pluck('system_id');
             $users = DB::table('employees')
                 ->whereIn('employee_organization_id', $employee_organization_ids)
+                ->whereIn('employee_system_id', $employee_system_ids)
                 ->join('users', 'employees.id', '=', 'users.employee_id')
                 ->get();
         }

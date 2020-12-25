@@ -28,14 +28,14 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::where('organization_id', Session::get('OrganizationId'));
+        $employees = Employee::where('organization_id', Session::get('OrganizationId'))->where('system_id', Session::get('system_id'));
         return view('organization.employee', compact('employees'));
     }
 
     public function EmployeeList(Request $request){
         $id = $request->id;
         $name = $request->name;
-        $employee = Employee::where('organization_id', Session::get('OrganizationId'))->orderBy('created_at','desc');
+        $employee = Employee::where('organization_id', Session::get('OrganizationId'))->where('system_id', Session::get('system_id'))->orderBy('created_at','desc');
         if($name != ''){
             $employee->where('first_name','LIKE','%'.$name.'%');
         }
@@ -144,8 +144,7 @@ class EmployeeController extends Controller
             'post_code' => 'required',
             'gender' => 'required',
 
-            ]);
-            //dd($request);
+        ]);
         try{
             $employee = new Employee;
             $employee->first_name = $request->first_name;
@@ -157,6 +156,7 @@ class EmployeeController extends Controller
             $employee->post_code = $request->post_code;
             $employee->gender = $request->gender;
             $employee->organization_id = Session::get('OrganizationId');
+            $employee->system_id = Session::get('system_id');
             $employee->save();
             $type = $request->type;
             $user = new User();
@@ -165,6 +165,7 @@ class EmployeeController extends Controller
             $user->password = Hash::make($request->password);
             $user->employee_id = $employee->id;
             $user->employee_organization_id = Session::get('OrganizationId');
+            $user->employee_system_id = Session::get('system_id');
             if(!Role::where('name', $type)->first()) {
                 $role = Role::create(['name' => $type]);
                 $user->assignRole($role);
@@ -249,7 +250,6 @@ class EmployeeController extends Controller
             $employee->password = Hash::make($request->password);
             $employee->post_code = $request->post_code;
             $employee->gender = $request->gender;
-            $employee->organization_id = Session::get('OrganizationId');
             $employee->update();
             $user = User::where('employee_id', $id)->first();
             $user->email = $request->email;
@@ -279,9 +279,6 @@ class EmployeeController extends Controller
             foreach ($array as $key => $value) {
                 $system = System::where('id', $value)->first();
                 $system->organization_id = $id;
-                //dd($system->organization_id);
-                //dd($employee->systems());
-                //$employee->systems->save($system);
                 $system->save();
             }
             return response()->json(['status'=>'success','message'=>'System Assigned Successfully !']);
@@ -292,17 +289,6 @@ class EmployeeController extends Controller
             return response()->json(['status'=>'error','message'=>$e->getMessage()]);
 
         }
-        /*$array = explode(',', $request->id);
-        $permissions = Permission::all();
-        $system = System::find($id)->first();
-        if(!$system->hasRole('system')){
-            $role = Role::create(['name' => 'system']);
-            $system->assignRole($role);
-        }
-        foreach ($permissions as $key => $value) {
-            $system->revokePermissionTo($value->id);
-        }
-        */
     }
 
     /**
@@ -313,11 +299,7 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        // $user = User::where('employee_id', $employee->id)->first();
-        // if($user != null) {
-        //     $user->delete();
-        // }
-        // $employee->roles()->detach();
+        $employee->roles()->detach();
         $employee->delete();
     }
     public function storeEmployeeBankDetails(Request $request, $id)

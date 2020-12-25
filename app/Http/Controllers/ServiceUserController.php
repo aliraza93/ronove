@@ -22,14 +22,14 @@ class ServiceUserController extends Controller
      */
     public function index()
     {
-        $service_users = ServiceUser::where('organization_id', Session::get('OrganizationId'));
+        $service_users = ServiceUser::where('organization_id', Session::get('OrganizationId'))->where('system_id', Session::get('system_id'));
         return view('organization.User.service_user', compact('service_users'));
     }
 
     public function ServiceUserList(Request $request){
         $name = $request->name;
         $id = $request->id;
-        $service_user = ServiceUser::where('organization_id', Session::get('OrganizationId'))->orderBy('created_at','desc');
+        $service_user = ServiceUser::where('organization_id', Session::get('OrganizationId'))->where('system_id', Session::get('system_id'))->orderBy('created_at','desc');
         if($name != ''){
             $service_user->where('first_name','LIKE','%'.$name.'%');
         }
@@ -47,7 +47,7 @@ class ServiceUserController extends Controller
         $end_time = $request->end_time;
         $matchThese = array();
         $data = [];
-        $employees = Employee::where('organization_id', Session::get('OrganizationId'))->get();
+        $employees = Employee::where('organization_id', Session::get('OrganizationId'))->where('system_id', Session::get('system_id'))->get();
         foreach ($employees as $id => $value) {
             $matchThese[$id] = $value->id;
         }
@@ -131,6 +131,7 @@ class ServiceUserController extends Controller
             $service_user->post_code = $request->post_code;
             $service_user->dob = $dob[0];
             $service_user->organization_id = Session::get('OrganizationId');
+            $service_user->system_id = Session::get('system_id');
             /*if ($request->has('image')) {
                 $service_user->clearMediaCollection('service_users');
     
@@ -263,17 +264,6 @@ class ServiceUserController extends Controller
             return response()->json(['status'=>'error','message'=>$e->getMessage()]);
 
         }
-        /*$array = explode(',', $request->id);
-        $permissions = Permission::all();
-        $system = System::find($id)->first();
-        if(!$system->hasRole('system')){
-            $role = Role::create(['name' => 'system']);
-            $system->assignRole($role);
-        }
-        foreach ($permissions as $key => $value) {
-            $system->revokePermissionTo($value->id);
-        }
-        */
     }
 
     /**

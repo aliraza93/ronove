@@ -21,7 +21,7 @@ class RouteController extends Controller
 
     public function RouteList(Request $request){
         $name = $request->name;
-        $route = Route::where('organization_id', Session::get('OrganizationId'))->orderBy('created_at','desc');
+        $route = Route::where('organization_id', Session::get('OrganizationId'))->where('system_id', Session::get('system_id'))->orderBy('created_at','desc');
         if($name != ''){
             $route->where('name','LIKE','%'.$name.'%');
         }
@@ -71,6 +71,7 @@ class RouteController extends Controller
             $route = new Route;
             $route->name = $request->name;
             $route->organization_id = Session::get('OrganizationId');
+            $route->system_id = Session::get('system_id');
             $route->save();
 
             return response()->json(['status'=>'success','message'=>'Route Added Successfully !']);
@@ -123,44 +124,6 @@ class RouteController extends Controller
             $route->update();
 
             return response()->json(['status'=>'success','message'=>'Route Updated Successfully !']);
-        }
-        catch(\Exception $e)
-        {
-
-            return response()->json(['status'=>'error','message'=>'Something Went Wrong']);
-
-        }
-    }
-
-    public function updatePermissions(Request $request, $id)
-    {
-        $array = explode(',', $request->id);
-        $permissions = Permission::all();
-        $route = Route::where('id', $id)->first();
-        if(!Role::where('name', 'route')){
-            //dd('No Route');
-            $role = Role::create(['name' => 'route']);
-            $route->assignRole($role);
-        }
-        elseif ($route->hasRole('route')) {
-            //dd('Has Role');
-            foreach ($permissions as $key => $value) {
-                if($route->hasPermissionTo($value->id)) {
-                    $route->revokePermissionTo($value->id);
-                }
-            }
-            //$route->hasPermissionTo(1);
-        }
-        else{
-            //dd('Assign');
-            $role = Role::where(['name' => 'route'])->first();
-            $route->assignRole($role);
-        }
-        try{
-            foreach ($array as $key => $value) {
-                $route->givePermissionTo(Permission::find($value)->id);
-            }
-            return response()->json(['status'=>'success','message'=>'Permissions Granted Successfully !']);
         }
         catch(\Exception $e)
         {

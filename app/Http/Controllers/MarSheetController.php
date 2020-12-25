@@ -19,15 +19,11 @@ class MarSheetController extends Controller
     }
 
     public function MarSheetList(Request $request){
-        //$id = $request->id;
         $name = $request->name;
         $mar_sheet = MarSheet::orderBy('created_at','desc');
         if($name != ''){
             $mar_sheet->where('medicine','LIKE','%'.$name.'%');
         }
-        //if($id != ''){
-        //    $mar_sheet->where('id','LIKE','%'.$id.'%');
-        //}
         $mar_sheet = $mar_sheet->paginate(10);
         return $mar_sheet;
     }

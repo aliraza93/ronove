@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('check', 'TestController@show');
-Route::post('save', 'TestController@store');
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
+});
 Route::get('/', function () {
     return view('frontend.index');
 })->name('index')->middleware('auth');

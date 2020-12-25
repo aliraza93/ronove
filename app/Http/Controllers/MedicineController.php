@@ -21,29 +21,12 @@ class MedicineController extends Controller
 
     public function MedicineList(Request $request){
         $name = $request->name;
-        $medicine = Medicine::where('organization_id', Session::get('OrganizationId'))->orderBy('created_at','desc');
+        $medicine = Medicine::where('organization_id', Session::get('OrganizationId'))->where('system_id', Session::get('system_id'))->orderBy('created_at','desc');
         if($name != ''){
             $medicine->where('name','LIKE','%'.$name.'%');
         }
         $medicine = $medicine->paginate(10);
         return $medicine;
-    }
-
-    public function PermissionsList(Request $request){
-        $permissions = Permission::all();
-        $ids = array();
-        $medicine = Medicine::where('id', $request->id)->first();
-        foreach ($permissions as $key => $value) {
-            if($medicine->hasPermissionTo($value)) {
-                if($medicine != null) {
-                    $ids[$key] = $value->id;
-                }
-            }
-        }
-        return response()->json([
-            'permissions' => $permissions,
-            'ids' => $ids
-        ]);
     }
 
     /**
@@ -71,6 +54,7 @@ class MedicineController extends Controller
             $medicine = new Medicine;
             $medicine->name = $request->name;
             $medicine->organization_id = Session::get('OrganizationId');
+            $medicine->system_id = Session::get('system_id');
             $medicine->save();
 
             return response()->json(['status'=>'success','message'=>'Medicine Added Successfully !']);
@@ -123,44 +107,6 @@ class MedicineController extends Controller
             $medicine->update();
 
             return response()->json(['status'=>'success','message'=>'Medicine Updated Successfully !']);
-        }
-        catch(\Exception $e)
-        {
-
-            return response()->json(['status'=>'error','message'=>'Something Went Wrong']);
-
-        }
-    }
-
-    public function updatePermissions(Request $request, $id)
-    {
-        $array = explode(',', $request->id);
-        $permissions = Permission::all();
-        $medicine = Medicine::where('id', $id)->first();
-        if(!Role::where('name', 'medicine')){
-            //dd('No Medicine');
-            $role = Role::create(['name' => 'medicine']);
-            $medicine->assignRole($role);
-        }
-        elseif ($medicine->hasRole('medicine')) {
-            //dd('Has Role');
-            foreach ($permissions as $key => $value) {
-                if($medicine->hasPermissionTo($value->id)) {
-                    $medicine->revokePermissionTo($value->id);
-                }
-            }
-            //$medicine->hasPermissionTo(1);
-        }
-        else{
-            //dd('Assign');
-            $role = Role::where(['name' => 'medicine'])->first();
-            $medicine->assignRole($role);
-        }
-        try{
-            foreach ($array as $key => $value) {
-                $medicine->givePermissionTo(Permission::find($value)->id);
-            }
-            return response()->json(['status'=>'success','message'=>'Permissions Granted Successfully !']);
         }
         catch(\Exception $e)
         {

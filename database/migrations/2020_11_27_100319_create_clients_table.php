@@ -25,7 +25,8 @@ class CreateClientsTable extends Migration
             $table->integer('company_register');
             $table->integer('unique_tax_reference');
             $table->integer('charity');
-            $table->foreignId('organization_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('organization_id')->constrained()->onDelete('cascade');
+            $table->foreignId('system_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
