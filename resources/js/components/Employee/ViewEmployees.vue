@@ -37,7 +37,7 @@
       </div>
       <!-- Search Filter -->
         <div class="loading" v-if="isLoading">
-                    <h2 style="text-align:center">Loading.......</h2>
+          <h2 style="text-align:center">Loading.......</h2>
         </div>
         <div class="row staff-grid-row" v-else>
           <div v-for="(value,index) in employee.data" v-bind:key="index" class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">

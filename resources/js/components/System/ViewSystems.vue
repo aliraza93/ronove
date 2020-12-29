@@ -154,6 +154,7 @@ export default {
 
           this.system = response.data;
           this.isLoading = false;
+          console.log(this.system)
         })
         .catch(error => {
           console.log(error);

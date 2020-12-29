@@ -2554,6 +2554,7 @@ __webpack_require__.r(__webpack_exports__);
         // console.log(response.data.data);
         _this2.system = response.data;
         _this2.isLoading = false;
+        console.log(_this2.system);
       })["catch"](function (error) {
         console.log(error);
       });

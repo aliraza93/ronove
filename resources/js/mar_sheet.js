@@ -15,6 +15,7 @@ Vue.use(VueIziToast);
 Vue.component('add-mar-sheet', require('./components/MarSheet/AddMarSheet.vue').default);
 Vue.component('view-mar-sheet', require('./components/MarSheet/ViewMarSheet.vue').default);
 Vue.component('update-mar-sheet', require('./components/MarSheet/UpdateMarSheet.vue').default);
+
 Vue.component('add-medication', require('./components/MarSheet/AddMedication.vue').default);
 Vue.component('book-staff', require('./components/MarSheet/BookServiceStaff.vue').default);
 var app = new Vue({

@@ -1,108 +1,108 @@
 <template>
     <!-- Add Employee Modal -->
-        <div id="add-employee" class="modal custom-modal fade" role="dialog">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Add Employee</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+    <div id="add-employee" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Employee</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" v-if="errors">
+                    <ul>
+                        <li v-for="error in errors" :key="error">{{ error[0] }}</li>
+                    </ul>
                     </div>
-                    <div class="modal-body">
-                        <div class="alert alert-danger" v-if="errors">
-                        <ul>
-                            <li v-for="error in errors" :key="error">{{ error[0] }}</li>
-                        </ul>
-                        </div>
-                        <form>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="col-form-label">First Name <span class="text-danger">*</span></label>
-                                        <input class="form-control" v-model="employee.first_name" type="text">
-                                    </div>
+                    <form>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">First Name <span class="text-danger">*</span></label>
+                                    <input class="form-control" v-model="employee.first_name" type="text">
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="col-form-label">Last Name <span class="text-danger">*</span></label>
-                                        <input class="form-control" v-model="employee.last_name" type="text">
-                                    </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Last Name <span class="text-danger">*</span></label>
+                                    <input class="form-control" v-model="employee.last_name" type="text">
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="col-form-label">Email <span class="text-danger">*</span></label>
-                                        <input class="form-control" v-model="employee.email" type="email">
-                                    </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Email <span class="text-danger">*</span></label>
+                                    <input class="form-control" v-model="employee.email" type="email">
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="col-form-label">Address <span class="text-danger">*</span></label>
-                                        <input class="form-control" v-model="employee.address" type="text">
-                                    </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Address <span class="text-danger">*</span></label>
+                                    <input class="form-control" v-model="employee.address" type="text">
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="col-form-label">Password <span class="text-danger">*</span></label>
-                                        <input class="form-control" v-model="employee.password" type="password">
-                                    </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Password <span class="text-danger">*</span></label>
+                                    <input class="form-control" v-model="employee.password" type="password">
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="col-form-label">Confirm Password <span class="text-danger">*</span></label>
-                                        <input class="form-control" v-model="employee.password_confirmation" type="password">
-                                    </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Confirm Password <span class="text-danger">*</span></label>
+                                    <input class="form-control" v-model="employee.password_confirmation" type="password">
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="col-form-label">Post Code <span class="text-danger">*</span></label>
-                                        <input class="form-control" v-model="employee.post_code" type="text">
-                                    </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Post Code <span class="text-danger">*</span></label>
+                                    <input class="form-control" v-model="employee.post_code" type="text">
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="col-form-label">Phone <span class="text-danger">*</span></label>
-                                        <input class="form-control" v-model="employee.phone" type="text">
-                                    </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Phone <span class="text-danger">*</span></label>
+                                    <input class="form-control" v-model="employee.phone" type="text">
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="col-form-label">Employee Type <span class="text-danger">*</span></label>
-                                        <select v-model="employee.type" class="form-control">
-                                            <option value="">Select Employee Type</option>
-                                            <option value="Service Staff">Service Staff</option>
-                                            <option value="Service User">Service User</option>
-                                        </select>
-                                    </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Employee Type <span class="text-danger">*</span></label>
+                                    <select v-model="employee.type" class="form-control">
+                                        <option value="">Select Employee Type</option>
+                                        <option value="Service Staff">Service Staff</option>
+                                        <option value="Service User">Service User</option>
+                                    </select>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Gender <span class="text-danger">*</span></label>
-                                        <select v-model="employee.gender" class="form-control">
-                                            <option value="">Select Gender</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                        </select>
-                                    </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Gender <span class="text-danger">*</span></label>
+                                    <select v-model="employee.gender" class="form-control">
+                                        <option value="">Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
                                 </div>
+                            </div>
 
-                            </div>
-                            <!--
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <input type="file" name="image" v-on:change="onImageChange" class="form-control">
-                                    </div>
+                        </div>
+                        <!--
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="file" name="image" v-on:change="onImageChange" class="form-control">
                                 </div>
-                            -->
-                            <div class="submit-section">
-                                <button type="button" @click="addEmployee()" class="btn btn-primary submit-btn">Submit</button>
                             </div>
-                        </form>
-                    </div>
+                        -->
+                        <div class="submit-section">
+                            <button type="button" @click="addEmployee()" class="btn btn-primary submit-btn">Submit</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <!-- /Add Employee Modal -->
+    </div>
+    <!-- /Add Employee Modal -->
 </template>
 <script>
 

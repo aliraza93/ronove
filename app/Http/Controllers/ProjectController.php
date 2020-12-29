@@ -23,9 +23,16 @@ class ProjectController extends Controller
     public function ProjectsList(Request $request){
         $id = $request->id;
         $name = $request->name;
-        $project = Project::whereHas('users', function($query) {
-                        $query->where('id', auth()->id());
-                    })->orderBy('created_at','desc');
+        if(Session::get('system_id') != null) {
+            $project = Project::whereHas('users', function($query) {
+                $query->where('id', Auth::user()->id);
+            })->orderBy('created_at','desc');
+        }
+        else {
+            $project = Project::whereHas('users', function($query) {
+                $query->where('id', Auth::user()->id);
+            })->orderBy('created_at','desc');
+        }
         if($name != ''){
             $project->where('name','LIKE','%'.$name.'%');
         }

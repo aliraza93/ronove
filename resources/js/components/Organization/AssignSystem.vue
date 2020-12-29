@@ -17,13 +17,13 @@
             </div>
             <form>
                 <div class="row" id="row" v-for="(value,index) in systems" v-bind:key="index">
-                    <div class="col-md-10">
+                    <div class="col-md-6">
                         <a>
                             <h4><i class="fa fa-align-justify  m-r-5"></i>{{value.name}}</h4>
                         </a>
                     </div>
                     <input type="text" hidden="" value="32" name="system0">
-                    <div class="col-md-2">
+                    <div class="col-md-6">
                         <label class="switch">
                             <input type="checkbox" :value="value.id" v-model="system_ids" checked>
                             <span class="slider round"></span>

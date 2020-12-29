@@ -1148,7 +1148,8 @@
                             <li class="submenu">
                                 <a href="#"><i class="la la-cog"></i> <span> Booings</span> <span class="menu-arrow"></span></a>
                                 <ul style="display: none;">
-                                    <li><a href="{{ url('booking') }}">Bookings</a></li>
+                                    <li><a href="{{ url('pending-bookings') }}">Pending Bookings</a></li>
+                                    <li><a href="{{ url('approved-bookings') }}">Approved Bookings</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -1165,7 +1166,7 @@
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <!-- Slimscroll JS -->
     <script src="{{ asset('js/jquery.slimscroll.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js" defer></script>    
     
     <!-- Custom JS -->
     <script src="{{ asset('js/custom.js') }}"></script>

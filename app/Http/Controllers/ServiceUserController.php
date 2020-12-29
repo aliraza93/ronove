@@ -23,7 +23,7 @@ class ServiceUserController extends Controller
     public function index()
     {
         $service_users = ServiceUser::where('organization_id', Session::get('OrganizationId'))->where('system_id', Session::get('system_id'));
-        return view('organization.User.service_user', compact('service_users'));
+        return view('organization.service_user', compact('service_users'));
     }
 
     public function ServiceUserList(Request $request){
@@ -40,36 +40,24 @@ class ServiceUserController extends Controller
         return $service_user;
     }
 
-    public function ServiceStaffList(Request $request){
-        $start_date = $request->start_date;
-        $end_date = $request->end_date;
+    public function ServiceStaffList(Request $request)
+    {
         $start_time = $request->start_time;
         $end_time = $request->end_time;
         $matchThese = array();
-        $data = [];
         $employees = Employee::where('organization_id', Session::get('OrganizationId'))->where('system_id', Session::get('system_id'))->get();
-        foreach ($employees as $id => $value) {
-            $matchThese[$id] = $value->id;
+        foreach ($employees as $id => $employee) {
+            $matchThese[$id] = $employee->id;
         }
-        foreach ($matchThese as $key => $value) {
-            $schedules[$key] = EmployeeSchedule::where('employee_id', $value)->orderBy('created_at','desc');    
+        $schedule = EmployeeSchedule::whereIn('employee_id', $matchThese)->orderBy('created_at','desc');
+        if($start_time != ''){
+            $schedule->where('start_time','>=', $start_time);
         }
-        foreach ($schedules as $key => $schedule) {
-            if($start_date != ''){
-                $schedule->where('start_date','>=',$start_date);
-            }
-            if($end_date != ''){
-                $schedule->where('end_date','<=',$end_date);
-            }
-            if($start_time != ''){
-                $schedule->where('start_time','>=', $start_time);
-            }
-            if($end_time != ''){
-                $schedule->where('end_time','<=', $end_time);
-            }
-            $data[$key] = $schedule->paginate();
+        if($end_time != ''){
+            $schedule->where('end_time','<=', $end_time);
         }
-        return $data;
+        $schedule = $schedule->paginate(10);
+        return $schedule;
     }
 
     public function SystemsList(Request $request){

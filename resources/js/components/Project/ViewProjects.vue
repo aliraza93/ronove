@@ -25,9 +25,9 @@
               <a href="#" @click="showFiles(value.id)">{{ value.name }}</a>
             </li>
           </ul>
-          <div class="show-more">
+          <!-- <div class="show-more">
             <a href="#">Show More</a>
-          </div>
+          </div> -->
         </div>
         <div class="text-center" style="margin-top: 15px;" v-if="!show">
           <h4>No Projects Avaialble</h4>

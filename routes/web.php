@@ -48,19 +48,6 @@ Route::group(['middleware' => ['role:admin']], function () {
 
 });
 
-Route::group(['middleware' => ['role:Service Staff']], function () {
-
-    //System
-    Route::resource('booking', 'BookServiceStaffController');
-    Route::get('booking/delete/{id}','BookServiceStaffController@destroy');
-    Route::post('booking/update/{id}','BookServiceStaffController@update');
-    Route::get('booking-list','BookServiceStaffController@BookingList');
-    // Route::get('employee-permissions/{id}','BookServiceStaffController@PermissionsList');
-    // Route::post('employee-permissions/update/{booking}/{id}','BookServiceStaffController@updatePermissions');
-
-});
-
-
 Route::group(['middleware' => ['role:organization|Service Staff|Service User']], function () {
     //Route::get('my-organization', 'OrganizationController@create')->name('MyOrganization');
     Route::get('Organization', 'UserController@AccessOrganizationAndSystems')->name('admin.systems.Organization');
@@ -118,8 +105,10 @@ Route::group(['middleware' => ['role:organization|Service Staff|Service User']],
 
     //Employee Schedule
     Route::post('employee-schedule/{id}','EmployeeController@storeEmployeeSchedule');
+    Route::get('employee-schedule/{employee}/edit', 'EmployeeController@editEmployeeSchedule');
     Route::post('employee-schedule-update/{id}','EmployeeController@updateEmployeeSchedule');
     Route::post('details-update/{id}','EmployeeController@updatePersonalDetails');
+    Route::get('employee-schedule-list','EmployeeController@EmployeeScheduleList');
 
     Route::get('assign-permissions/{id}','EmployeeController@PermissionsList');
     Route::post('assign-permissions/update/{employee}/{id}','EmployeeController@assignPermission');
@@ -184,8 +173,14 @@ Route::group(['middleware' => ['role:organization|Service Staff|Service User']],
     Route::post('care-plan-update/{id}','ServiceUserController@updateserviceCarePlan');
 
     //Book Service Staff
+    Route::get('pending-bookings', 'BookServiceStaffController@PendingBookings');
+    Route::get('approved-bookings', 'BookServiceStaffController@ApprovedBookings');
+    Route::get('pending-bookings-list','BookServiceStaffController@PendingBookingsList');
+    Route::get('approved-bookings-list','BookServiceStaffController@ApprovedBookingsList');
     Route::get('service-staff-list','ServiceUserController@ServiceStaffList');
-    Route::post('book-service-staff/{employee_id}/{id}/{service_user_id}', 'BookServiceStaffController@store');
+    Route::post('book-service-staff/{employee}/{employee_schedule}/{service_user}', 'BookServiceStaffController@store');
+    Route::post('approve-service-staff-booking/{bookServiceStaff}', 'BookServiceStaffController@approveServiceStaffBooking');
+    Route::post('reject-service-staff-booking/{bookServiceStaff}', 'BookServiceStaffController@rejectServiceStaffBooking');
 
     //chat
     Route::get('chat', 'MessageController@showChat');

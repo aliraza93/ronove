@@ -34,6 +34,7 @@ class MessageController extends Controller
             $users = DB::table('employees')
                 ->whereIn('employee_organization_id', $employee_organization_ids)
                 ->whereIn('employee_system_id', $employee_system_ids)
+                ->where('employee_id', '!=', Auth::user()->employee_id)
                 ->join('users', 'employees.id', '=', 'users.employee_id')
                 ->get();
         }

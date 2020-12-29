@@ -18,6 +18,7 @@ use Hash;
 use App\Models\EmployeeSchedule;
 use App\Models\EmployeePersonalDetails;
 use App\Models\System;
+use Illuminate\Support\Facades\Validator;
 
 class EmployeeController extends Controller
 {
@@ -41,6 +42,17 @@ class EmployeeController extends Controller
         }
         if($id != ''){
             $employee->where('id','LIKE','%'.$id.'%');
+        }
+        $employee = $employee->paginate(10);
+        return $employee;
+    }
+
+    public function EmployeeScheduleList(Request $request)
+    {
+        $day = $request->day;
+        $employee = EmployeeSchedule::  where('employee_id', $request->employee_id)->orderBy('day','asc');
+        if($day != ''){
+            $employee->where('day','LIKE','%'.$day.'%');
         }
         $employee = $employee->paginate(10);
         return $employee;
@@ -219,6 +231,17 @@ class EmployeeController extends Controller
     public function edit(Employee $employee)
     {
         return $employee;
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editEmployeeSchedule(Employee $employee)
+    {
+        return EmployeeSchedule::where('employee_id', $employee->id)->get();
     }
 
     /**
@@ -589,38 +612,220 @@ class EmployeeController extends Controller
     }
 
     public function storeEmployeeSchedule(Request $request, $id)
-    {
-        $request->validate([
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'start_time' => 'required',
-            'end_time' => 'required',
-        ]);
-        $employee = new EmployeeSchedule;
-        $employee->start_date = $request->start_date;
-        $employee->end_date = $request->end_date;
-        $employee->start_time = $request->start_time;
-        $employee->end_time = $request->end_time;
-        $employee->employee_id = $id; 
-        $employee->save();
-        return redirect()->back() ->with('alert', 'Employee Schedule Added Successfully');
+    {   
+        $schedules = json_decode($request->getContent() , true);
+        foreach ($schedules as $key => $schedule) {
+            
+            //If The Array has Monday Timings, Store them
+            if(!empty($schedule['monday_start_time']) || !empty($schedule['monday_end_time'])) {
+                $employee = new EmployeeSchedule;
+                $employee->day = 'Monday';
+                $employee->start_time = $schedule['monday_start_time'];
+                $employee->end_time = $schedule['monday_end_time'];
+                $employee->employee_id = $id; 
+                $employee->save();    
+            }
+
+            //If The Array has Tuesday Timings, Store them
+            if(!empty($schedule['tuesday_start_time']) && !empty($schedule['tuesday_end_time'])) {
+                $employee = new EmployeeSchedule;
+                $employee->day = 'Tuesday';
+                $employee->start_time = $schedule['tuesday_start_time'];
+                $employee->end_time = $schedule['tuesday_end_time'];
+                $employee->employee_id = $id; 
+                $employee->save();    
+            }
+
+            //If The Array has Wednesday Timings, Store them
+            if(!empty($schedule['wednesday_start_time']) && !empty($schedule['wednesday_end_time'])) {
+                $employee = new EmployeeSchedule;
+                $employee->day = 'Wednesday';
+                $employee->start_time = $schedule['wednesday_start_time'];
+                $employee->end_time = $schedule['wednesday_end_time'];
+                $employee->employee_id = $id; 
+                $employee->save();    
+            }
+
+            //If The Array has Thursday Timings, Store them
+            if(!empty($schedule['thursday_start_time']) && !empty($schedule['thursday_end_time'])) {
+                $employee = new EmployeeSchedule;
+                $employee->day = 'Thursday';
+                $employee->start_time = $schedule['thursday_start_time'];
+                $employee->end_time = $schedule['thursday_end_time'];
+                $employee->employee_id = $id; 
+                $employee->save();    
+            }
+
+            //If The Array has Friday Timings, Store them
+            if(!empty($schedule['friday_start_time']) && !empty($schedule['friday_end_time'])) {
+                $employee = new EmployeeSchedule;
+                $employee->day = 'Friday';
+                $employee->start_time = $schedule['friday_start_time'];
+                $employee->end_time = $schedule['friday_end_time'];
+                $employee->employee_id = $id; 
+                $employee->save();    
+            }
+
+            //If The Array has Saturday Timings, Store them
+            if(!empty($schedule['saturday_start_time']) && !empty($schedule['saturday_end_time'])) {
+                $employee = new EmployeeSchedule;
+                $employee->day = 'Saturday';
+                $employee->start_time = $schedule['saturday_start_time'];
+                $employee->end_time = $schedule['saturday_end_time'];
+                $employee->employee_id = $id; 
+                $employee->save();    
+            }
+
+            //If The Array has Sunday Timings, Store them
+            if(!empty($schedule['sunday_start_time']) && !empty($schedule['sunday_end_time'])) {
+                $employee = new EmployeeSchedule;
+                $employee->day = 'Sunday';
+                $employee->start_time = $schedule['sunday_start_time'];
+                $employee->end_time = $schedule['sunday_end_time'];
+                $employee->employee_id = $id; 
+                $employee->save();    
+            }
+
+        }
+        try{
+            return response()->json(['status'=>'success','message'=>'Employee Schedule Added Successfully !']);
+        }
+        catch(\Exception $e)
+        {
+        
+            return response()->json(['status'=>'error','message'=>'Something Went Wrong !']);
+
+        }
     }
 
     public function updateEmployeeSchedule(Request $request, $id)
     {
-        $request->validate([
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'start_time' => 'required',
-            'end_time' => 'required',
-        ]);
-        $employee = EmployeeSchedule::find($id);
-        $employee->start_date = $request->start_date;
-        $employee->end_date = $request->end_date;
-        $employee->start_time = $request->start_time;
-        $employee->end_time = $request->end_time;
-        $employee->update();
-        return redirect()->back() ->with('alert', 'Employee Schedule Updated Successfully');
+        $schedules = json_decode($request->getContent() , true);
+        foreach ($request->all() as $key => $schedule) {
+            
+            //If The Array has Monday Timings, Store them
+            if(isset($schedule['monday_start_time']) && isset($schedule['id']) && isset($schedule['monday_end_time'])) {
+                $employee = EmployeeSchedule::find($schedule['id']);
+                $employee->start_time = $schedule['monday_start_time'];
+                $employee->end_time = $schedule['monday_end_time'];
+                $employee->update();    
+            }
+            else if(isset($schedule['monday_start_time']) && isset($schedule['monday_end_time'])) {
+                $employee = new EmployeeSchedule;
+                $employee->day = 'Monday';
+                $employee->start_time = $schedule['monday_start_time'];
+                $employee->end_time = $schedule['monday_end_time'];
+                $employee->employee_id = $id; 
+                $employee->save();
+            }
+
+            
+            //If The Array has Tuesday Timings, Store them
+            if(isset($schedule['tuesday_start_time']) && isset($schedule['id']) && isset($schedule['tuesday_end_time'])) {
+                $employee = EmployeeSchedule::find($schedule['id']);
+                $employee->start_time = $schedule['tuesday_start_time'];
+                $employee->end_time = $schedule['tuesday_end_time'];
+                $employee->update();    
+            }
+            else if(isset($schedule['tuesday_start_time']) && isset($schedule['tuesday_end_time'])){
+                $employee = new EmployeeSchedule;
+                $employee->day = 'Tuesday';
+                $employee->start_time = $schedule['tuesday_start_time'];
+                $employee->end_time = $schedule['tuesday_end_time'];
+                $employee->employee_id = $id; 
+                $employee->save();  
+            }
+
+            //If The Array has Wednesday Timings, Store them
+            if(isset($schedule['wednesday_start_time']) && isset($schedule['id']) && isset($schedule['wednesday_end_time'])) {
+                $employee = EmployeeSchedule::find($schedule['id']);
+                $employee->start_time = $schedule['wednesday_start_time'];
+                $employee->end_time = $schedule['wednesday_end_time'];
+                $employee->update();    
+            }
+            else if(isset($schedule['wednesday_start_time']) && isset($schedule['wednesday_end_time'])){
+                $employee = new EmployeeSchedule;
+                $employee->day = 'Wednesday';
+                $employee->start_time = $schedule['wednesday_start_time'];
+                $employee->end_time = $schedule['wednesday_end_time'];
+                $employee->employee_id = $id; 
+                $employee->save();
+            }
+
+            //If The Array has Thursday Timings, Store them
+            if(isset($schedule['thursday_start_time']) && isset($schedule['id']) && isset($schedule['thursday_end_time'])) {
+                $employee = EmployeeSchedule::find($schedule['id']);
+                $employee->start_time = $schedule['thursday_start_time'];
+                $employee->end_time = $schedule['thursday_end_time'];
+                $employee->update();    
+            }
+            else if(isset($schedule['thursday_start_time']) && isset($schedule['thursday_end_time'])){
+                $employee = new EmployeeSchedule;
+                $employee->day = 'Thursday';
+                $employee->start_time = $schedule['thursday_start_time'];
+                $employee->end_time = $schedule['thursday_end_time'];
+                $employee->employee_id = $id; 
+                $employee->save();
+            }
+
+            //If The Array has Friday Timings, Store them
+            if(isset($schedule['friday_start_time']) && isset($schedule['id']) && isset($schedule['friday_end_time'])) {
+                $employee = EmployeeSchedule::find($schedule['id']);
+                $employee->start_time = $schedule['friday_start_time'];
+                $employee->end_time = $schedule['friday_end_time'];
+                $employee->update(); 
+            }
+            else if(isset($schedule['friday_start_time']) && isset($schedule['friday_end_time'])){
+                $employee = new EmployeeSchedule;
+                $employee->day = 'Friday';
+                $employee->start_time = $schedule['friday_start_time'];
+                $employee->end_time = $schedule['friday_end_time'];
+                $employee->employee_id = $id; 
+                $employee->save();
+            }
+
+            //If The Array has Saturday Timings, Store them
+            if(isset($schedule['saturday_start_time']) && isset($schedule['id']) && isset($schedule['saturday_end_time'])) {
+                $employee = EmployeeSchedule::find($schedule['id']);
+                $employee->start_time = $schedule['saturday_start_time'];
+                $employee->end_time = $schedule['saturday_end_time'];
+                $employee->update(); 
+            }
+            else if(isset($schedule['saturday_start_time']) && isset($schedule['saturday_end_time'])){
+                $employee = new EmployeeSchedule;
+                $employee->day = 'Saturday';
+                $employee->start_time = $schedule['saturday_start_time'];
+                $employee->end_time = $schedule['saturday_end_time'];
+                $employee->employee_id = $id; 
+                $employee->save();
+            }
+
+            //If The Array has Sunday Timings, Store them
+            if(isset($schedule['sunday_start_time']) && isset($schedule['id']) && isset($schedule['sunday_end_time'])) {
+                $employee = EmployeeSchedule::find($schedule['id']);
+                $employee->start_time = $schedule['sunday_start_time'];
+                $employee->end_time = $schedule['sunday_end_time'];
+                $employee->update();
+            }
+            else if(isset($schedule['sunday_start_time']) && isset($schedule['sunday_end_time'])){
+                $employee = new EmployeeSchedule;
+                $employee->day = 'Sunday';
+                $employee->start_time = $schedule['sunday_start_time'];
+                $employee->end_time = $schedule['sunday_end_time'];
+                $employee->employee_id = $id; 
+                $employee->save();
+            }
+
+        }
+        try{
+            return response()->json(['status'=>'success','message'=>'Employee Schedule Updated Successfully !']);
+        }
+        catch(\Exception $e)
+        {
+        
+            return response()->json(['status'=>'error','message'=>'Something Went Wrong !']);
+
+        }
     }
    
     public function nextKin(Request $request, $id){

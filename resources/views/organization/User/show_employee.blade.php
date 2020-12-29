@@ -107,14 +107,14 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 line-tabs">
                         <ul class="nav nav-tabs nav-tabs-bottom">
                             <li class="nav-item"><a href="#emp_profile" data-toggle="tab" class="nav-link active">Personal Details</a></li>
-                            <li class="nav-item"><a href="#mar-sheet" data-toggle="tab" class="nav-link">MAR Sheet</a></li>
-                            <li class="nav-item"><a href="#emp_projects" data-toggle="tab" class="nav-link">Projects</a></li>
+                            {{-- <li class="nav-item"><a href="#mar-sheet" data-toggle="tab" class="nav-link">MAR Sheet</a></li>
+                            <li class="nav-item"><a href="#emp_projects" data-toggle="tab" class="nav-link">Projects</a></li> --}}
                             <li class="nav-item"><a href="#emp_health" data-toggle="tab" class="nav-link">Health</a></li>
                             <li class="nav-item"><a href="#bank_details" data-toggle="tab" class="nav-link">Bank Details</a></li>
                             <li class="nav-item"><a href="#etw" data-toggle="tab" class="nav-link">Education, Training and Work</a></li>
                             <li class="nav-item"><a href="#schedule" data-toggle="tab" class="nav-link">Schedule</a></li>
                             <li class="nav-item"><a href="#emp_nextkin" data-toggle="tab" class="nav-link">Next Of Kin</a></li>
-                            <li class="nav-item"><a href="#bank_statutory" data-toggle="tab" class="nav-link">Bank & Statutory <small class="text-danger">(Admin Only)</small></a></li>
+                            {{-- <li class="nav-item"><a href="#bank_statutory" data-toggle="tab" class="nav-link">Bank & Statutory <small class="text-danger">(Admin Only)</small></a></li> --}}
                         </ul>
                     </div>
                 </div>
@@ -324,7 +324,7 @@
                     </div>
                 </div>
             </div>
-            <div id="schedule" class="pro-overview tab-pane fade">
+            <div id="schedule1" class="pro-overview tab-pane fade">
                 <div class="row">
                     <div class="col-md-12">
                         @if ($errors->any())
@@ -398,6 +398,39 @@
                     @endif
                 </div>
             </div>
+            <!-- Schedule/Shift Info Tab -->
+            <div id="schedule" class="pro-overview tab-pane fade">
+                <div class="row">
+                    <div class="col-md-12 d-flex">
+                        <div class="card profile-box flex-fill">
+                            <div class="card-body">
+                                <div class="row-fluid d-flex">
+                                    <div class="col-md-6">
+                                        <h3 class="card-title">Add Schedule/Shifts</h3>
+                                    </div>
+                                    @if(empty($employee_schedule))
+                                        <div class="col-md-6 text-right">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-schedule">
+                                                <i class="fa fa-plus"></i> Add Schedule/Shifts
+                                            </button>
+                                        </div>
+                                        <add-schedule :employee="{{ $employee }}"></add-schedule>
+                                    @else
+                                        <div class="col-md-6 text-right">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-schedule">
+                                                <i class="fa fa-plus"></i> Update Schedule/Shifts
+                                            </button>
+                                        </div>
+                                        <update-schedule :employee="{{ $employee }}"></update-schedule>
+                                    @endif
+                                </div>
+                                <view-schedule :employee="{{ $employee }}"></view-schedule>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Schedule/Shift Info Tab -->
             <div id="etw" class="pro-overview tab-pane fade">
                 <div class="row">
                     <div class="col-md-6 d-flex">

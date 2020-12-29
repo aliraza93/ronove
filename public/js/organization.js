@@ -55480,7 +55480,7 @@ var render = function() {
                           attrs: { id: "row" }
                         },
                         [
-                          _c("div", { staticClass: "col-md-10" }, [
+                          _c("div", { staticClass: "col-md-6" }, [
                             _c("a", [
                               _c("h4", [
                                 _c("i", {
@@ -55500,7 +55500,7 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          _c("div", { staticClass: "col-md-2" }, [
+                          _c("div", { staticClass: "col-md-6" }, [
                             _c("label", { staticClass: "switch" }, [
                               _c("input", {
                                 directives: [

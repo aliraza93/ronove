@@ -1,53 +1,15 @@
 <template>
   <div class="col-md-12">
       <div class="row">
-        <div class="col-md-3">
-          <input
-            type="date"
-            class="form-control"
-            @change="getData()"
-            placeholder="Serach By Start Date"
-                name=""
-            v-model="start_date"
-            style="margin-bottom: 1px;"
-          >
+        <div class="col-md-6">
+          <b-form-timepicker @input="getData()" placeholder="Search By Start Time" v-model="start_time" locale="en"></b-form-timepicker>
         </div>
-        <div class="col-md-3">
-          <input
-              type="date"
-              class="form-control"
-              @change="getData()"
-              placeholder="Serach By End Date"
-                  name=""
-              v-model="end_date"
-              style="margin-bottom: 1px;"
-            >  
-        </div>
-        <div class="col-md-3">
-          <input
-            type="time"
-            class="form-control"
-            @change="getData()"
-            placeholder="Serach By Start Time"
-                name=""
-            v-model="start_time"
-            style="margin-bottom: 1px;"
-          >
-        </div>
-        <div class="col-md-3">
-          <input
-              type="time"
-              class="form-control"
-              @change="getData()"
-              placeholder="Serach By End Time"
-                  name=""
-              v-model="end_time"
-              style="margin-bottom: 1px;"
-            >  
+        <div class="col-md-6">
+          <b-form-timepicker @input="getData()" placeholder="Search By End Time" v-model="end_time" locale="en"></b-form-timepicker> 
         </div>
       </div>
       <div class="loading" v-if="isLoading">
-                  <h2 style="text-align:center">Loading.......</h2>
+          <h2 style="text-align:center">Loading.......</h2>
       </div>
 
       <div class="table-responsive" v-else>
@@ -55,23 +17,21 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Employee ID</th>
-              <th>Start Date</th>
-              <th>End Date</th>
+              <th>Employee Name</th>
+              <th>Day</th>
               <th>Start Time</th>
               <th>End Time</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(value,index) in service_staff" v-bind:key="index">
+            <tr v-for="(value,index) in service_staff.data" v-bind:key="index">
               <td>{{ index+1 }}</td>
-              <td>{{ value.employee_id }}</td>
-              <td>{{ value.start_date }}</td>
-              <td>{{ value.end_date }}</td>
-              <td>{{ value.start_time }}</td>
-              <td>{{ value.end_time }}</td>
-              <td><button @click="book(value.employee_id, value.id)" class="btn btn-primary btn-sm">Book Now</button></td>
+              <td>{{ value.name }}</td>
+              <td>{{ value.day }}</td>
+              <td>{{ value.start_time | moment }}</td>
+              <td>{{ value.end_time | moment }}</td>
+              <td><button @click="book(value.employee_id, value.id)" class="btn btn-primary btn-sm">Preffered Staff</button></td>
             </tr>
           </tbody>
         </table>
@@ -84,7 +44,6 @@
 <script>
 import { EventBus } from "../../vue-asset";
 import mixin from "../../mixin";
-
 import Pagination  from '../pagination/pagination.vue';
 
 export default {
@@ -97,8 +56,6 @@ export default {
     return {
       service_staff: [],
       data: [],
-      start_date: '',
-      end_date: '',
       start_time: '',
       end_time: '',
       notificationSystem: {
@@ -142,23 +99,13 @@ export default {
           base_url +
             "service-staff-list?page="+
             page+
-            "&start_date=" +
-            this.start_date +
-            "&end_date=" +
-            this.end_date +
             "&start_time=" +
             this.start_time +
             "&end_time=" +
             this.end_time
         )
         .then(response => {
-          this.service_staff = []
-          for (let i = 0; i < response.data.length; i++) {
-            if(response.data[i].data[0]!=undefined)
-            this.service_staff.push(response.data[i].data[0])
-            //console.log(response.data[i].data)
-          }
-          //this.service_staff = response.data;
+          this.service_staff = response.data
           this.isLoading = false;
         })
         .catch(error => {
@@ -191,27 +138,30 @@ export default {
           this.$toast.error(data.message, "Error Alert", this.notificationSystem.options.error);
       }
     },
-    // edit vendor
 
-    editOrganization(id) {
-      EventBus.$emit("service-user-edit", id);
-    },
-    assignSystem(id) {
-      EventBus.$emit("assign-system", id);
-    },
     pageClicked(pageNo) {
       var vm = this;
       vm.getData(pageNo);
     },
-    deleteOrganization (id) {
-      axios.delete(base_url + "service-user/" + id)
-        .then(({data}) => {
-            location.reload();
-            this.$toast.success('System Deleted Successfully !', 'Success',this.notificationSystem.options.success);
-        });       
-    },
   },
-
+  moment: function (formatTime) {
+    if(formatTime) {
+      const parts = formatTime.split(":");
+      var hours = parts[0]
+      var mid = 'AM';
+      if(hours == 0){ //At 00 hours we need to show 12 am
+        hours = 12;
+      }
+      else if(hours > 12)
+      {
+        hours = hours % 12;
+        mid = 'PM';
+      }
+      return + hours + ":" + parts[1] + ' ' + mid;
+    } else {
+      return "unknown"
+    }
+  },
   computed: {
 
     show() {

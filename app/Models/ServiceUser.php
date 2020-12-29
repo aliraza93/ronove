@@ -58,4 +58,9 @@ class ServiceUser extends Model implements HasMedia
         }
         return null;
     }
+
+    public function bookings()
+    {
+        return $this->hasMany(BookServiceStaff::class);
+    }
 }

@@ -14,7 +14,8 @@ Vue.use(VueChatScroll)
 Vue.use(IconsPlugin)
 
 Vue.use(VueIziToast);
-Vue.component('view-bookings', require('./components/Booking/ViewBookings.vue').default);
+Vue.component('view-pending-bookings', require('./components/Booking/ViewPendingBookings.vue').default);
+Vue.component('view-approved-bookings', require('./components/Booking/ViewApprovedBookings.vue').default);
 var app = new Vue({
 
     el: '#booking'

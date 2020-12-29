@@ -68,6 +68,16 @@ class Employee extends Model implements HasMedia
 
     public function organization()
     {
-        $this->belongsTo(Organization::class);
+        return $this->belongsTo(Organization::class);
+    }
+
+    public function schedules()
+    {
+        return $this->hasMany(EmployeeSchedule::class);
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(BookServiceStaff::class);
     }
 }

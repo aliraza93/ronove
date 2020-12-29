@@ -364,7 +364,7 @@
                                         <add-mar-sheet :user="{{ $service_user }}"></add-mar-sheet>
                                         <h3 class="card-title">Add MAR Sheet</h3>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 text-right">
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-mar-sheet">
                                             <i class="fa fa-plus"></i> Add MAR Sheet
                                         </button>
